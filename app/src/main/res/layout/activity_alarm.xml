@@ -1,0 +1,79 @@
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_height="match_parent"
+    android:layout_width="match_parent"
+    android:fillViewport="true">
+    />
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
+    android:layout_height="match_parent" android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:orientation="vertical"
+    android:background="#ff6f2da8"
+    tools:context="app.tasknearby.yashcreations.com.tasknearby.AlarmActivity"
+    android:id="@+id/alarmBaseLayout">
+<TextView
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:text="Buy Bananas"
+    android:textSize="35sp"
+    android:textColor="#ffffff"
+    android:id="@+id/alarm_taskName"
+    android:paddingBottom="2dp"
+    />
+   <LinearLayout
+       android:layout_width="match_parent"
+       android:layout_height="wrap_content"
+       android:orientation="horizontal"
+       android:paddingBottom="30dp">
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Main Gate,DTU"
+        android:textSize="25sp"
+        android:textColor="#ffffff"
+        android:layout_weight="1"
+        android:layout_gravity="center_vertical"
+        android:id="@+id/alarm_taskLoc"
+        android:paddingRight="25dp"/>
+
+           <TextView
+           android:layout_width="wrap_content"
+           android:layout_height="wrap_content"
+           android:text="12m"
+               android:id="@+id/alarmTaskDis"
+           android:layout_gravity="right"
+           android:textColor="#ffffff"
+           android:textSize="45sp"
+
+           />
+
+         </LinearLayout>
+
+
+    <Button android:text="Mark as Done"
+        android:textSize="35sp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:id="@+id/btnStop"
+        android:fontFamily="sans-serif-condensed"/>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:text="OR"
+        android:textColor="#ffffff"
+        />
+    <Button android:text="Snooze"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="35sp"
+        android:fontFamily="sans-serif-condensed"
+        android:id="@+id/snooze"
+        android:layout_gravity="center"/>
+
+</LinearLayout>
+</ScrollView>

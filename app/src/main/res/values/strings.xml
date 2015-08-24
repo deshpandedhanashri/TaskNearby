@@ -1,0 +1,78 @@
+<resources>
+    <string name="app_name">Task Nearby</string>
+    <string name="hello_world">Hello world!</string>
+    <string name="action_settings">Settings</string>
+    <string name="title_activity_add_new_task">Add a Task</string>
+    <string name="title_activity_get_place_from_map">Select a Place</string>
+    <string name="title_activity_saved_location_list">Saved Places</string>
+
+<string name="local_service_started">Service Started</string>
+   <string name="title_activity_detail">Task Details</string>
+    <string name="title_activity_alarm">AlarmActivity</string>
+
+
+
+    <string name="pref_units_key">units</string>
+    <string name="pref_units_default">Metric(m)</string>
+    <string name="pref_units_metric">Metric(m)</string>
+    <string name="pref_units_imperial">Imperial(yd)</string>
+    <string-array name="pref_units_values">
+        <item>Metric(m)</item>
+        <item>Imperial(yd)</item>
+    </string-array>
+
+    <string-array name="pref_units_entries">
+        <item>Metric(m)</item>
+        <item>Imperial(yd)</item>
+    </string-array>
+
+    <string name="pref_units_label">Units</string>
+
+
+    <string name="pref_interval_key">interval</string>
+    <string name="pref_interval_default">5s</string>
+
+    <string-array name="pref_interval_values">
+        <item>5s(More Accurate)</item>
+        <item>20s</item>
+        <item>30s</item>
+        <item>45s</item>
+        <item>60s(Less Accurate)</item>
+    </string-array>
+
+    <string-array name="pref_interval_entries">
+        <item>5s</item>
+        <item>20s</item>
+        <item>30s</item>
+        <item>45s</item>
+        <item>60s</item>
+    </string-array>
+
+    <string name="pref_interval_label">Location Update Interval</string>
+
+
+
+    <string name="pref_status_key">status</string>
+    <string name="pref_status_default">enabled</string>
+
+    <string-array name="pref_status_values">
+        <item>Enabled</item>
+        <item>Disabled(No Reminders)</item>
+
+    </string-array>
+
+    <string-array name="pref_status_entries">
+        <item>enabled</item>
+        <item>disabled</item>
+    </string-array>
+
+    <string name="pref_status_label">Application Status</string>
+    <string name="title_activity_about">About App</string>
+    <string name="title_activity_help">Help</string>
+    <string name="help_content">How often do you pass right by the grocery store and forget to pick up milk? Have you ever headed to the airport to catch an international flight, only to realize your passport is back at home?
+    \nGet Organised now by using Location Based Reminders present in Task Nearby App.
+    As the name suggests, location-based reminders are notifications or alerts that are triggered when you (or really, your GPS-enabled smartphone) are in a particular place. \n\nFor example, you can set a location-based reminder that says, "Buy milk" the next time you walk or drive past your favorite grocery store.
+        There are also location-based automations which can be used to define the range and much more!!</string>
+
+
+</resources>

@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+    <ListPreference
+        android:key="@string/pref_units_key"
+        android:title="@string/pref_units_label"
+        android:defaultValue="@string/pref_units_default"
+        android:entries="@array/pref_units_values"
+        android:entryValues="@array/pref_units_entries"/>                                   <!--not user visible but constants-->
+
+
+    <ListPreference
+        android:key="@string/pref_interval_key"
+        android:title="@string/pref_interval_label"
+        android:defaultValue="@string/pref_interval_default"
+        android:entries="@array/pref_interval_values"
+        android:entryValues="@array/pref_interval_entries"/>
+
+    <ListPreference
+        android:key="@string/pref_status_key"
+        android:title="@string/pref_status_label"
+        android:defaultValue="@string/pref_status_default"
+        android:entries="@array/pref_status_values"
+        android:entryValues="@array/pref_status_entries"/>
+
+
+
+</PreferenceScreen>

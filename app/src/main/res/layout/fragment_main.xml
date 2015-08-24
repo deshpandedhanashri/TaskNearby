@@ -1,0 +1,43 @@
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#ffffff"
+    android:paddingTop="12dp"
+    tools:context=".MainActivity$PlaceholderFragment"
+    android:id="@+id/frameLayout"
+    >
+    <ListView
+        android:id="@+id/listView_task"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:footerDividersEnabled="false"
+        android:overScrollFooter="@android:color/transparent"
+        android:visibility="visible"
+        android:divider="@null"
+        android:dividerHeight="0dp">
+
+
+    </ListView>
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:padding="16dp"
+        android:fontFamily="sans-serif-condensed"
+        android:layout_gravity="center"
+        android:hint="Click the Add New Task button at the corner of the screen to Add new tasks"
+        android:textSize="18sp"
+        android:visibility="invisible" />
+
+    <ImageButton
+        android:id="@+id/btnCreate"
+        android:layout_width="93dp"
+        android:layout_height="93dp"
+        android:layout_gravity="right|bottom"
+        android:background="@android:color/transparent"
+        android:focusableInTouchMode="true"
+        android:padding="0dp"
+        android:src="@drawable/btn_create" />
+</FrameLayout>
