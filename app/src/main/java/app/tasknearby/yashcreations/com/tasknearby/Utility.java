@@ -177,38 +177,10 @@ public class Utility {
     public static Location getCurrentLocation(Context context) {
         LocationManager locationManager = (LocationManager) context.getSystemService(Context.LOCATION_SERVICE);
 
-
-//        LocationListener locationListener= new LocationListener() {
-//            @Override
-//            public void onLocationChanged(Location location) {
-//                // TODO Auto-generated method stub
-//            }
-//
-//            @Override
-//            public void onProviderDisabled(String provider) {
-//                // TODO Auto-generated method stub
-//            }
-//
-//            @Override
-//            public void onProviderEnabled(String provider) {
-//                // TODO Auto-generated method stub
-//            }
-//
-//            @Override
-//            public void onStatusChanged(String provider, int status,
-//                                        Bundle extras) {
-//                // TODO Auto-generated method stub
-//            }
-//        };
-//
-//        locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 1000, 0,locationListener);
-
-
         Location currentLocation = locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
         if (currentLocation == null) {
 
         }
-        // locationManager.removeUpdates(locationListener);
         return currentLocation;
     }
 
@@ -321,8 +293,6 @@ public class Utility {
             else
                 return ((float) distance / 1760 + "mi");
         }
-
-
     }
 
     public static long getUpdateInterval(Context context) {
@@ -340,6 +310,4 @@ public class Utility {
         } else
             return 5 * 1000;
     }
-
-
 }
