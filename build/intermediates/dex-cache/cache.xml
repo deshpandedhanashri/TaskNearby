@@ -2,11 +2,18 @@
 <items version="2" >
 
     <item
-        jar="C:\Users\Yash\AndroidStudioProjects\TaskNearby\app\build\intermediates\exploded-aar\com.android.support\support-v4\22.1.0\libs\internal_impl-22.1.0.jar"
+        jar="C:\Users\Yash\AndroidStudioProjects\TaskNearby\app\build\intermediates\exploded-aar\com.google.android.gms\play-services-games\7.8.0\classes.jar"
         jumboMode="false"
         revision="21.1.2"
-        sha1="025cb89f2896c63200ff4c2e6c467a95691d880a">
-        <dex dex="C:\Users\Yash\AndroidStudioProjects\TaskNearby\app\build\intermediates\pre-dexed\release\internal_impl-22.1.0-c491fbf9d3dec3961b955019ccaaf9fac20a7e1d.jar" />
+        sha1="2e24e5f1b11170163028277de63f709e42525db4">
+        <dex dex="C:\Users\Yash\AndroidStudioProjects\TaskNearby\app\build\intermediates\pre-dexed\debug\classes-a63df918bc72cb73723181fff691ab9254ed0cb8.jar" />
+    </item>
+    <item
+        jar="C:\Users\Yash\AndroidStudioProjects\TaskNearby\app\build\intermediates\exploded-aar\com.google.android.gms\play-services-appinvite\7.8.0\classes.jar"
+        jumboMode="false"
+        revision="21.1.2"
+        sha1="98137c4d12c50923f5809852b1ef4d1c4e162081">
+        <dex dex="C:\Users\Yash\AndroidStudioProjects\TaskNearby\app\build\intermediates\pre-dexed\debug\classes-8c07ffd1aad7511416da6c740075c4275ec07282.jar" />
     </item>
     <item
         jar="C:\Users\Yash\AndroidStudioProjects\TaskNearby\app\build\intermediates\exploded-aar\com.google.android.gms\play-services-location\7.3.0\classes.jar"
@@ -16,25 +23,11 @@
         <dex dex="C:\Users\Yash\AndroidStudioProjects\TaskNearby\app\build\intermediates\pre-dexed\release\classes-dd05929c00b23d8cd857ae6e2f22b485fb50ad80.jar" />
     </item>
     <item
-        jar="C:\Users\Yash\AndroidStudioProjects\TaskNearby\app\build\intermediates\exploded-aar\com.google.android.gms\play-services-identity\7.3.0\classes.jar"
-        jumboMode="false"
-        revision="21.1.2"
-        sha1="b48d5c51a9a9e329005106b4667f54948de4d4d8">
-        <dex dex="C:\Users\Yash\AndroidStudioProjects\TaskNearby\app\build\intermediates\pre-dexed\release\classes-64055194e90a1cb0d699ad8fa9f1211892908b23.jar" />
-    </item>
-    <item
         jar="C:\Users\Yash\AndroidStudioProjects\TaskNearby\app\build\intermediates\exploded-aar\com.google.android.gms\play-services-analytics\7.3.0\classes.jar"
         jumboMode="false"
         revision="21.1.2"
         sha1="9c9dea9e85aceb09d95df5e6f7bc8a43fc286068">
         <dex dex="C:\Users\Yash\AndroidStudioProjects\TaskNearby\app\build\intermediates\pre-dexed\release\classes-415799557a706e49e158bf9506b508a7f47e06ef.jar" />
-    </item>
-    <item
-        jar="C:\Users\Yash\AppData\Local\Android\sdk\extras\android\m2repository\com\android\support\support-annotations\22.1.0\support-annotations-22.1.0.jar"
-        jumboMode="false"
-        revision="21.1.2"
-        sha1="281bc6c58ecb3644c23fbc5ee0452019f67b4d5d">
-        <dex dex="C:\Users\Yash\AndroidStudioProjects\TaskNearby\app\build\intermediates\pre-dexed\release\support-annotations-22.1.0-99019395fa7449b6042910d275ac089b03ce89d1.jar" />
     </item>
     <item
         jar="C:\Users\Yash\AndroidStudioProjects\TaskNearby\app\build\intermediates\exploded-aar\com.google.android.gms\play-services-maps\7.3.0\classes.jar"
@@ -44,11 +37,11 @@
         <dex dex="C:\Users\Yash\AndroidStudioProjects\TaskNearby\app\build\intermediates\pre-dexed\release\classes-604e63a9ad29f9bf9c08e56b1f6833d59518cacd.jar" />
     </item>
     <item
-        jar="C:\Users\Yash\AndroidStudioProjects\TaskNearby\app\build\intermediates\exploded-aar\com.google.android.gms\play-services-appindexing\7.3.0\classes.jar"
+        jar="C:\Users\Yash\AndroidStudioProjects\TaskNearby\app\build\intermediates\exploded-aar\com.google.android.gms\play-services-safetynet\7.8.0\classes.jar"
         jumboMode="false"
         revision="21.1.2"
-        sha1="e35fae1b377c23aa5fd2d309a190c2d0f73d54ec">
-        <dex dex="C:\Users\Yash\AndroidStudioProjects\TaskNearby\app\build\intermediates\pre-dexed\release\classes-78d4bca3bb76fb05d80d5a2e0cd2fdea944413a8.jar" />
+        sha1="166e458ee3b5fb5fcff0f936df3f3a788e6c54f3">
+        <dex dex="C:\Users\Yash\AndroidStudioProjects\TaskNearby\app\build\intermediates\pre-dexed\debug\classes-554a35e2984319837b31356b4655c8afa6db2ef6.jar" />
     </item>
     <item
         jar="C:\Users\Yash\AndroidStudioProjects\TaskNearby\app\build\intermediates\exploded-aar\com.android.support\support-v4\22.1.0\classes.jar"
@@ -58,25 +51,11 @@
         <dex dex="C:\Users\Yash\AndroidStudioProjects\TaskNearby\app\build\intermediates\pre-dexed\release\classes-b504af74a456988d2ffc38e6098797f054daaf19.jar" />
     </item>
     <item
-        jar="C:\Users\Yash\AndroidStudioProjects\TaskNearby\app\build\intermediates\exploded-aar\com.google.android.gms\play-services-nearby\7.3.0\classes.jar"
+        jar="C:\Users\Yash\AndroidStudioProjects\TaskNearby\app\build\intermediates\exploded-aar\com.google.android.gms\play-services-drive\7.8.0\classes.jar"
         jumboMode="false"
         revision="21.1.2"
-        sha1="5ea948d825957be6c4358c48422bee60eef2d487">
-        <dex dex="C:\Users\Yash\AndroidStudioProjects\TaskNearby\app\build\intermediates\pre-dexed\release\classes-c135994f616bd8fab170d66e02600818d726097a.jar" />
-    </item>
-    <item
-        jar="C:\Users\Yash\AndroidStudioProjects\TaskNearby\app\build\intermediates\exploded-aar\com.google.android.gms\play-services-base\7.3.0\classes.jar"
-        jumboMode="false"
-        revision="21.1.2"
-        sha1="f2f7ec211ce4d244ee97a57523eeb4526dc3cf8a">
-        <dex dex="C:\Users\Yash\AndroidStudioProjects\TaskNearby\app\build\intermediates\pre-dexed\release\classes-78bb8f4964ec9c28a4bd3e008a6f3c2288e9c13b.jar" />
-    </item>
-    <item
-        jar="C:\Users\Yash\AndroidStudioProjects\TaskNearby\app\build\intermediates\exploded-aar\com.google.android.gms\play-services-cast\7.3.0\classes.jar"
-        jumboMode="false"
-        revision="21.1.2"
-        sha1="e5b9f5b0aa8dee788beb63d23832cb29ce771343">
-        <dex dex="C:\Users\Yash\AndroidStudioProjects\TaskNearby\app\build\intermediates\pre-dexed\release\classes-4b076252949e5dcc0eb919eed80700184c5d3a75.jar" />
+        sha1="42a1ee578b62fd1bd28b3307a679dc9ba0791587">
+        <dex dex="C:\Users\Yash\AndroidStudioProjects\TaskNearby\app\build\intermediates\pre-dexed\debug\classes-f74701bda989e09552e9ec64e475375ffc11e122.jar" />
     </item>
     <item
         jar="C:\Users\Yash\AndroidStudioProjects\TaskNearby\app\build\intermediates\exploded-aar\com.google.android.gms\play-services-fitness\7.3.0\classes.jar"
@@ -100,11 +79,39 @@
         <dex dex="C:\Users\Yash\AndroidStudioProjects\TaskNearby\app\build\intermediates\pre-dexed\release\classes-3644e7dad742feae241a9ba17ab9dc74487fdad7.jar" />
     </item>
     <item
+        jar="C:\Users\Yash\AndroidStudioProjects\TaskNearby\app\build\intermediates\exploded-aar\com.google.android.gms\play-services-plus\7.8.0\classes.jar"
+        jumboMode="false"
+        revision="21.1.2"
+        sha1="2491ae1b2a848af1f4f0c795f3117c1bd6a1989f">
+        <dex dex="C:\Users\Yash\AndroidStudioProjects\TaskNearby\app\build\intermediates\pre-dexed\debug\classes-b7f04b09912a53476baf89a84deed335c86cfc1b.jar" />
+    </item>
+    <item
+        jar="C:\Users\Yash\AndroidStudioProjects\TaskNearby\app\build\intermediates\exploded-aar\com.google.android.gms\play-services-nearby\7.8.0\classes.jar"
+        jumboMode="false"
+        revision="21.1.2"
+        sha1="adebe28e0c0c05d34a3bfd76f3275bf4d8ff87b6">
+        <dex dex="C:\Users\Yash\AndroidStudioProjects\TaskNearby\app\build\intermediates\pre-dexed\debug\classes-6ec90780b4b7886d66dbcbb5a17d74c1efc059cc.jar" />
+    </item>
+    <item
         jar="C:\Users\Yash\AndroidStudioProjects\TaskNearby\app\build\intermediates\exploded-aar\com.google.android.gms\play-services-safetynet\7.3.0\classes.jar"
         jumboMode="false"
         revision="21.1.2"
         sha1="0708ef60917bf94913fe9ef972a655b99462dca7">
         <dex dex="C:\Users\Yash\AndroidStudioProjects\TaskNearby\app\build\intermediates\pre-dexed\release\classes-b177deef18f84e905c1b1da3a3edc06926772127.jar" />
+    </item>
+    <item
+        jar="C:\Users\Yash\AndroidStudioProjects\TaskNearby\app\build\intermediates\exploded-aar\com.google.android.gms\play-services-location\7.8.0\classes.jar"
+        jumboMode="false"
+        revision="21.1.2"
+        sha1="4a135d56554069e5d0ff80e3220e887e57146ee5">
+        <dex dex="C:\Users\Yash\AndroidStudioProjects\TaskNearby\app\build\intermediates\pre-dexed\debug\classes-d07894635bf834ea1a14a5244cbd18d30cd5c535.jar" />
+    </item>
+    <item
+        jar="C:\Users\Yash\AndroidStudioProjects\TaskNearby\app\build\intermediates\exploded-aar\com.google.android.gms\play-services-appindexing\7.8.0\classes.jar"
+        jumboMode="false"
+        revision="21.1.2"
+        sha1="e23ea11124bb700eeddd4ab7aa848c615f493850">
+        <dex dex="C:\Users\Yash\AndroidStudioProjects\TaskNearby\app\build\intermediates\pre-dexed\debug\classes-4295e88bf6a1804a33f9a4feb2e07644449bd029.jar" />
     </item>
     <item
         jar="C:\Users\Yash\AndroidStudioProjects\TaskNearby\app\build\intermediates\exploded-aar\com.google.android.gms\play-services-panorama\7.3.0\classes.jar"
@@ -114,11 +121,39 @@
         <dex dex="C:\Users\Yash\AndroidStudioProjects\TaskNearby\app\build\intermediates\pre-dexed\release\classes-6c09da8c56c08bbf2343ad2684f5ac8f8906dafb.jar" />
     </item>
     <item
+        jar="C:\Users\Yash\AndroidStudioProjects\TaskNearby\app\build\intermediates\exploded-aar\com.google.android.gms\play-services-base\7.8.0\classes.jar"
+        jumboMode="false"
+        revision="21.1.2"
+        sha1="c0c912d58c9468b1f9d9769c8975afdf2c85d681">
+        <dex dex="C:\Users\Yash\AndroidStudioProjects\TaskNearby\app\build\intermediates\pre-dexed\debug\classes-1ac058096ac3440895dc7c50114f185cd2aacd6e.jar" />
+    </item>
+    <item
+        jar="C:\Users\Yash\AndroidStudioProjects\TaskNearby\app\build\intermediates\exploded-aar\com.android.support\mediarouter-v7\22.2.0\classes.jar"
+        jumboMode="false"
+        revision="21.1.2"
+        sha1="dcf8c83c3dead00a6c4fe313e95f7aaca20dc641">
+        <dex dex="C:\Users\Yash\AndroidStudioProjects\TaskNearby\app\build\intermediates\pre-dexed\debug\classes-4cd1dbb3ab7571611201bf5ccd8d6ea57b084e96.jar" />
+    </item>
+    <item
+        jar="C:\Users\Yash\AndroidStudioProjects\TaskNearby\app\build\intermediates\exploded-aar\com.google.android.gms\play-services-vision\7.8.0\classes.jar"
+        jumboMode="false"
+        revision="21.1.2"
+        sha1="b99f0b78bbcb76b915bc6529a83b65d4d46990dd">
+        <dex dex="C:\Users\Yash\AndroidStudioProjects\TaskNearby\app\build\intermediates\pre-dexed\debug\classes-ae9710c0808d1eaa279cd630c4394b325056f86b.jar" />
+    </item>
+    <item
         jar="C:\Users\Yash\AndroidStudioProjects\TaskNearby\app\build\intermediates\exploded-aar\com.google.android.gms\play-services-drive\7.3.0\classes.jar"
         jumboMode="false"
         revision="21.1.2"
         sha1="a0ce76dfaccbfbd6c551ed2174280aaabe60fe47">
         <dex dex="C:\Users\Yash\AndroidStudioProjects\TaskNearby\app\build\intermediates\pre-dexed\release\classes-a463c9917eec9d9eb48f4094666b79016e8074dd.jar" />
+    </item>
+    <item
+        jar="C:\Users\Yash\AndroidStudioProjects\TaskNearby\app\build\intermediates\exploded-aar\com.android.support\support-v4\23.0.0\libs\internal_impl-23.0.0.jar"
+        jumboMode="false"
+        revision="21.1.2"
+        sha1="8bd336eeae661e8311330284897ee07f8ebaa297">
+        <dex dex="C:\Users\Yash\AndroidStudioProjects\TaskNearby\app\build\intermediates\pre-dexed\debug\internal_impl-23.0.0-01ee47fb7ce060296012c9d785f74645fbb72cd0.jar" />
     </item>
     <item
         jar="C:\Users\Yash\AndroidStudioProjects\TaskNearby\app\build\intermediates\exploded-aar\com.google.android.gms\play-services-gcm\7.3.0\classes.jar"
@@ -128,11 +163,158 @@
         <dex dex="C:\Users\Yash\AndroidStudioProjects\TaskNearby\app\build\intermediates\pre-dexed\release\classes-c89c94ebf33ca842dda7bacc4b0e603901f107c2.jar" />
     </item>
     <item
+        jar="C:\Users\Yash\AndroidStudioProjects\TaskNearby\app\build\intermediates\exploded-aar\com.android.support\design\23.0.0\classes.jar"
+        jumboMode="false"
+        revision="21.1.2"
+        sha1="8a5238e4bdcd6568b82db669d41817de670586b8">
+        <dex dex="C:\Users\Yash\AndroidStudioProjects\TaskNearby\app\build\intermediates\pre-dexed\debug\classes-5e16d30e45b6bf53526fb1d67eb0058ecac9365b.jar" />
+    </item>
+    <item
+        jar="C:\Users\Yash\AndroidStudioProjects\TaskNearby\app\build\intermediates\exploded-aar\com.google.android.gms\play-services-wearable\7.8.0\classes.jar"
+        jumboMode="false"
+        revision="21.1.2"
+        sha1="c5cafb324568d954780abb858c25db7ce675ab3c">
+        <dex dex="C:\Users\Yash\AndroidStudioProjects\TaskNearby\app\build\intermediates\pre-dexed\debug\classes-266b872cac4d1f5d18166e09e17a1ca7138dc2e0.jar" />
+    </item>
+    <item
+        jar="C:\Users\Yash\AndroidStudioProjects\TaskNearby\app\build\intermediates\exploded-aar\com.google.android.gms\play-services-appstate\7.8.0\classes.jar"
+        jumboMode="false"
+        revision="21.1.2"
+        sha1="edea92852b40eee716e910af8dad9eeaa58fb0e1">
+        <dex dex="C:\Users\Yash\AndroidStudioProjects\TaskNearby\app\build\intermediates\pre-dexed\debug\classes-78d6a685fc2a988e93e2b2abe490532df095d18a.jar" />
+    </item>
+    <item
         jar="C:\Users\Yash\AndroidStudioProjects\TaskNearby\app\build\intermediates\exploded-aar\com.google.android.gms\play-services-games\7.3.0\classes.jar"
         jumboMode="false"
         revision="21.1.2"
         sha1="3b4ff5c39dace8f3b4ab4cab8191785547a0815f">
         <dex dex="C:\Users\Yash\AndroidStudioProjects\TaskNearby\app\build\intermediates\pre-dexed\release\classes-c79798d927aa4a254ab9c1d359d481d57f6b7d5f.jar" />
+    </item>
+    <item
+        jar="C:\Users\Yash\AndroidStudioProjects\TaskNearby\app\build\intermediates\exploded-aar\com.google.android.gms\play-services-plus\7.3.0\classes.jar"
+        jumboMode="false"
+        revision="21.1.2"
+        sha1="59652857a825fff0de62166fca1bc9553cc01abb">
+        <dex dex="C:\Users\Yash\AndroidStudioProjects\TaskNearby\app\build\intermediates\pre-dexed\release\classes-12d58d08d656cb19ec4b3c0161432e611514f2b2.jar" />
+    </item>
+    <item
+        jar="C:\Users\Yash\AndroidStudioProjects\TaskNearby\app\build\intermediates\exploded-aar\com.google.android.gms\play-services-cast\7.8.0\classes.jar"
+        jumboMode="false"
+        revision="21.1.2"
+        sha1="130b32ed466fa0f63efd4c7d6250ccd2ed506790">
+        <dex dex="C:\Users\Yash\AndroidStudioProjects\TaskNearby\app\build\intermediates\pre-dexed\debug\classes-bb3c41485011351115b972573974d2483ba26fb1.jar" />
+    </item>
+    <item
+        jar="C:\Users\Yash\AndroidStudioProjects\TaskNearby\app\build\intermediates\exploded-aar\com.google.android.gms\play-services-maps\7.8.0\classes.jar"
+        jumboMode="false"
+        revision="21.1.2"
+        sha1="cb6fab7a71fa9ec1f483d44c5fca65ab469d8aca">
+        <dex dex="C:\Users\Yash\AndroidStudioProjects\TaskNearby\app\build\intermediates\pre-dexed\debug\classes-a6022eede020b6c15474323003fb54e39e0af74d.jar" />
+    </item>
+    <item
+        jar="C:\Users\Yash\AndroidStudioProjects\TaskNearby\app\build\intermediates\exploded-aar\com.android.support\support-v4\22.1.0\libs\internal_impl-22.1.0.jar"
+        jumboMode="false"
+        revision="21.1.2"
+        sha1="025cb89f2896c63200ff4c2e6c467a95691d880a">
+        <dex dex="C:\Users\Yash\AndroidStudioProjects\TaskNearby\app\build\intermediates\pre-dexed\release\internal_impl-22.1.0-c491fbf9d3dec3961b955019ccaaf9fac20a7e1d.jar" />
+    </item>
+    <item
+        jar="C:\Users\Yash\AndroidStudioProjects\TaskNearby\app\build\intermediates\exploded-aar\com.google.android.gms\play-services-ads\7.8.0\classes.jar"
+        jumboMode="false"
+        revision="21.1.2"
+        sha1="1ff30fa49c07a08c3035d7218a3efebf5680d522">
+        <dex dex="C:\Users\Yash\AndroidStudioProjects\TaskNearby\app\build\intermediates\pre-dexed\debug\classes-64c88df1ea923bc929d36b6895f70c661e05661a.jar" />
+    </item>
+    <item
+        jar="C:\Users\Yash\AndroidStudioProjects\TaskNearby\app\build\intermediates\exploded-aar\com.google.android.gms\play-services-identity\7.3.0\classes.jar"
+        jumboMode="false"
+        revision="21.1.2"
+        sha1="b48d5c51a9a9e329005106b4667f54948de4d4d8">
+        <dex dex="C:\Users\Yash\AndroidStudioProjects\TaskNearby\app\build\intermediates\pre-dexed\release\classes-64055194e90a1cb0d699ad8fa9f1211892908b23.jar" />
+    </item>
+    <item
+        jar="C:\Users\Yash\AndroidStudioProjects\TaskNearby\app\build\intermediates\exploded-aar\com.google.android.gms\play-services-fitness\7.8.0\classes.jar"
+        jumboMode="false"
+        revision="21.1.2"
+        sha1="77a9dcb5f8b1dba36aacaa9c150eb0942dbea158">
+        <dex dex="C:\Users\Yash\AndroidStudioProjects\TaskNearby\app\build\intermediates\pre-dexed\debug\classes-08e5c4ca7a2871a09e9baad9c611801226058b8a.jar" />
+    </item>
+    <item
+        jar="C:\Users\Yash\AndroidStudioProjects\TaskNearby\app\build\intermediates\exploded-aar\com.android.support\support-v4\23.0.0\classes.jar"
+        jumboMode="false"
+        revision="21.1.2"
+        sha1="8413c27b45b7fe61dca4a98159f65e2cee215f5a">
+        <dex dex="C:\Users\Yash\AndroidStudioProjects\TaskNearby\app\build\intermediates\pre-dexed\debug\classes-bb71f77851dffdd2f700ceabca5da1afc7f850ba.jar" />
+    </item>
+    <item
+        jar="C:\Users\Yash\AppData\Local\Android\sdk\extras\android\m2repository\com\android\support\support-annotations\23.0.0\support-annotations-23.0.0.jar"
+        jumboMode="false"
+        revision="21.1.2"
+        sha1="990e7f98a7bad86a40b1f0bcfeb039023afd0839">
+        <dex dex="C:\Users\Yash\AndroidStudioProjects\TaskNearby\app\build\intermediates\pre-dexed\debug\support-annotations-23.0.0-aac23484bf45e213058aada89d98a8636db2db35.jar" />
+    </item>
+    <item
+        jar="C:\Users\Yash\AndroidStudioProjects\TaskNearby\app\build\intermediates\exploded-aar\com.google.android.gms\play-services-wallet\7.8.0\classes.jar"
+        jumboMode="false"
+        revision="21.1.2"
+        sha1="c2ac04c5b232f6f0658ee4f1c13be09cd76406e2">
+        <dex dex="C:\Users\Yash\AndroidStudioProjects\TaskNearby\app\build\intermediates\pre-dexed\debug\classes-9b6a32d945653aed495082eb5f7e44abc09d8121.jar" />
+    </item>
+    <item
+        jar="C:\Users\Yash\AppData\Local\Android\sdk\extras\android\m2repository\com\android\support\support-annotations\22.1.0\support-annotations-22.1.0.jar"
+        jumboMode="false"
+        revision="21.1.2"
+        sha1="281bc6c58ecb3644c23fbc5ee0452019f67b4d5d">
+        <dex dex="C:\Users\Yash\AndroidStudioProjects\TaskNearby\app\build\intermediates\pre-dexed\release\support-annotations-22.1.0-99019395fa7449b6042910d275ac089b03ce89d1.jar" />
+    </item>
+    <item
+        jar="C:\Users\Yash\AndroidStudioProjects\TaskNearby\app\build\intermediates\exploded-aar\com.google.android.gms\play-services-appindexing\7.3.0\classes.jar"
+        jumboMode="false"
+        revision="21.1.2"
+        sha1="e35fae1b377c23aa5fd2d309a190c2d0f73d54ec">
+        <dex dex="C:\Users\Yash\AndroidStudioProjects\TaskNearby\app\build\intermediates\pre-dexed\release\classes-78d4bca3bb76fb05d80d5a2e0cd2fdea944413a8.jar" />
+    </item>
+    <item
+        jar="C:\Users\Yash\AndroidStudioProjects\TaskNearby\app\build\intermediates\exploded-aar\com.google.android.gms\play-services-nearby\7.3.0\classes.jar"
+        jumboMode="false"
+        revision="21.1.2"
+        sha1="5ea948d825957be6c4358c48422bee60eef2d487">
+        <dex dex="C:\Users\Yash\AndroidStudioProjects\TaskNearby\app\build\intermediates\pre-dexed\release\classes-c135994f616bd8fab170d66e02600818d726097a.jar" />
+    </item>
+    <item
+        jar="C:\Users\Yash\AndroidStudioProjects\TaskNearby\app\build\intermediates\exploded-aar\com.google.android.gms\play-services-base\7.3.0\classes.jar"
+        jumboMode="false"
+        revision="21.1.2"
+        sha1="f2f7ec211ce4d244ee97a57523eeb4526dc3cf8a">
+        <dex dex="C:\Users\Yash\AndroidStudioProjects\TaskNearby\app\build\intermediates\pre-dexed\release\classes-78bb8f4964ec9c28a4bd3e008a6f3c2288e9c13b.jar" />
+    </item>
+    <item
+        jar="C:\Users\Yash\AndroidStudioProjects\TaskNearby\app\build\intermediates\exploded-aar\com.google.android.gms\play-services-cast\7.3.0\classes.jar"
+        jumboMode="false"
+        revision="21.1.2"
+        sha1="e5b9f5b0aa8dee788beb63d23832cb29ce771343">
+        <dex dex="C:\Users\Yash\AndroidStudioProjects\TaskNearby\app\build\intermediates\pre-dexed\release\classes-4b076252949e5dcc0eb919eed80700184c5d3a75.jar" />
+    </item>
+    <item
+        jar="C:\Users\Yash\AndroidStudioProjects\TaskNearby\app\build\intermediates\exploded-aar\com.android.support\appcompat-v7\23.0.0\classes.jar"
+        jumboMode="false"
+        revision="21.1.2"
+        sha1="4fcf0b1879f8caf497c073e1432d398e9e2988c1">
+        <dex dex="C:\Users\Yash\AndroidStudioProjects\TaskNearby\app\build\intermediates\pre-dexed\debug\classes-414b01c64fddc8e5d133ce7aa03f2b409473ffe6.jar" />
+    </item>
+    <item
+        jar="C:\Users\Yash\AndroidStudioProjects\TaskNearby\app\build\intermediates\exploded-aar\com.google.android.gms\play-services-panorama\7.8.0\classes.jar"
+        jumboMode="false"
+        revision="21.1.2"
+        sha1="6e85edfc9b5346d216e50ccef1f8e825504144a3">
+        <dex dex="C:\Users\Yash\AndroidStudioProjects\TaskNearby\app\build\intermediates\pre-dexed\debug\classes-343d3a6485b467bf6507eacf030fbcd0bff0a047.jar" />
+    </item>
+    <item
+        jar="C:\Users\Yash\AndroidStudioProjects\TaskNearby\app\build\intermediates\exploded-aar\com.google.android.gms\play-services-gcm\7.8.0\classes.jar"
+        jumboMode="false"
+        revision="21.1.2"
+        sha1="c756d14e99d39471e99013a1e8fd2f3813ed42bf">
+        <dex dex="C:\Users\Yash\AndroidStudioProjects\TaskNearby\app\build\intermediates\pre-dexed\debug\classes-261aa2ba5d0463fb8e15b9aea186d53272fcf096.jar" />
     </item>
     <item
         jar="C:\Users\Yash\AndroidStudioProjects\TaskNearby\app\build\intermediates\exploded-aar\com.google.android.gms\play-services-wearable\7.3.0\classes.jar"
@@ -142,13 +324,6 @@
         <dex dex="C:\Users\Yash\AndroidStudioProjects\TaskNearby\app\build\intermediates\pre-dexed\release\classes-f5a54722636b41ec3c716c6167246c1149899d61.jar" />
     </item>
     <item
-        jar="C:\Users\Yash\AndroidStudioProjects\TaskNearby\app\build\intermediates\exploded-aar\com.google.android.gms\play-services-appstate\7.3.0\classes.jar"
-        jumboMode="false"
-        revision="21.1.2"
-        sha1="0180d031a7b54dabb93b4af3869468b55dc938bd">
-        <dex dex="C:\Users\Yash\AndroidStudioProjects\TaskNearby\app\build\intermediates\pre-dexed\release\classes-cca503066df78bff31adf0863d537ba8d1654e4a.jar" />
-    </item>
-    <item
         jar="C:\Users\Yash\AndroidStudioProjects\TaskNearby\app\build\intermediates\exploded-aar\com.android.support\appcompat-v7\22.1.0\classes.jar"
         jumboMode="false"
         revision="21.1.2"
@@ -156,11 +331,32 @@
         <dex dex="C:\Users\Yash\AndroidStudioProjects\TaskNearby\app\build\intermediates\pre-dexed\release\classes-b4b38ca51f147a2b364876577451b38c9c54c578.jar" />
     </item>
     <item
-        jar="C:\Users\Yash\AndroidStudioProjects\TaskNearby\app\build\intermediates\exploded-aar\com.google.android.gms\play-services-plus\7.3.0\classes.jar"
+        jar="C:\Users\Yash\AndroidStudioProjects\TaskNearby\app\build\intermediates\exploded-aar\com.google.android.gms\play-services-appstate\7.3.0\classes.jar"
         jumboMode="false"
         revision="21.1.2"
-        sha1="59652857a825fff0de62166fca1bc9553cc01abb">
-        <dex dex="C:\Users\Yash\AndroidStudioProjects\TaskNearby\app\build\intermediates\pre-dexed\release\classes-12d58d08d656cb19ec4b3c0161432e611514f2b2.jar" />
+        sha1="0180d031a7b54dabb93b4af3869468b55dc938bd">
+        <dex dex="C:\Users\Yash\AndroidStudioProjects\TaskNearby\app\build\intermediates\pre-dexed\release\classes-cca503066df78bff31adf0863d537ba8d1654e4a.jar" />
+    </item>
+    <item
+        jar="C:\Users\Yash\AndroidStudioProjects\TaskNearby\app\build\intermediates\exploded-aar\com.google.android.gms\play-services-identity\7.8.0\classes.jar"
+        jumboMode="false"
+        revision="21.1.2"
+        sha1="d11330ea68c0d964d30d5caed1f27e6b1488b189">
+        <dex dex="C:\Users\Yash\AndroidStudioProjects\TaskNearby\app\build\intermediates\pre-dexed\debug\classes-3a9516fc42da51e92bae42da68d473c5f0f91873.jar" />
+    </item>
+    <item
+        jar="C:\Users\Yash\AndroidStudioProjects\TaskNearby\app\build\intermediates\exploded-aar\com.android.support\mediarouter-v7\22.2.0\libs\internal_impl-22.2.0.jar"
+        jumboMode="false"
+        revision="21.1.2"
+        sha1="0632f06970823b7e3436f649bfa65b47035c91d0">
+        <dex dex="C:\Users\Yash\AndroidStudioProjects\TaskNearby\app\build\intermediates\pre-dexed\debug\internal_impl-22.2.0-8bb7521069ac80e3a2bb1e6a8ee5606b3cbf4355.jar" />
+    </item>
+    <item
+        jar="C:\Users\Yash\AndroidStudioProjects\TaskNearby\app\build\intermediates\exploded-aar\com.google.android.gms\play-services-analytics\7.8.0\classes.jar"
+        jumboMode="false"
+        revision="21.1.2"
+        sha1="0124ce31248c0e8acfa2b28283c6d1a4d76e73d2">
+        <dex dex="C:\Users\Yash\AndroidStudioProjects\TaskNearby\app\build\intermediates\pre-dexed\debug\classes-33a772e014393fdca48ecc6ddc20e1b3602efabe.jar" />
     </item>
     <item
         jar="C:\Users\Yash\AndroidStudioProjects\TaskNearby\app\build\intermediates\exploded-aar\com.google.android.gms\play-services-appinvite\7.3.0\classes.jar"

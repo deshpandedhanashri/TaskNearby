@@ -167,7 +167,7 @@ public class TasksFragment extends Fragment implements LoaderManager.LoaderCallb
                 if (motionEvent.getAction() == MotionEvent.ACTION_UP) {
                     Intent intent = new Intent(getActivity(), AddNewTaskActivity.class);
                     startActivityForResult(intent, STATUS);
-                    btn_Create.setImageResource(R.drawable.btn_create);
+                   // btn_Create.setImageResource(R.drawable.btn_create);
 
                     return true;
                 }

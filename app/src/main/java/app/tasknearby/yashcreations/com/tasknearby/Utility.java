@@ -46,23 +46,6 @@ public class Utility {
 
     public static String color;
 
-    public static void testInsertReadFunction(Context context) {
-
-
-        ContentValues taskValues = new ContentValues();
-
-        taskValues.put(TasksContract.TaskEntry.COLUMN_TASK_NAME, "Buy Bread");
-
-        taskValues.put(TasksContract.TaskEntry.COLUMN_LOCATION_NAME, "Amul");
-        taskValues.put(TasksContract.TaskEntry.COLUMN_LOCATION_COLOR, "red");
-        taskValues.put(TasksContract.TaskEntry.COLUMN_LOCATION_ALARM, "no");
-        taskValues.put(TasksContract.TaskEntry.COLUMN_MIN_DISTANCE, "5");
-        Uri insertedUri = context.getContentResolver().insert(
-                TasksContract.TaskEntry.CONTENT_URI, taskValues
-        );
-    }
-
-
     public static void savePlaceDialog(final Context context, final Double latitude, final Double longitude) {
 
         final AlertDialog.Builder alertDialog = new AlertDialog.Builder(context);
