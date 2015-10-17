@@ -12,7 +12,7 @@ import android.util.Log;
  * Created by Yash on 22/04/15.
  */
 public class TasksProvider extends ContentProvider {
-    TaskDbHelper mOpenHelper;
+    public static TaskDbHelper mOpenHelper;
     private static final UriMatcher sUriMatcher = buildUriMatcher();
 
     static final int TASKS = 100;
@@ -20,7 +20,8 @@ public class TasksProvider extends ContentProvider {
 
     @Override
     public boolean onCreate() {
-        mOpenHelper = new TaskDbHelper(getContext());
+        Log.e("ContentProvider", "getting Instance");
+        mOpenHelper = TaskDbHelper.getInstance(getContext());
         return true;
     }
 

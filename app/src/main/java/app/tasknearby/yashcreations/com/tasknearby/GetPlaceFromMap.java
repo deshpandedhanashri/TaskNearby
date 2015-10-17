@@ -25,6 +25,7 @@ import com.google.android.gms.maps.MapView;
 import com.google.android.gms.maps.MapsInitializer;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
+import com.google.android.gms.maps.model.CameraPosition;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 
@@ -45,14 +46,26 @@ public class GetPlaceFromMap extends ActionBarActivity {
 
         map.setMyLocationEnabled(true);
 
+        map.setBuildingsEnabled(true);
+
+
 
         LocationManager locationManager = (LocationManager) this.getSystemService(Context.LOCATION_SERVICE);
         if (!locationManager.isProviderEnabled(locationManager.GPS_PROVIDER)) {
             Utility.showGpsOffDialog(this);
         }
+
         Location location = Utility.getCurrentLocation(this);
         if (location != null) {
-            map.animateCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(location.getLatitude(), location.getLongitude()), 15));
+
+            CameraPosition cameraPosition = new CameraPosition.Builder().
+                    target(new LatLng(location.getLatitude(), location.getLongitude())).
+                    tilt(30).
+                    zoom(15).
+                    bearing(0f).
+                    build();
+
+            map.animateCamera(CameraUpdateFactory.newCameraPosition(cameraPosition)); //CameraUpdateFactory.newLatLngZoom(new LatLng(location.getLatitude(), location.getLongitude()), 15));
         }
 
 

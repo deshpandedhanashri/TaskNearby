@@ -4,25 +4,33 @@ import android.app.Notification;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.app.Service;
+import android.content.BroadcastReceiver;
 import android.content.ContentValues;
+import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
+import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.location.Location;
-import android.media.AudioManager;
-import android.media.MediaPlayer;
 import android.media.RingtoneManager;
-import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.IBinder;
+import android.support.v4.content.LocalBroadcastManager;
 import android.util.Log;
 import android.widget.Toast;
 
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GooglePlayServicesUtil;
 import com.google.android.gms.common.api.GoogleApiClient;
+import com.google.android.gms.common.api.ResultCallback;
+import com.google.android.gms.common.api.Status;
+import com.google.android.gms.location.ActivityRecognition;
+import com.google.android.gms.location.DetectedActivity;
 import com.google.android.gms.location.LocationListener;
 import com.google.android.gms.location.LocationRequest;
 import com.google.android.gms.location.LocationServices;
+
+import java.util.ArrayList;
 
 import app.tasknearby.yashcreations.com.tasknearby.AlarmActivity;
 import app.tasknearby.yashcreations.com.tasknearby.DetailActivity;
@@ -30,27 +38,16 @@ import app.tasknearby.yashcreations.com.tasknearby.R;
 import app.tasknearby.yashcreations.com.tasknearby.Utility;
 import app.tasknearby.yashcreations.com.tasknearby.database.TasksContract;
 
-
 /**
  * Created by Yash on 28/05/15.
  */
-public class FusedLocationService extends Service implements GoogleApiClient.ConnectionCallbacks,GoogleApiClient.OnConnectionFailedListener,
-                                                LocationListener{
+public class FusedLocationService extends Service implements GoogleApiClient.ConnectionCallbacks,
+        GoogleApiClient.OnConnectionFailedListener,
+        LocationListener,
+        ResultCallback<Status> {
 
-    private static final String TAG = FusedLocationService.class.getSimpleName();
-    private final static int PLAY_SERVICES_RESOLUTION_REQUEST = 1000;
-     // Google client to interact with Google API
-    private GoogleApiClient mGoogleApiClient;
-    private LocationRequest mLocationRequest;
-    // Location updates intervals in sec
-    private long UPDATE_INTERVAL = 5000;
-    private long FATEST_INTERVAL = 5000; // 5 sec
-    private static int DISPLACEMENT = 1; // 1 meter
-
+    public boolean mReceivingLocationUpdates = false;
     Cursor c;
-
-
-
     String PROJECTION[] = {
             TasksContract.TaskEntry.TABLE_NAME + "." + TasksContract.TaskEntry._ID,
             TasksContract.TaskEntry.COLUMN_TASK_NAME,
@@ -60,112 +57,126 @@ public class FusedLocationService extends Service implements GoogleApiClient.Con
             TasksContract.TaskEntry.COLUMN_DONE_STATUS,
             TasksContract.TaskEntry.COLUMN_REMIND_DISTANCE,
             TasksContract.TaskEntry.COLUMN_SNOOZE_TIME
-
-
     };
-
     static final int COL_TASK_ID = 0;
     static final int COL_TASK_NAME = 1;
     static final int COL_LOCATION_NAME = 2;
     static final int COL_TASK_COLOR = 3;
     static final int COL_ALARM = 4;
-    static final int COL_DONE=5;
-    static final int COL_REMIND_DISTANCE=6;
-    static final int COL_SNOOZE_TIME=7;
+    static final int COL_DONE = 5;
+    static final int COL_REMIND_DISTANCE = 6;
+    static final int COL_SNOOZE_TIME = 7;
 
     String placeName;
     int placeDistance;
+
+    private static final String TAG = "FusedLocationService";
+    private ActivityDetectionReceiver mReceiver;
+    private GoogleApiClient mGoogleApiClient;
+    private LocationRequest mLocationRequest;
 
     @Override
     public IBinder onBind(Intent intent) {
         return null;
     }
+
     @Override
     public void onCreate() {
-        Log.e(TAG, "===========Service Started=============");
+        Log.i(TAG, "FusedService Started!");
         if (checkPlayServices()) {
-            // Building the GoogleApi client
             buildGoogleApiClient();
+
+            mReceiver = new ActivityDetectionReceiver();                //Registering Activity Recognition Receiver
+            LocalBroadcastManager.getInstance(this).registerReceiver(mReceiver, new IntentFilter(Constants.INTENT_FILTER));
+
+            mLocationRequest = new LocationRequest();
             createLocationRequest();
         }
-        UPDATE_INTERVAL=Utility.getUpdateInterval(this);
-        FATEST_INTERVAL=(Utility.getUpdateInterval(this)-3000);
+        Constants.UPDATE_INTERVAL = Utility.getUpdateInterval(this);
+        Constants.FATEST_INTERVAL = (Constants.UPDATE_INTERVAL - 4000);
     }
+
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
-        if(mGoogleApiClient!=null)
+        if (mGoogleApiClient != null)
             mGoogleApiClient.connect();
         return START_STICKY;
     }
 
-    /**
-     * Creating google api client object
-     * */
     protected synchronized void buildGoogleApiClient() {
         mGoogleApiClient = new GoogleApiClient.Builder(this)
                 .addConnectionCallbacks(this)
                 .addOnConnectionFailedListener(this)
-                .addApi(LocationServices.API).build();
+                .addApi(LocationServices.API)
+                .addApi(ActivityRecognition.API)
+                .build();
     }
 
-    /**
-     * Creating location request object
-     * */
+    protected void stopActivityUpdates() {
+        if (!mGoogleApiClient.isConnected()) {
+            Log.e(TAG, "Client's Not Yet Connected!");
+            return;
+        }
+        ActivityRecognition.ActivityRecognitionApi.removeActivityUpdates(mGoogleApiClient, getPendingIntent()).setResultCallback(this);
+    }
+
+    protected void startActivityUpdates() {
+        if (!mGoogleApiClient.isConnected()) {
+            Log.e(TAG, "Client's Not Yet Connected!");
+            return;
+        }
+        ActivityRecognition.ActivityRecognitionApi.requestActivityUpdates(mGoogleApiClient, Constants.ActDetectionInterval_ms, getPendingIntent()).setResultCallback(this);
+    }
+
+    protected PendingIntent getPendingIntent() {
+        Intent intent = new Intent(this, ActivityDetectionIntentService.class);
+        return PendingIntent.getService(this, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT);
+    }
+
+
     protected void createLocationRequest() {
-        mLocationRequest = new LocationRequest();
-        mLocationRequest.setInterval(UPDATE_INTERVAL);
-        mLocationRequest.setFastestInterval(FATEST_INTERVAL);
+        mLocationRequest.setInterval(Constants.UPDATE_INTERVAL);
+        mLocationRequest.setFastestInterval(Constants.FATEST_INTERVAL);
         mLocationRequest.setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY);
-        mLocationRequest.setSmallestDisplacement(DISPLACEMENT);
+        mLocationRequest.setSmallestDisplacement(Constants.DISPLACEMENT);
     }
 
-    /**
-     * Method to verify google play services on the device
-     * */
     private boolean checkPlayServices() {
         int resultCode = GooglePlayServicesUtil
                 .isGooglePlayServicesAvailable(this);
         if (resultCode != ConnectionResult.SUCCESS) {
             if (GooglePlayServicesUtil.isUserRecoverableError(resultCode)) {
-                GooglePlayServicesUtil.getErrorDialog(resultCode,null,
-                        PLAY_SERVICES_RESOLUTION_REQUEST).show();
+                GooglePlayServicesUtil.getErrorDialog(resultCode, null,
+                        Constants.PLAY_SERVICES_RESOLUTION_REQUEST).show();
             } else {
                 Toast.makeText(getApplicationContext(),
                         "This device is not supported.", Toast.LENGTH_LONG)
                         .show();
-                            }
+            }
             return false;
         }
         return true;
     }
 
     protected void startLocationUpdates() {
-
-        LocationServices.FusedLocationApi.requestLocationUpdates(
-                mGoogleApiClient, mLocationRequest, this);
-
+        LocationServices.FusedLocationApi.requestLocationUpdates(mGoogleApiClient, mLocationRequest, this);
+        mReceivingLocationUpdates = true;
     }
 
-    /**
-     * Stopping location updates
-     */
     protected void stopLocationUpdates() {
-        LocationServices.FusedLocationApi.removeLocationUpdates(
-                mGoogleApiClient, this);
+        LocationServices.FusedLocationApi.removeLocationUpdates(mGoogleApiClient, this);
+        mReceivingLocationUpdates = false;
     }
 
-    /**
-     * Google api callback methods
-     */
     @Override
     public void onConnectionFailed(ConnectionResult result) {
-        Log.e(TAG, "Connection failed: ConnectionResult.getErrorCode() = "+ result.getErrorCode());
+        Log.e(TAG, "Connection failed: ConnectionResult.getErrorCode() = " + result.getErrorCode());
     }
 
     @Override
     public void onConnected(Bundle arg0) {
-        // Once connected with google api, get the location
         startLocationUpdates();
+        startActivityUpdates();
     }
 
     @Override
@@ -174,95 +185,221 @@ public class FusedLocationService extends Service implements GoogleApiClient.Con
     }
 
     @Override
-    public void onLocationChanged(Location loc){
-
-        Log.e(TAG,"==============RUNNING===============");
-
-        c=this.getContentResolver().query(TasksContract.TaskEntry.CONTENT_URI,              //QUERYING THE DATABASE FOR TASKS
+    public void onLocationChanged(Location loc) {
+        c = this.getContentResolver().query(TasksContract.TaskEntry.CONTENT_URI,              //QUERYING THE DATABASE FOR TASKS
                 PROJECTION, null, null, null);
 
-
-        while (c.moveToNext())
-        {
+        while (c.moveToNext()) {
             placeName = c.getString(COL_LOCATION_NAME);
             placeDistance = Utility.getDistanceByPlaceName(placeName, loc, this);
-            updateDatabaseDistance(placeDistance);                  // PUT THE NEW MIN DISTANCE INTO DATABASE
+            updateDatabaseDistance(placeDistance);                                           // PUT THE NEW MIN DISTANCE INTO DATABASE
 
-            if ((placeDistance <= c.getInt(COL_REMIND_DISTANCE))&&(placeDistance != 0)&&(c.getString(COL_DONE).equals("false")))
-            {   showNotification();
-
-                if(c.getString(COL_ALARM).equals("true")&&(c.getLong(COL_SNOOZE_TIME)<System.currentTimeMillis()))                         //Alarm ActivityTriggering Module
-                {
-                    asyncAlarm m = new asyncAlarm();
-                    m.execute(c.getString(COL_TASK_ID));
+            if ((placeDistance <= c.getInt(COL_REMIND_DISTANCE)) && (placeDistance != 0) && (c.getString(COL_DONE).equals("false")) /*&& isAlreadyRunning()*/) {
+                showNotification();
+                if (isAlarmOn() && !isSnoozed()) {
+                    Log.i(TAG, "Starting Alarm Activity=====");
+                    Intent alarmIntent = new Intent(this, AlarmActivity.class);
+                    alarmIntent.putExtra("TaskID", c.getString(COL_TASK_ID));
+                    alarmIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                    startActivity(alarmIntent);
                 }
             }
         }
-
         c.close();
-
-    }
-    public class asyncAlarm extends AsyncTask<String,Void,Void>
-    {
-        @Override
-        protected Void doInBackground(String... TaskID) {
-            Intent alarmIntent=new Intent(FusedLocationService.this, AlarmActivity.class);
-            alarmIntent.putExtra("TaskID",TaskID[0]);
-            alarmIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-            startActivity(alarmIntent);
-            return null;
-        }
     }
 
+    /* public int getDistanceByPlaceName(String placeName, Location currentLocation, Context context) {
+         float distance = 0;
+         Location location = new Location("Dummy");
 
-    @Override
-    public void onDestroy() {
-        if (mGoogleApiClient.isConnected()) {
-            stopLocationUpdates();
-            mGoogleApiClient.disconnect();
-            }
+         Cursor cursor1 = context.getContentResolver().query(TasksContract.LocationEntry.CONTENT_URI,
+                 new String[]{TasksContract.LocationEntry.COLUMN_COORD_LAT,
+                         TasksContract.LocationEntry.COLUMN_COORD_LONG,
+                         TasksContract.LocationEntry.COLUMN_PLACE_NAME},
+                 TasksContract.LocationEntry.COLUMN_PLACE_NAME + "=?",
+                 new String[]{placeName}, null);
 
-        super.onDestroy();
+         if (cursor1.moveToNext()) {
+             location.setLatitude(cursor1.getDouble(0));
+             location.setLongitude(cursor1.getDouble(1));
+         } else {
+             Toast.makeText(context, "null Cursor", Toast.LENGTH_LONG).show();
+             location.setLatitude(currentLocation.getLatitude());
+             location.setLongitude(currentLocation.getLongitude());
+         }
+         cursor1.close();
+         if (currentLocation != null) {
+             distance = currentLocation.distanceTo(location);
+             int dist = Math.round(distance);
+
+             return dist;
+         } else {
+             return 0;
+         }
+     }
+   */
+    public boolean isAlarmOn() {
+        Log.e(TAG, "returning" + c.getString(COL_ALARM).equals("true"));
+        return c.getString(COL_ALARM).equals("true");
     }
 
-    public void updateDatabaseDistance(int placeDistance)
-    {
+    public boolean isAlreadyRunning() {
+        SharedPreferences sp = getSharedPreferences("ACTIVITYINFO", MODE_PRIVATE);
+        boolean active = sp.getBoolean("active", false);
+        Log.e(TAG, "isAlreadyRunning= " + active);
+        return active;
+    }
+
+    public boolean isSnoozed() {
+        return false;
+    }                 //TODO:Implement this
+
+
+    public void updateDatabaseDistance(int placeDistance) {
 
         ContentValues taskValues = new ContentValues();
-
         taskValues.put(TasksContract.TaskEntry.COLUMN_TASK_NAME, c.getString(COL_TASK_NAME));
-        taskValues.put(TasksContract.TaskEntry.COLUMN_LOCATION_NAME,c.getString(COL_LOCATION_NAME));
+        taskValues.put(TasksContract.TaskEntry.COLUMN_LOCATION_NAME, c.getString(COL_LOCATION_NAME));
         taskValues.put(TasksContract.TaskEntry.COLUMN_LOCATION_COLOR, c.getInt(COL_TASK_COLOR));
-        taskValues.put(TasksContract.TaskEntry.COLUMN_LOCATION_ALARM,c.getString(COL_ALARM));
+        taskValues.put(TasksContract.TaskEntry.COLUMN_LOCATION_ALARM, c.getString(COL_ALARM));
         taskValues.put(TasksContract.TaskEntry.COLUMN_MIN_DISTANCE, placeDistance);
-        taskValues.put(TasksContract.TaskEntry.COLUMN_DONE_STATUS,c.getString(COL_DONE));
+        taskValues.put(TasksContract.TaskEntry.COLUMN_DONE_STATUS, c.getString(COL_DONE));
 
         this.getContentResolver().update(
                 TasksContract.TaskEntry.CONTENT_URI,
                 taskValues, TasksContract.TaskEntry._ID + "=?",
                 new String[]{c.getString(COL_TASK_ID)}
         );
-
     }
 
+    public void showNotification() {
+        NotificationManager notificationManager = (NotificationManager) this.getSystemService(NOTIFICATION_SERVICE);
+        Intent intent = new Intent(this, DetailActivity.class);
+        intent.putExtra("TaskID", c.getString(COL_TASK_ID));
+        PendingIntent pIntent = PendingIntent.getActivity(this, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT);
 
-
-
-    public void showNotification()
-    {   NotificationManager notificationManager=(NotificationManager)this.getSystemService(NOTIFICATION_SERVICE);
-        Intent intent = new Intent(this,DetailActivity.class);
-        intent.putExtra("TaskID",c.getString(COL_TASK_ID));
-        PendingIntent pIntent = PendingIntent.getActivity(this, 0, intent, 0);
-
-        Notification n  = new Notification.Builder(this)
+        Notification n = new Notification.Builder(this)
                 .setContentTitle(c.getString(COL_TASK_NAME))
                 .setContentText(c.getString(COL_LOCATION_NAME))
-                .setSmallIcon(R.drawable.marker1)
+                .setSmallIcon(R.mipmap.icon_hd)
                 .setContentIntent(pIntent)
                 .setAutoCancel(false)
                 .setSound(RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION))
                 .build();
         notificationManager.notify(0, n);
     }
+
+    @Override
+    public void onDestroy() {
+
+        LocalBroadcastManager.getInstance(this).unregisterReceiver(mReceiver);
+        if (mGoogleApiClient.isConnected()) {
+            stopLocationUpdates();
+            stopActivityUpdates();
+            mGoogleApiClient.disconnect();
+        }
+        super.onDestroy();
+    }       //Releasing back the resources
+
+    @Override
+    public void onResult(Status status) {
+        if (status.isSuccess())
+            Log.e(TAG, "Activity Detection Initiated Successfully");
+        else
+            Log.e(TAG, "Activity Detection Failed!");
+    }
+
+
+    public String getActivityString(int detectedActivityType) {     //JUST for Testing
+
+        switch (detectedActivityType) {
+            case DetectedActivity.IN_VEHICLE:
+                return "Vehicle";
+            case DetectedActivity.ON_BICYCLE:
+                return "on_bicycle";
+            case DetectedActivity.ON_FOOT:
+                return "on_foot1";
+            case DetectedActivity.RUNNING:
+                return "running";
+            case DetectedActivity.STILL:
+                return "still ";
+            case DetectedActivity.TILTING:
+                return "tilting";
+            case DetectedActivity.UNKNOWN:
+                return "unknown";
+            case DetectedActivity.WALKING:
+                return "walking";
+            default:
+                return "UNDETECTABLE";
+        }
+    }
+
+
+    public class ActivityDetectionReceiver extends BroadcastReceiver {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            Log.e(TAG, "BroadCast Received");
+            ArrayList<DetectedActivity> detectedActivities = intent.getParcelableArrayListExtra(Constants.ReceiverIntentExtra);
+            //TODO:MAIN Activity Recognition Logic Goes here
+            int conf = 0;
+
+            for (DetectedActivity i : detectedActivities) {
+                Log.e(TAG, i.getConfidence() + " " + getActivityString(i.getType()));
+                conf = i.getConfidence();
+
+                switch (i.getType()) {
+
+                    case DetectedActivity.STILL:        //The Device is Still
+                        if (conf > 50 && mReceivingLocationUpdates) {
+                            stopLocationUpdates();
+                            Log.e(TAG, "Stopping Location Updates!");
+                        }
+                        break;
+
+                    case DetectedActivity.IN_VEHICLE:
+                        if (conf > 50) {
+                            restartLocationUpdates(5000);
+                        }
+                        break;
+
+                    case DetectedActivity.ON_BICYCLE:
+
+                    case DetectedActivity.RUNNING:
+                        if (conf > 60) {
+                            restartLocationUpdates(5000);
+                        } else if (conf > 50) {
+                            restartLocationUpdates(10000);
+                        }
+                        break;
+
+                    case DetectedActivity.WALKING:
+                    case DetectedActivity.ON_FOOT:
+                        if (conf > 50)
+                            restartLocationUpdates(15000);
+                        break;
+
+
+                    case DetectedActivity.UNKNOWN:
+                        if (conf > 60)
+                            restartLocationUpdates(10000);
+                        break;
+                }
+            }
+        }
+
+        void restartLocationUpdates(long m) {
+
+            if (Constants.UPDATE_INTERVAL != m || !mReceivingLocationUpdates) {
+                Log.e(TAG, "Restarting with UPDATE_INTERVAL= " + m);
+                Constants.UPDATE_INTERVAL = m;
+                createLocationRequest();
+                if (mReceivingLocationUpdates)
+                    stopLocationUpdates();
+                startLocationUpdates();
+            } else
+                Log.e(TAG, "Upadate Interval Is Same as before ,So not restarting!");
+        }
+    }
+
 
 }

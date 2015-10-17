@@ -143,8 +143,6 @@ public class DetailActivity extends ActionBarActivity {
                     finish();
                     startActivity(getIntent());
 
-                    //1.Database mein true
-                    //2.refresh activity
 
                 }
                else

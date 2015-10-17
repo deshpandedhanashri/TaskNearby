@@ -4,6 +4,7 @@ package app.tasknearby.yashcreations.com.tasknearby;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.os.StrictMode;
 import android.preference.PreferenceManager;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
@@ -53,9 +54,15 @@ public class MainActivity extends ActionBarActivity {
                     .commit();
         }
         if(getAppStatus()&&checkPlayServices())
-            {startService(new Intent(this,FusedLocationService.class));}
+            {startService(new Intent(this, FusedLocationService.class));}
         previousUpdateInterval=Utility.getUpdateInterval(this);
         previousAppStatus=getAppStatus();
+        StrictMode.setVmPolicy(new StrictMode.VmPolicy.Builder()
+                .detectLeakedSqlLiteObjects()
+                .detectLeakedClosableObjects()
+                .penaltyLog()
+                .penaltyDeath()
+                .build());
     }
 
     @Override

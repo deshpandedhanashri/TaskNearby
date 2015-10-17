@@ -11,7 +11,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_gravity="center_vertical"
-        android:background="#ff6f2da8"
+        android:background="@drawable/list_item_background"
         android:orientation="horizontal"
         android:padding="10dp">
 
@@ -27,6 +27,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Buy Milk"
+                android:fontFamily="sans-serif"
                 android:textColor="#ffffff"
                 android:textSize="22sp"
                 />
@@ -35,7 +36,7 @@
                 android:id="@+id/task_location_textView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:fontFamily="sans-serif-condensed"
+                android:fontFamily="sans-serif-light"
                 android:text="Mother Dairy"
                 android:textColor="#ffffff" />
 
@@ -46,7 +47,7 @@
             android:id="@+id/task_dist_textView"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:fontFamily="sans-serif-condensed"
+            android:fontFamily="sans-serif-light"
             android:gravity="center_vertical"
             android:text="58m"
             android:textColor="#ffffff"

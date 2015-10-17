@@ -128,6 +128,7 @@ public class Utility {
                     locationValues
             );
         }
+        c.close();
 
     }
 
@@ -161,9 +162,7 @@ public class Utility {
         LocationManager locationManager = (LocationManager) context.getSystemService(Context.LOCATION_SERVICE);
 
         Location currentLocation = locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
-        if (currentLocation == null) {
 
-        }
         return currentLocation;
     }
 

@@ -8,6 +8,7 @@ import android.database.sqlite.SQLiteOpenHelper;
  * Created by Yash on 22/04/15.
  */
 public class TaskDbHelper extends SQLiteOpenHelper {
+    static public TaskDbHelper mInstace=null;
 
     static public final int DATABASE_VERSION = 1;
     static public String DATABASE_NAME = "task_database.db";
@@ -16,6 +17,12 @@ public class TaskDbHelper extends SQLiteOpenHelper {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
     }
 
+    public static TaskDbHelper getInstance(Context context)
+    {
+        if(mInstace==null)
+            mInstace=new TaskDbHelper(context.getApplicationContext());
+        return mInstace;
+    }
     @Override
     public void onCreate(SQLiteDatabase sqLiteDatabase) {
 
@@ -45,6 +52,7 @@ public class TaskDbHelper extends SQLiteOpenHelper {
         sqLiteDatabase.execSQL(CREATE_TASKS_TABLE);
 
     }
+
 
     @Override
     public void onUpgrade(SQLiteDatabase sqLiteDatabase, int i, int i2) {

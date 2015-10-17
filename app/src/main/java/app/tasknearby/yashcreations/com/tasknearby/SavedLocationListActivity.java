@@ -6,6 +6,7 @@ import android.database.Cursor;
 import android.net.Uri;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -32,14 +33,14 @@ public class SavedLocationListActivity extends ActionBarActivity {
     static final int COL_LON = 3;
 
     CursorAdapter mLocationAdapter;
-
+    Cursor cursor;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_saved_location_list);
         Uri uri = TasksContract.LocationEntry.CONTENT_URI;
         String sortOrder = TasksContract.LocationEntry.COLUMN_PLACE_NAME + " COLLATE NOCASE ASC ";
-        Cursor cursor = this.getContentResolver().query(uri, PROJECTION, null, null, sortOrder);
+       cursor= this.getContentResolver().query(uri, PROJECTION, null, null, sortOrder);
         TextView noLocationView=(TextView) this.findViewById(R.id.no_location_view);
         if(!cursor.moveToFirst())
         {noLocationView.setVisibility(View.VISIBLE);}
@@ -81,5 +82,10 @@ public class SavedLocationListActivity extends ActionBarActivity {
 
     }
 
-
+    @Override
+    protected void onPause() {
+        super.onPause();
+        if(!cursor.isClosed()) {cursor.close();
+            Log.e("CURSOR","Closing Cursor Saved Location Activity");}
+    }
 }
