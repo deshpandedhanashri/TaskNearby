@@ -57,15 +57,16 @@ public class GetPlaceFromMap extends ActionBarActivity {
 
         Location location = Utility.getCurrentLocation(this);
         if (location != null) {
+//
+//            CameraPosition cameraPosition = new CameraPosition.Builder().
+//                    target(new LatLng(location.getLatitude(), location.getLongitude())).
+//                    tilt(30).
+//                    zoom(15).
+//                    bearing(0f).
+//                    build();
 
-            CameraPosition cameraPosition = new CameraPosition.Builder().
-                    target(new LatLng(location.getLatitude(), location.getLongitude())).
-                    tilt(30).
-                    zoom(15).
-                    bearing(0f).
-                    build();
-
-            map.animateCamera(CameraUpdateFactory.newCameraPosition(cameraPosition)); //CameraUpdateFactory.newLatLngZoom(new LatLng(location.getLatitude(), location.getLongitude()), 15));
+            map.animateCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(location.getLatitude(), location.getLongitude()), 15));
+//            CameraUpdateFactory.newCameraPosition(cameraPosition)); //
         }
 
 
