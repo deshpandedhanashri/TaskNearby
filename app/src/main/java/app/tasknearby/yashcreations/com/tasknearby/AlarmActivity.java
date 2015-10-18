@@ -8,15 +8,13 @@ import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.media.AudioManager;
 import android.media.MediaPlayer;
+import android.media.Ringtone;
+import android.media.RingtoneManager;
 import android.net.Uri;
 import android.os.AsyncTask;
-import android.os.PowerManager;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
-import android.view.Window;
-import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -51,14 +49,12 @@ public class AlarmActivity extends ActionBarActivity {
     MediaPlayer mMediaPlayer = new MediaPlayer();
     int alarmTone = R.raw.alarm;  //Utility.getPreferredAlarmTone(this);
     Cursor c;
+    Ringtone ringtone;
 
-    //   PowerManager.WakeLock wakeLock;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_alarm);
-//        Window w=this.getWindow();
-//        w.setFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON,WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
 
         Button stopAlarm = (Button) this.findViewById(R.id.btnStop);
         Button Snooze = (Button) this.findViewById(R.id.snooze);
@@ -82,11 +78,6 @@ public class AlarmActivity extends ActionBarActivity {
             taskLocView.setText(c.getString(COL_LOCATION_NAME));
             baseLayout.setBackgroundColor(c.getInt(COL_TASK_COLOR));
 
-            AudioManager am = (AudioManager) getSystemService(Context.AUDIO_SERVICE);
-            if (am.getRingerMode() == AudioManager.RINGER_MODE_NORMAL) {
-                PlaySoundTask m = new PlaySoundTask();
-                m.execute();
-            }
         }
         stopAlarm.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -113,7 +104,6 @@ public class AlarmActivity extends ActionBarActivity {
                         new String[]{c.getString(COL_TASK_ID)}
                 );
                 c.close();
-                //              wakeLock.release();
                 finish();
             }
         });
@@ -143,15 +133,9 @@ public class AlarmActivity extends ActionBarActivity {
                         new String[]{c.getString(COL_TASK_ID)}
                 );
                 c.close();
-                //               wakeLock.release();
                 finish();
             }
         });
-
-//        PowerManager powerManager=(PowerManager)this.getSystemService(POWER_SERVICE);
-//        wakeLock=powerManager.newWakeLock(PowerManager.SCREEN_BRIGHT_WAKE_LOCK|PowerManager.ACQUIRE_CAUSES_WAKEUP, "TAG");
-//        wakeLock.acquire();
-
 
     }
 
@@ -172,12 +156,30 @@ public class AlarmActivity extends ActionBarActivity {
     }
 
     @Override
+    protected void onResume() {
+
+        SharedPreferences sp = getSharedPreferences("ACTIVITYINFO", MODE_PRIVATE);
+        SharedPreferences.Editor ed = sp.edit();
+        ed.putBoolean("active", true);
+        ed.commit();
+
+        super.onResume();
+    }
+
+    @Override
     protected void onPause() {
         if (mMediaPlayer.isPlaying())
             mMediaPlayer.stop();
+        if (ringtone.isPlaying())
+            ringtone.stop();
+
         c.close();
-//        wakeLock.release();
         finish();
+        SharedPreferences sp = getSharedPreferences("ACTIVITYINFO", MODE_PRIVATE);
+        SharedPreferences.Editor ed = sp.edit();
+        ed.putBoolean("active", false);
+        ed.commit();
+
         super.onPause();
     }
 
@@ -185,27 +187,34 @@ public class AlarmActivity extends ActionBarActivity {
     protected void onStart() {
         super.onStart();
 
-        // Store our shared preference
-        SharedPreferences sp = getSharedPreferences("ACTIVITYINFO", MODE_PRIVATE);
-        SharedPreferences.Editor ed = sp.edit();
-        ed.putBoolean("active", true);
-        ed.commit();
+        Uri uri = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_ALARM);
+        if(uri!=null)
+        {ringtone = RingtoneManager.getRingtone(this, uri);
+        ringtone.play();}
+        else
+        {
+
+            AudioManager am = (AudioManager) getSystemService(Context.AUDIO_SERVICE);
+            if (am.getRingerMode() == AudioManager.RINGER_MODE_NORMAL) {
+                PlaySoundTask m = new PlaySoundTask();
+                m.execute();
+            }
+
+        }
+
     }
 
     @Override
     protected void onStop() {
         super.onStop();
-       if(!c.isClosed()) c.close();
-        // Store our shared preference
-        SharedPreferences sp = getSharedPreferences("ACTIVITYINFO", MODE_PRIVATE);
-        SharedPreferences.Editor ed = sp.edit();
-        ed.putBoolean("active", false);
-        ed.commit();
+        if (!c.isClosed()) c.close();
 
     }
 
     @Override
     protected void onDestroy() {
+        if (ringtone.isPlaying())
+            ringtone.stop();
         if (mMediaPlayer.isPlaying())
             mMediaPlayer.stop();
         super.onDestroy();

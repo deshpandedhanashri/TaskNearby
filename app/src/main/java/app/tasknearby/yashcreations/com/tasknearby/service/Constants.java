@@ -7,7 +7,7 @@ public class Constants {
     public Constants() {
     }
 
-    public static long ActDetectionInterval_ms = 500;
+    public static long ActDetectionInterval_ms = 2000;
 
 
     public static long UPDATE_INTERVAL = 5000;

@@ -194,10 +194,10 @@ public class FusedLocationService extends Service implements GoogleApiClient.Con
             placeDistance = Utility.getDistanceByPlaceName(placeName, loc, this);
             updateDatabaseDistance(placeDistance);                                           // PUT THE NEW MIN DISTANCE INTO DATABASE
 
-            if ((placeDistance <= c.getInt(COL_REMIND_DISTANCE)) && (placeDistance != 0) && (c.getString(COL_DONE).equals("false")) /*&& isAlreadyRunning()*/) {
+            if ((placeDistance <= c.getInt(COL_REMIND_DISTANCE)) && (placeDistance != 0) && (c.getString(COL_DONE).equals("false")) && !isAlreadyRunning()&& !isSnoozed()) {
                 showNotification();
-                if (isAlarmOn() && !isSnoozed()) {
-                    Log.i(TAG, "Starting Alarm Activity=====");
+                if (isAlarmOn()) {
+                    Log.e(TAG, "Starting Alarm Activity=====");
                     Intent alarmIntent = new Intent(this, AlarmActivity.class);
                     alarmIntent.putExtra("TaskID", c.getString(COL_TASK_ID));
                     alarmIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
@@ -207,50 +207,23 @@ public class FusedLocationService extends Service implements GoogleApiClient.Con
         }
         c.close();
     }
-
-    /* public int getDistanceByPlaceName(String placeName, Location currentLocation, Context context) {
-         float distance = 0;
-         Location location = new Location("Dummy");
-
-         Cursor cursor1 = context.getContentResolver().query(TasksContract.LocationEntry.CONTENT_URI,
-                 new String[]{TasksContract.LocationEntry.COLUMN_COORD_LAT,
-                         TasksContract.LocationEntry.COLUMN_COORD_LONG,
-                         TasksContract.LocationEntry.COLUMN_PLACE_NAME},
-                 TasksContract.LocationEntry.COLUMN_PLACE_NAME + "=?",
-                 new String[]{placeName}, null);
-
-         if (cursor1.moveToNext()) {
-             location.setLatitude(cursor1.getDouble(0));
-             location.setLongitude(cursor1.getDouble(1));
-         } else {
-             Toast.makeText(context, "null Cursor", Toast.LENGTH_LONG).show();
-             location.setLatitude(currentLocation.getLatitude());
-             location.setLongitude(currentLocation.getLongitude());
-         }
-         cursor1.close();
-         if (currentLocation != null) {
-             distance = currentLocation.distanceTo(location);
-             int dist = Math.round(distance);
-
-             return dist;
-         } else {
-             return 0;
-         }
-     }
-   */
     public boolean isAlarmOn() {
-        Log.e(TAG, "returning" + c.getString(COL_ALARM).equals("true"));
+     //   Log.e(TAG, "returning" + c.getString(COL_ALARM).equals("true"));
         return c.getString(COL_ALARM).equals("true");
     }
 
     public boolean isAlreadyRunning() {
+        //Log.e(TAG,"That activity's started is "+AlarmActivity.started);
+
         SharedPreferences sp = getSharedPreferences("ACTIVITYINFO", MODE_PRIVATE);
         boolean active = sp.getBoolean("active", false);
-        Log.e(TAG, "isAlreadyRunning= " + active);
+        Log.e(TAG, "From SharedPrefs we got  " + active);
         return active;
     }
 
     public boolean isSnoozed() {
+        if(System.currentTimeMillis()<c.getLong(COL_SNOOZE_TIME))
+        return true;
         return false;
     }                 //TODO:Implement this
 
@@ -377,7 +350,6 @@ public class FusedLocationService extends Service implements GoogleApiClient.Con
                         if (conf > 50)
                             restartLocationUpdates(15000);
                         break;
-
 
                     case DetectedActivity.UNKNOWN:
                         if (conf > 60)

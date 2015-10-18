@@ -8,7 +8,7 @@
 
 <string name="local_service_started">Service Started</string>
    <string name="title_activity_detail">Task Details</string>
-    <string name="title_activity_alarm">AlarmActivity</string>
+    <string name="title_activity_alarm">Task Nearby</string>
 
 
 

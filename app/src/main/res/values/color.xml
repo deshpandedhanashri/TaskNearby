@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <color name="Tomato">#ec2d01</color>
+    <color name="Peacock">#1E90FF</color>
+    <color name="Grape">#ff6f2da8</color>
+    <color name="Tangerine">#ffcc00</color>
+    <color name="Pink">#FF82AB</color>
+    <color name="Lavender">#b378d3</color>
+
+    <color name="white">#ffffff</color>
+    <color name="Green">#1DA237</color>
+</resources>

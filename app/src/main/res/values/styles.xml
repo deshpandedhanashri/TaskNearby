@@ -1,5 +1,13 @@
 <resources>
+
     <style name="AppTheme" parent="Theme.AppCompat.Light">
+
+        <!-- colorPrimary is used for the default action bar background -->
+        <item name="colorPrimary">#ffffff</item>
+
+    </style>
+
+    <style name="MainScreenTheme" parent="Theme.AppCompat.Light.NoActionBar">
 
         <!-- colorPrimary is used for the default action bar background -->
         <item name="colorPrimary">#ffffff</item>

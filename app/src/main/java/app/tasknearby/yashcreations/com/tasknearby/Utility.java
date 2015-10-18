@@ -93,7 +93,9 @@ public class Utility {
     }
 
     public static int getColorCodeFromString(Context context, String colorName) {
+
         int hexCode;
+
         if (colorName.equals("Tomato"))
             hexCode = Color.parseColor("#ec2d01");
         else if (colorName.equals("Tangerine"))

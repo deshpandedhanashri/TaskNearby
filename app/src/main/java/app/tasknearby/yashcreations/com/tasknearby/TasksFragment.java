@@ -83,28 +83,28 @@ public class TasksFragment extends Fragment implements LoaderManager.LoaderCallb
 
 
         TextView noTaskView = (TextView) rootView.findViewById(R.id.textView);
-//        Uri uri = TasksContract.TaskEntry.CONTENT_URI;
 
         LocationManager locationManager = (LocationManager) getActivity().getSystemService(Context.LOCATION_SERVICE);
         if (!locationManager.isProviderEnabled(locationManager.GPS_PROVIDER)) {
             Utility.showGpsOffDialog(getActivity());
         }
 
-//
-//        //READING FROM DATABASE FOR MAIN_SCREEN
-//        String sortOrder = TasksContract.TaskEntry.COLUMN_DONE_STATUS + " ASC, " + TasksContract.TaskEntry.COLUMN_MIN_DISTANCE + " ASC ";
-//        final Cursor cursor = getActivity().getContentResolver().query(uri, PROJECTION, null, null, sortOrder);
-//
-//        if (!cursor.moveToFirst()) {
-//            noTaskView.setVisibility(View.VISIBLE);
-//        }
-
         mTaskAdapter = new TasksAdapter(getActivity(),null, 0);
-        //{
-//            //////////////////////////////////////////////////////////////
-//        };
+
         ListView listview = (ListView) rootView.findViewById(R.id.listView_task);
         listview.setAdapter(mTaskAdapter);
+
+
+
+        //Just for Checking Empty List View
+        //TODO: Find alternative and remove this
+        Uri uri = TasksContract.TaskEntry.CONTENT_URI;
+        String sortOrder = TasksContract.TaskEntry.COLUMN_DONE_STATUS + " ASC, " + TasksContract.TaskEntry.COLUMN_MIN_DISTANCE + " ASC ";
+        final Cursor cursor = getActivity().getContentResolver().query(uri, PROJECTION, null, null, sortOrder);
+        if(!cursor.moveToFirst())
+       {noTaskView.setVisibility(View.VISIBLE);}
+        cursor.close();
+
 
 
         listview.setOnItemClickListener(new AdapterView.OnItemClickListener() {

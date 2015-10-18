@@ -26,6 +26,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import app.tasknearby.yashcreations.com.tasknearby.database.TasksContract;
+import app.tasknearby.yashcreations.com.tasknearby.service.FusedLocationService;
 
 
 public class AddNewTaskActivity extends ActionBarActivity {
@@ -152,8 +153,13 @@ public class AddNewTaskActivity extends ActionBarActivity {
                     taskValues.put(TasksContract.TaskEntry.COLUMN_SNOOZE_TIME, "0");
                     taskValues.put(TasksContract.TaskEntry.COLUMN_REMIND_DISTANCE, remindDistance);
 
+                    if(distance<=remindDistance&&distance!=0) {
+                       Toast.makeText(AddNewTaskActivity.this,"You are Already within the Selected region!",Toast.LENGTH_LONG).show();
+                                  }
+
 
                    Uri insertedUri= AddNewTaskActivity.this.getContentResolver().insert(TasksContract.TaskEntry.CONTENT_URI, taskValues);
+
 
                     Intent intent = AddNewTaskActivity.this.getIntent();
                     AddNewTaskActivity.this.setResult(RESULT_OK, intent);

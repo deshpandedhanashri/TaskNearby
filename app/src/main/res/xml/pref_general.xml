@@ -8,7 +8,7 @@
         android:entryValues="@array/pref_units_entries"/>                                   <!--not user visible but constants-->
 
 
-    <ListPreference
+    <!--<ListPreference
         android:key="@string/pref_interval_key"
         android:title="@string/pref_interval_label"
         android:defaultValue="@string/pref_interval_default"
@@ -22,6 +22,6 @@
         android:entries="@array/pref_status_values"
         android:entryValues="@array/pref_status_entries"/>
 
-
+-->
 
 </PreferenceScreen>
