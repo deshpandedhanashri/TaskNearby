@@ -163,9 +163,9 @@ public class MainActivity extends ActionBarActivity {
 
         if (resultCode == RESULT_OK) {
             Toast.makeText(this, "Task Added", Toast.LENGTH_SHORT).show();
-            TasksFragment ff = (TasksFragment) getSupportFragmentManager().findFragmentByTag(TASKSFRAGMENT_TAG);
-            if (null != ff)
-                ff.refreshLoader();
+//            TasksFragment ff = (TasksFragment) getSupportFragmentManager().findFragmentByTag(TASKSFRAGMENT_TAG);
+//            if (null != ff)
+//                ff.refreshLoader();
             TextView tv = (TextView) this.findViewById(R.id.textView);
             tv.setVisibility(View.INVISIBLE);
         }
@@ -185,6 +185,15 @@ public class MainActivity extends ActionBarActivity {
 
         super.onRestart();
     }
+
+   /* @Override
+    protected void onResume() {
+        TasksFragment ff = (TasksFragment) getSupportFragmentManager().findFragmentByTag(TASKSFRAGMENT_TAG);
+        if (null != ff)
+            ff.refreshLoader();
+
+        super.onResume();
+    }*/
 
     public boolean getAppStatus() {
         SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);

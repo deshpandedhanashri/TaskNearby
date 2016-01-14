@@ -8,6 +8,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
 import android.net.Uri;
+import android.os.PersistableBundle;
 import android.preference.ListPreference;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
@@ -16,6 +17,7 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
@@ -92,11 +94,20 @@ public class AddNewTaskActivity extends ActionBarActivity {
 
         initialize();
 
-        String baseText="Remind when closer than ";
-        remindDistanceView.setText(baseText + Utility.getDistanceDisplayString(this,remindDistance));
+//        InputMethodManager imm=(InputMethodManager)this.getSystemService(INPUT_METHOD_SERVICE);
+//        imm.hideSoftInputFromWindow(taskName.getWindowToken(),0);
+
+
+        String baseText = "Remind when closer than ";
+        remindDistanceView.setText(baseText + Utility.getDistanceDisplayString(this, remindDistance));
 
         selectedLocationDisplayView.setText(null);
         colorButton.setText("Color: Grape");
+
+        Intent intent1 = this.getIntent();
+        if (intent1.hasExtra(DetailActivity.tName)) {
+            setScreenAsEdit(intent1);
+        }
 
         LocationSelector.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -125,7 +136,6 @@ public class AddNewTaskActivity extends ActionBarActivity {
             @Override
             public void onClick(View view) {
                 Utility.showRemindDistanceDialog(AddNewTaskActivity.this);
-
             }
         });
 
@@ -151,14 +161,17 @@ public class AddNewTaskActivity extends ActionBarActivity {
                     taskValues.put(TasksContract.TaskEntry.COLUMN_MIN_DISTANCE, distance);
                     taskValues.put(TasksContract.TaskEntry.COLUMN_DONE_STATUS, "false");
                     taskValues.put(TasksContract.TaskEntry.COLUMN_SNOOZE_TIME, "0");
+
+                    Log.e("TAG", "Entering into database RemindDistance" + remindDistance);
+
                     taskValues.put(TasksContract.TaskEntry.COLUMN_REMIND_DISTANCE, remindDistance);
 
-                    if(distance<=remindDistance&&distance!=0) {
-                       Toast.makeText(AddNewTaskActivity.this,"You are Already within the Selected region!",Toast.LENGTH_LONG).show();
-                                  }
+                    if (distance <= remindDistance && distance != 0) {
+                        Toast.makeText(AddNewTaskActivity.this, "You are Already within the Selected region!", Toast.LENGTH_LONG).show();
+                    }
 
 
-                   Uri insertedUri= AddNewTaskActivity.this.getContentResolver().insert(TasksContract.TaskEntry.CONTENT_URI, taskValues);
+                    Uri insertedUri = AddNewTaskActivity.this.getContentResolver().insert(TasksContract.TaskEntry.CONTENT_URI, taskValues);
 
 
                     Intent intent = AddNewTaskActivity.this.getIntent();
@@ -170,6 +183,45 @@ public class AddNewTaskActivity extends ActionBarActivity {
             }
         });
 
+    }
+
+
+    public void setScreenAsEdit(Intent intent) {
+        CreateNewTask.setText("SAVE EDITS");
+        android.support.v7.app.ActionBar aBar = getSupportActionBar();
+        if (aBar != null)
+            aBar.setTitle("Edit Task");
+
+        String tName = intent.getStringExtra(DetailActivity.tName);
+        String tLoc = intent.getStringExtra(DetailActivity.tLocation);
+        int tCol = intent.getIntExtra(DetailActivity.tColor, 0);
+        String tAlarm = intent.getStringExtra(DetailActivity.tAlarm);
+        int tRemDis = intent.getIntExtra(DetailActivity.tRemDis, 50);
+
+        Log.e("TAG", "Taskname :" + tName + " " + tLoc + " " + tCol + " " + tAlarm + " " + tRemDis);
+
+        taskName.setText(tName);
+
+        mTaskLocation = tLoc;
+        selectedLocationDisplayView.setText(tLoc);
+
+        returnedColorCode = tCol;
+        baseLayout.setBackgroundColor(tCol);
+        colorButton.setText("Color");
+
+        if (tAlarm.equals("true"))
+            alarmStatus.setChecked(true);
+        else
+            alarmStatus.setChecked(false);
+
+        remindDistance = tRemDis;
+        String dispString = "Remind when closer than " + remindDistance;
+        if (Utility.isMetric(this))
+            dispString += "m";
+        else
+            dispString += "yd";
+
+        remindDistanceView.setText(dispString);
     }
 
 

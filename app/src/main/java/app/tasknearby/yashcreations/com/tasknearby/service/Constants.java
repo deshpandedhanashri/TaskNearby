@@ -1,5 +1,7 @@
 package app.tasknearby.yashcreations.com.tasknearby.service;
 
+import com.google.android.gms.location.LocationRequest;
+
 /**
  * Created by Yash on 13/10/15.
  */

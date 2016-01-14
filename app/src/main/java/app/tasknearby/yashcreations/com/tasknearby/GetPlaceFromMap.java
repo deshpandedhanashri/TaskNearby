@@ -104,6 +104,9 @@ public class GetPlaceFromMap extends ActionBarActivity {
             }
             return true;
         }
+        else if(id==android.R.id.home)
+        {   finish();
+            return true;}
 
         return super.onOptionsItemSelected(item);
     }

@@ -12,8 +12,12 @@ import android.media.Ringtone;
 import android.media.RingtoneManager;
 import android.net.Uri;
 import android.os.AsyncTask;
+import android.os.Vibrator;
+import android.preference.PreferenceManager;
+import android.preference.RingtonePreference;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.LinearLayout;
@@ -49,7 +53,7 @@ public class AlarmActivity extends ActionBarActivity {
     MediaPlayer mMediaPlayer = new MediaPlayer();
     int alarmTone = R.raw.alarm;  //Utility.getPreferredAlarmTone(this);
     Cursor c;
-    Ringtone ringtone;
+    Vibrator vibrator;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -136,7 +140,7 @@ public class AlarmActivity extends ActionBarActivity {
                 finish();
             }
         });
-
+        vibrator = (Vibrator) this.getSystemService(VIBRATOR_SERVICE);
     }
 
 
@@ -146,11 +150,31 @@ public class AlarmActivity extends ActionBarActivity {
         @Override
         protected Object doInBackground(Object[] objects) {
 
-            mMediaPlayer = MediaPlayer.create(AlarmActivity.this, alarmTone);
-            mMediaPlayer.setAudioStreamType(AudioManager.STREAM_MUSIC);
-            mMediaPlayer.setLooping(true);
-            mMediaPlayer.start();
+            SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(AlarmActivity.this);
+            String temp = prefs.getString(getString(R.string.pref_tone_key), null);
+            Uri uri;
+            if (temp == null)
+                uri = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_RINGTONE);
+            else
+                uri = Uri.parse(temp);
 
+           // Log.e("TAG", "Uri is " + uri);
+
+
+            try {
+                if (uri != null)
+                    mMediaPlayer.setDataSource(AlarmActivity.this, uri);
+
+                else
+                    mMediaPlayer = MediaPlayer.create(AlarmActivity.this, alarmTone);
+
+                mMediaPlayer.setAudioStreamType(AudioManager.STREAM_RING);
+                mMediaPlayer.setLooping(true);
+                mMediaPlayer.prepare();
+                mMediaPlayer.start();
+            } catch (Exception e) {
+                Log.e("TAG", "============Exception encounered");
+            }
             return null;
         }
     }
@@ -168,10 +192,11 @@ public class AlarmActivity extends ActionBarActivity {
 
     @Override
     protected void onPause() {
+        vibrator.cancel();
         if (mMediaPlayer.isPlaying())
             mMediaPlayer.stop();
-        if (ringtone.isPlaying())
-            ringtone.stop();
+//        if (ringtone.isPlaying())
+//            ringtone.stop();
 
         c.close();
         finish();
@@ -186,21 +211,26 @@ public class AlarmActivity extends ActionBarActivity {
     @Override
     protected void onStart() {
         super.onStart();
+//
+//        SharedPreferences prefs= PreferenceManager.getDefaultSharedPreferences(AlarmActivity.this);
+//        String temp=prefs.getString(getString(R.string.pref_tone_key), null);
+//        Uri uri;
+//        if(temp==null)
+//            uri=RingtoneManager.getDefaultUri(RingtoneManager.TYPE_RINGTONE);
+//        else
+//            uri = Uri.parse(temp);
+//        if(uri!=null)
+//        {
+//            ringtone = RingtoneManager.getRingtone(this, uri);
+//            ringtone.play();
+//        }
+        vibrator.vibrate(1000);
+        // AudioManager am = (AudioManager) getSystemService(Context.AUDIO_SERVICE);
+        //if (am.getRingerMode() == AudioManager.RINGER_MODE_NORMAL) {
+        PlaySoundTask m = new PlaySoundTask();
+        m.execute();
+        //}
 
-        Uri uri = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_ALARM);
-        if(uri!=null)
-        {ringtone = RingtoneManager.getRingtone(this, uri);
-        ringtone.play();}
-        else
-        {
-
-            AudioManager am = (AudioManager) getSystemService(Context.AUDIO_SERVICE);
-            if (am.getRingerMode() == AudioManager.RINGER_MODE_NORMAL) {
-                PlaySoundTask m = new PlaySoundTask();
-                m.execute();
-            }
-
-        }
 
     }
 
@@ -213,8 +243,9 @@ public class AlarmActivity extends ActionBarActivity {
 
     @Override
     protected void onDestroy() {
-        if (ringtone.isPlaying())
-            ringtone.stop();
+//        if (ringtone.isPlaying())
+//            ringtone.stop();
+        vibrator.cancel();
         if (mMediaPlayer.isPlaying())
             mMediaPlayer.stop();
         super.onDestroy();

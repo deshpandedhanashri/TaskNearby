@@ -15,6 +15,7 @@ import android.location.Location;
 import android.media.RingtoneManager;
 import android.os.Bundle;
 import android.os.IBinder;
+import android.preference.PreferenceManager;
 import android.support.v4.content.LocalBroadcastManager;
 import android.util.Log;
 import android.widget.Toast;
@@ -31,6 +32,7 @@ import com.google.android.gms.location.LocationRequest;
 import com.google.android.gms.location.LocationServices;
 
 import java.util.ArrayList;
+import java.util.prefs.Preferences;
 
 import app.tasknearby.yashcreations.com.tasknearby.AlarmActivity;
 import app.tasknearby.yashcreations.com.tasknearby.DetailActivity;
@@ -69,6 +71,7 @@ public class FusedLocationService extends Service implements GoogleApiClient.Con
 
     String placeName;
     int placeDistance;
+    int ACCURACY=LocationRequest.PRIORITY_HIGH_ACCURACY;
 
     private static final String TAG = "FusedLocationService";
     private ActivityDetectionReceiver mReceiver;
@@ -83,17 +86,26 @@ public class FusedLocationService extends Service implements GoogleApiClient.Con
     @Override
     public void onCreate() {
         Log.i(TAG, "FusedService Started!");
+
         if (checkPlayServices()) {
             buildGoogleApiClient();
 
             mReceiver = new ActivityDetectionReceiver();                //Registering Activity Recognition Receiver
             LocalBroadcastManager.getInstance(this).registerReceiver(mReceiver, new IntentFilter(Constants.INTENT_FILTER));
 
+
+            SharedPreferences prefs= PreferenceManager.getDefaultSharedPreferences(this);
+            String pref_string=prefs.getString(getString(R.string.pref_accuracy_key), getString(R.string.pref_accuracy_default));
+            if(pref_string.equals(getString(R.string.pref_accuracy_balanced)))
+                ACCURACY=LocationRequest.PRIORITY_BALANCED_POWER_ACCURACY;
+
+
             mLocationRequest = new LocationRequest();
             createLocationRequest();
         }
         Constants.UPDATE_INTERVAL = Utility.getUpdateInterval(this);
         Constants.FATEST_INTERVAL = (Constants.UPDATE_INTERVAL - 4000);
+
     }
 
     @Override
@@ -137,7 +149,7 @@ public class FusedLocationService extends Service implements GoogleApiClient.Con
     protected void createLocationRequest() {
         mLocationRequest.setInterval(Constants.UPDATE_INTERVAL);
         mLocationRequest.setFastestInterval(Constants.FATEST_INTERVAL);
-        mLocationRequest.setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY);
+        mLocationRequest.setPriority(ACCURACY);
         mLocationRequest.setSmallestDisplacement(Constants.DISPLACEMENT);
     }
 

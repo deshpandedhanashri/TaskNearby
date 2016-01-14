@@ -67,6 +67,25 @@
     </string-array>
 
     <string name="pref_status_label">Application Status</string>
+
+    <string name="pref_tone_key">alarm_tone</string>
+    <string name="pref_tone_default">Metric(m)</string>
+
+    <string name="pref_accuracy_key">accuracy_pref</string>
+    <string name="pref_accuracy_default">high</string>
+    <string-array name="pref_accuracy_values">
+        <item>High Accuracy(Recommended)</item>
+        <item>Balanced Accuracy</item>
+    </string-array>
+    <string name="pref_accuracy_balanced">balanced</string>
+    <string-array name="pref_accuracy_entries">
+        <item>high</item>
+        <item>balanced</item>
+    </string-array>
+    <string name="pref_accuracy_label">Location Accuracy</string>
+
+
+
     <string name="title_activity_about">About App</string>
     <string name="title_activity_help">Help</string>
     <string name="help_content">How often do you pass right by the grocery store and forget to pick up milk? Have you ever headed to the airport to catch an international flight, only to realize your passport is back at home?

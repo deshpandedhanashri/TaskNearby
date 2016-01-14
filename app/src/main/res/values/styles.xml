@@ -12,7 +12,8 @@
         <!-- colorPrimary is used for the default action bar background -->
         <item name="colorPrimary">#ffffff</item>
 
-        </style>
+    </style>
+
 
 
 </resources>

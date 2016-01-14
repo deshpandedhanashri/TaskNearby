@@ -10,6 +10,7 @@ import android.location.Location;
 import android.net.Uri;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -30,6 +31,7 @@ import app.tasknearby.yashcreations.com.tasknearby.database.TasksContract;
 
 public class DetailActivity extends ActionBarActivity {
     public static int finishChecker;
+    public static int EDIT_RESULT=16;
 
     String PROJECTION[] = {
             TasksContract.TaskEntry.TABLE_NAME + "." + TasksContract.TaskEntry._ID,
@@ -51,13 +53,20 @@ public class DetailActivity extends ActionBarActivity {
     static final int COL_ALARM = 4;
     static final int COL_DONE=5;
     static final int COL_MIN_DISTANCE=6;
-    static final int COL_REMIND_DIS=7;
-    static final int COL_SNOOZE=8;
+    static final int COL_REMIND_DIS=8;
+    static final int COL_SNOOZE=7;
+
+    static final String tName="tName";
+    static final String tLocation="tLoc";
+    static final String tColor="tColor";
+    static final String tAlarm="tAlarm";
+    static final String tRemDis="tRemDis";
+
     Cursor c;
     GoogleMap map;
     TextView distanceView;
     String doneStatus;
-
+    String ID;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -80,7 +89,7 @@ public class DetailActivity extends ActionBarActivity {
         Button markDone=(Button) this.findViewById(R.id.btnMarkDone);
 
         Intent intent = this.getIntent();
-        String ID = intent.getStringExtra("TaskID");
+        ID = intent.getStringExtra("TaskID");
         Uri uri = TasksContract.TaskEntry.CONTENT_URI;
 
         c = this.getContentResolver().query(uri, PROJECTION,
@@ -92,6 +101,9 @@ public class DetailActivity extends ActionBarActivity {
             locationView.setText(c.getString(COL_LOCATION_NAME));
             baseLayout.setBackgroundColor(c.getInt(COL_TASK_COLOR));
             doneStatus=c.getString(COL_DONE);
+
+            Log.e("TAG","Reading from Database...Remind distance c.getString:"+c.getString(COL_REMIND_DIS)+" c.getInt:"+c.getInt(COL_REMIND_DIS));
+
             if(doneStatus.equals("true"))
             {
                 markDone.setText("Mark Not Done");
@@ -143,7 +155,6 @@ public class DetailActivity extends ActionBarActivity {
                     finish();
                     startActivity(getIntent());
 
-
                 }
                else
                 {
@@ -191,37 +202,46 @@ public class DetailActivity extends ActionBarActivity {
 
 
         if (id == R.id.action_delete) {
-            deleteTask( c.getString(COL_TASK_ID));
+            deleteTask( c.getString(COL_TASK_ID),true);
 
             return true;
         }
-        else if(id==R.id.action_share)
-        {   Intent intent=new Intent(Intent.ACTION_SEND);
+        else if(id==R.id.action_share)      //TODO:add    c.close();
+        {
+            Intent intent=new Intent(Intent.ACTION_SEND);
             String m="Task Name: "+c.getString(COL_TASK_NAME)+
                     "\nTask Location: "+c.getString(COL_LOCATION_NAME)+
                     "\nDistance From Current Location: "+distanceView.getText().toString()+"\n#Task Nearby App";
             intent.setType("text/plain");
             intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_WHEN_TASK_RESET);
-            intent.putExtra(Intent.EXTRA_TEXT,m);
+            intent.putExtra(Intent.EXTRA_TEXT, m);
             if(intent.resolveActivity(this.getPackageManager())!=null)
                 startActivity(intent);
             else
                 Toast.makeText(this,"No app found to share the Details",Toast.LENGTH_SHORT).show();
             return true;
         }
+        else if(id==R.id.action_edit)
+        {
+            editTask();
+            return true;
+        }
+        else if(id==android.R.id.home)
+        {   finish();
+            return true;}
 
         return super.onOptionsItemSelected(item);
     }
-    public int deleteTask(final String task_ID) {
+    public  int deleteTask(final String task_ID,boolean showDialog) {
         final AlertDialog.Builder alertDialog = new AlertDialog.Builder(this);
+
         alertDialog.setTitle("Delete !");
         alertDialog.setMessage("Delete this Task?");
-
 
         alertDialog.setPositiveButton("Yes",
                 new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int which) {
-                        getContentResolver().delete(TasksContract.TaskEntry.CONTENT_URI, TasksContract.TaskEntry._ID + "=?",
+                        DetailActivity.this.getContentResolver().delete(TasksContract.TaskEntry.CONTENT_URI, TasksContract.TaskEntry._ID + "=?",
                                 new String[]{task_ID});
                         c.close();
                         finish();
@@ -234,9 +254,48 @@ public class DetailActivity extends ActionBarActivity {
                     }
                 });
 
-        alertDialog.show();
+        if(showDialog)
+            alertDialog.show();
+        else
+        {
+            getContentResolver().delete(TasksContract.TaskEntry.CONTENT_URI, TasksContract.TaskEntry._ID + "=?",
+                    new String[]{task_ID});
+            c.close();
+            finish();
+        }
+
         return 0;
     }
 
+    public void editTask()
+    {
+        Intent editIntent=new Intent(this,AddNewTaskActivity.class);
+        editIntent.putExtra(tName,c.getString(COL_TASK_NAME));
+        editIntent.putExtra(tLocation,c.getString(COL_LOCATION_NAME));
+        editIntent.putExtra(tColor,c.getInt(COL_TASK_COLOR));
+        editIntent.putExtra(tAlarm,c.getString(COL_ALARM));
+        editIntent.putExtra(tRemDis,c.getInt(COL_REMIND_DIS));
 
+        Log.e("TAG","Putting remind dis="+c.getInt(COL_REMIND_DIS)+"c.getString returns "+c.getString(COL_REMIND_DIS));
+
+        startActivityForResult(editIntent, EDIT_RESULT);
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if(requestCode==EDIT_RESULT)
+        {
+            if(resultCode==RESULT_OK)
+            {
+                deleteTask(ID,false);
+            }
+
+        }
+
+
+
+
+    }
 }

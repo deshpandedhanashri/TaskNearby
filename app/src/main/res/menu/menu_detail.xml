@@ -9,8 +9,13 @@
           android:orderInCategory="100"
         app:showAsAction="ifRoom" />
     <item
+        android:id="@+id/action_edit"
+        android:title="Edit"
+        android:icon="@drawable/ic_action_edit"
+        app:showAsAction="always"/>
+    <item
         android:id="@+id/action_share"
         android:title="Share"
         android:icon="@drawable/ic_action_name2"
-        app:showAsAction="always"/>
+        />
 </menu>

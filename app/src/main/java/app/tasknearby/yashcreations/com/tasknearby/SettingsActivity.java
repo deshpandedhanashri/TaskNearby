@@ -1,10 +1,14 @@
 package app.tasknearby.yashcreations.com.tasknearby;
 
+import android.media.Ringtone;
+import android.media.RingtoneManager;
+import android.net.Uri;
 import android.os.Bundle;
 import android.preference.ListPreference;
 import android.preference.Preference;
 import android.preference.PreferenceActivity;
 import android.preference.PreferenceManager;
+import android.preference.RingtonePreference;
 import android.support.v7.app.ActionBarActivity;
 
 /**
@@ -26,7 +30,7 @@ public class SettingsActivity extends PreferenceActivity implements Preference.O
         //bindPreferenceSummaryToValue(findPreference(getString(R.string.pref_interval_key)));
         //bindPreferenceSummaryToValue(findPreference(getString(R.string.pref_status_key)));
         bindPreferenceSummaryToValue(findPreference(getString(R.string.pref_units_key)));
-       // bindPreferenceSummaryToValue(findPreference(getString(R.string.disable_alarms_key)));
+        bindPreferenceSummaryToValue(findPreference(getString(R.string.pref_tone_key)));
     }
 
 
@@ -59,7 +63,18 @@ public class SettingsActivity extends PreferenceActivity implements Preference.O
             if (prefIndex >= 0) {
                 preference.setSummary(listPreference.getEntries()[prefIndex]);
             }
-        } else {
+        }
+        else if(preference instanceof RingtonePreference)
+        {
+            //RingtonePreference ringtonePreference=(RingtonePreference)preference;
+            try {
+                Ringtone ringtone = RingtoneManager.getRingtone(SettingsActivity.this, Uri.parse((String) value));
+                String summary = ringtone.getTitle(SettingsActivity.this);
+                preference.setSummary(summary);
+            }
+            catch (Exception e){e.printStackTrace();}
+        }
+        else {
             // For other preferences, set the summary to the value's simple string representation.
             preference.setSummary(stringValue);
         }

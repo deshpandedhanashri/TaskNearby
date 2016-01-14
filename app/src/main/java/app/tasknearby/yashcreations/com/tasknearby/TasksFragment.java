@@ -1,9 +1,11 @@
 package app.tasknearby.yashcreations.com.tasknearby;
 
 import android.annotation.TargetApi;
+import android.app.AlertDialog;
 import android.content.ContentUris;
 import android.content.ContentValues;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
@@ -46,7 +48,10 @@ public class TasksFragment extends Fragment implements LoaderManager.LoaderCallb
             TasksContract.TaskEntry.COLUMN_LOCATION_NAME,
             TasksContract.TaskEntry.COLUMN_LOCATION_COLOR,
             TasksContract.TaskEntry.COLUMN_DONE_STATUS,
-            TasksContract.TaskEntry.COLUMN_MIN_DISTANCE
+            TasksContract.TaskEntry.COLUMN_MIN_DISTANCE,
+            TasksContract.TaskEntry.COLUMN_LOCATION_ALARM,
+            TasksContract.TaskEntry.COLUMN_REMIND_DISTANCE,
+
 
 
     };
@@ -57,6 +62,8 @@ public class TasksFragment extends Fragment implements LoaderManager.LoaderCallb
     public static final int COL_TASK_COLOR = 3;
     public static final int COL_DONE = 4;
     public static final int COL_MIN_DISTANCE = 5;
+    public static final int COL_ALARM = 6;
+    public static final int COL_REMIND_DIS = 7;
     public static int distance = 0;
 
     public TasksFragment() {
@@ -120,6 +127,42 @@ public class TasksFragment extends Fragment implements LoaderManager.LoaderCallb
                 }
             }
         });
+/*
+        listview.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+            @Override
+            public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
+                final Cursor c=mTaskAdapter.getCursor();
+                if(c!=null && c.moveToPosition(position)) {
+                    final String values[] = {"Edit", "Delete"};
+
+                    AlertDialog.Builder alertDialog = new AlertDialog.Builder(getActivity());
+                    alertDialog.setItems(values, new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int item) {
+                            if (item == 0) //Edit
+                            {
+                                Intent editIntent=new Intent(getActivity(),AddNewTaskActivity.class);
+                                editIntent.putExtra(DetailActivity.tName,c.getString(COL_TASK_NAME));
+                                editIntent.putExtra(DetailActivity.tLocation,c.getString(COL_LOCATION_NAME));
+                                editIntent.putExtra(DetailActivity.tColor,c.getInt(COL_TASK_COLOR));
+                                editIntent.putExtra(DetailActivity.tAlarm,c.getString(COL_ALARM));
+                                editIntent.putExtra(DetailActivity.tRemDis, c.getInt(COL_REMIND_DIS));
+
+                               //Log.e("TAG","Putting remind dis="+c.getInt(COL_REMIND_DIS)+"c.getString returns "+c.getString(COL_REMIND_DIS));
+                                startActivityForResult(editIntent, DetailActivity.EDIT_RESULT);
+
+                            } else if (item == 1)//DELETE
+                            {
+
+
+                            }
+                        }
+                    });
+                    alertDialog.show();
+
+                }
+                return false;
+            }
+        });*/
 
 
         final ImageButton btn_Create = (ImageButton) rootView.findViewById(R.id.btnCreate);
@@ -163,5 +206,8 @@ public class TasksFragment extends Fragment implements LoaderManager.LoaderCallb
         super.onResume();
         refreshLoader();
     }
+
+
+
 
 }

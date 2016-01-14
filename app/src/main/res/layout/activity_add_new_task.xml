@@ -195,7 +195,8 @@
             android:layout_height="wrap_content"
             android:padding="16dp"
             android:text="CREATE TASK"
-            android:textSize="22sp" />
+            android:textSize="22sp"
+            />
 
 
     </LinearLayout>
