@@ -1,21 +1,14 @@
 package app.tasknearby.yashcreations.com.tasknearby;
 
-import android.app.ActionBar;
 import android.app.AlertDialog;
 import android.content.ContentValues;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.graphics.Color;
 import android.net.Uri;
-import android.os.PersistableBundle;
-import android.preference.ListPreference;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
-import android.util.AttributeSet;
-import android.util.Log;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
@@ -23,53 +16,26 @@ import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
-import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import app.tasknearby.yashcreations.com.tasknearby.database.TasksContract;
-import app.tasknearby.yashcreations.com.tasknearby.service.FusedLocationService;
 
 
 public class AddNewTaskActivity extends ActionBarActivity {
-    int GET_PLACE_FROM_MAP = 56;
-    double defValue = 0;
-    public static String mTaskLocation = null;
-    public static TextView selectedLocationDisplayView;
-    public static String returnedColorName;
-    public static int returnedColorCode;
-    public static TextView colorButton;
-    public static LinearLayout baseLayout;
-    public static TextView remindDistanceView;
-    public static int remindDistance;
-    int distance;
+    int REQUEST_CODE_GET_FROM_MAP = 3;
+    int REQUEST_CODE_SAVED_PLACES = 6;
+
+    String mTaskLocation = null, mColorName;
+    int mColorCode, remindDistance, distance;
+    TextView selectedLocationDisplayView, colorButton, remindDistanceView;
+    LinearLayout baseLayout;
     ImageButton LocationSelector, selFromMap;
     Button CreateNewTask;
     EditText taskName;
     CheckBox alarmStatus;
 
-
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        if (requestCode == GET_PLACE_FROM_MAP) {        //LOCATION SELECTED FROM MAP
-            if (resultCode == RESULT_OK) {
-                double lat = data.getDoubleExtra(GetPlaceFromMap.LATITUDE, defValue);
-                double lon = data.getDoubleExtra(GetPlaceFromMap.LONGITUDE, defValue);
-
-                Utility.savePlaceDialog(AddNewTaskActivity.this, lat, lon);
-
-            }
-        } else if (requestCode == 6)                         //LOCATION SELECTED FROM SAVED PLACES
-        {
-            if (resultCode == RESULT_OK) {
-                mTaskLocation = data.getStringExtra("loc");
-                selectedLocationDisplayView.setText(mTaskLocation);
-            }
-        }
-
-
-    }
+    Utility utility = new Utility();
 
     public void initialize() {
         baseLayout = (LinearLayout) this.findViewById(R.id.newTaskBaseLayout);
@@ -84,36 +50,74 @@ public class AddNewTaskActivity extends ActionBarActivity {
     }
 
     @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == REQUEST_CODE_GET_FROM_MAP) {        //LOCATION SELECTED FROM MAP
+            if (resultCode == RESULT_OK) {
+                double lat = data.getDoubleExtra(Constants.LATITUDE, 0);
+                double lon = data.getDoubleExtra(Constants.LONGITUDE, 0);
+                savePlaceDialog(this, lat, lon);
+            }
+        } else if (requestCode == REQUEST_CODE_SAVED_PLACES)                         //LOCATION SELECTED FROM SAVED PLACES
+        {
+            if (resultCode == RESULT_OK) {
+                mTaskLocation = data.getStringExtra(Constants.savedLocation);
+                selectedLocationDisplayView.setText(mTaskLocation);
+            }
+        }
+    }
+
+    public void savePlaceDialog(final Context context, final Double latitude, final Double longitude) {
+
+        final AlertDialog.Builder alertDialog = new AlertDialog.Builder(context);
+
+        alertDialog.setTitle("Save the new Place");
+        final EditText input = new EditText(context);
+        alertDialog.setView(input);
+        input.setHint("Place's Name");
+        alertDialog.setPositiveButton("Save",
+                new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+                        String place = input.getText().toString();
+                        mTaskLocation = place;
+                        selectedLocationDisplayView.setText(place);
+                        utility.addLocation(context, place, latitude, longitude);
+                        InputMethodManager imm = (InputMethodManager) context.getSystemService(    //To Hide The Keyboard
+                                Context.INPUT_METHOD_SERVICE);
+                        imm.hideSoftInputFromWindow(input.getWindowToken(), 0);
+                        Toast.makeText(context, "Place Saved", Toast.LENGTH_SHORT).show();
+                    }
+                });
+        alertDialog.show();
+    }
+
+    @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_new_task);
-        mTaskLocation = null;
-        returnedColorCode = Color.parseColor("#ff6f2da8");
-        returnedColorName = "Grape";
-        remindDistance = 50;
 
         initialize();
 
-//        InputMethodManager imm=(InputMethodManager)this.getSystemService(INPUT_METHOD_SERVICE);
-//        imm.hideSoftInputFromWindow(taskName.getWindowToken(),0);
+        mTaskLocation = null;
+        mColorCode = ContextCompat.getColor(this, R.color.Grape);
+        mColorName = "Grape";
+        remindDistance = 50;
 
 
         String baseText = "Remind when closer than ";
-        remindDistanceView.setText(baseText + Utility.getDistanceDisplayString(this, remindDistance));
-
+        remindDistanceView.setText(baseText + utility.getDistanceDisplayString(this, remindDistance));
         selectedLocationDisplayView.setText(null);
         colorButton.setText("Color: Grape");
 
         Intent intent1 = this.getIntent();
-        if (intent1.hasExtra(DetailActivity.tName)) {
+        if (intent1.hasExtra(Constants.tName))
             setScreenAsEdit(intent1);
-        }
 
         LocationSelector.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(getApplicationContext(), SavedLocationListActivity.class);
-                startActivityForResult(intent, 6);
+                startActivityForResult(intent, REQUEST_CODE_SAVED_PLACES);
             }
         });
 
@@ -121,21 +125,71 @@ public class AddNewTaskActivity extends ActionBarActivity {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(getApplicationContext(), GetPlaceFromMap.class);
-                startActivityForResult(intent, GET_PLACE_FROM_MAP);
+                startActivityForResult(intent, REQUEST_CODE_GET_FROM_MAP);
             }
         });
 
         colorButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Utility.selectColorDialog(AddNewTaskActivity.this);
+                final String values[] = {"Tomato", "Tangerine", "Peacock", "Lavender", "Grape", "Pink"};
+                final AlertDialog.Builder alertDialog = new AlertDialog.Builder(AddNewTaskActivity.this);
+
+                alertDialog.setTitle("Make your selection");
+                alertDialog.setItems(values, new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int item) {
+
+                        mColorName = values[item];
+                        colorButton.setText("Color: " + mColorName);
+                        mColorCode = utility.getColorCodeFromString(AddNewTaskActivity.this, mColorName);
+                        baseLayout.setBackgroundColor(mColorCode);
+                    }
+                });
+                alertDialog.show();
             }
         });
 
         remindDistanceView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Utility.showRemindDistanceDialog(AddNewTaskActivity.this);
+
+                AlertDialog.Builder alertDialog = new AlertDialog.Builder(AddNewTaskActivity.this);
+                alertDialog.setTitle("Reminding Range");
+                final EditText input = new EditText(AddNewTaskActivity.this);
+
+                if (utility.isMetric(AddNewTaskActivity.this))
+                    input.setHint("Enter the distance in m");
+                else
+                    input.setHint("Enter the distance in yd");
+
+                alertDialog.setMessage("Please Enter the closest distance to the Task Location for reminder");
+                alertDialog.setView(input);
+
+                alertDialog.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+
+                        try {
+                            int dis = Integer.parseInt(input.getText().toString());
+                            int dis_show = dis;
+                            if (!utility.isMetric(AddNewTaskActivity.this)) {
+                                Double d = dis / 1.09361;
+                                dis = d.intValue();
+                            }
+                            remindDistance = dis;
+                            remindDistanceView.setText("Remind when closer than "
+                                    + utility.getDistanceDisplayString(AddNewTaskActivity.this, dis_show));
+
+                            InputMethodManager imm = (InputMethodManager) AddNewTaskActivity.this.getSystemService(    //To Hide The Keyboard
+                                    AddNewTaskActivity.this.INPUT_METHOD_SERVICE);
+                            imm.hideSoftInputFromWindow(input.getWindowToken(), 0);
+                        } catch (NumberFormatException excep) {
+                            Toast.makeText(AddNewTaskActivity.this, "Please enter the distance correctly!", Toast.LENGTH_SHORT).show();
+                        }
+
+                    }
+                });
+                alertDialog.show();
             }
         });
 
@@ -145,46 +199,38 @@ public class AddNewTaskActivity extends ActionBarActivity {
 
                 if (mTaskLocation == null) {
                     Toast.makeText(AddNewTaskActivity.this, "Please select a Location first!", Toast.LENGTH_SHORT).show();
+                    return;
                 } else if (taskName.getText().toString().equals("")) {
                     Toast.makeText(AddNewTaskActivity.this, "Please Enter the Task Name !", Toast.LENGTH_SHORT).show();
-                } else {
-                    distance = Utility.getDistanceByPlaceName(mTaskLocation,
-                            Utility.getCurrentLocation(AddNewTaskActivity.this),
-                            AddNewTaskActivity.this);
-
-                    ContentValues taskValues = new ContentValues();
-
-                    taskValues.put(TasksContract.TaskEntry.COLUMN_TASK_NAME, taskName.getText().toString());
-                    taskValues.put(TasksContract.TaskEntry.COLUMN_LOCATION_NAME, mTaskLocation);
-                    taskValues.put(TasksContract.TaskEntry.COLUMN_LOCATION_COLOR, returnedColorCode);
-                    taskValues.put(TasksContract.TaskEntry.COLUMN_LOCATION_ALARM, String.valueOf(alarmStatus.isChecked()));
-                    taskValues.put(TasksContract.TaskEntry.COLUMN_MIN_DISTANCE, distance);
-                    taskValues.put(TasksContract.TaskEntry.COLUMN_DONE_STATUS, "false");
-                    taskValues.put(TasksContract.TaskEntry.COLUMN_SNOOZE_TIME, "0");
-
-                    Log.e("TAG", "Entering into database RemindDistance" + remindDistance);
-
-                    taskValues.put(TasksContract.TaskEntry.COLUMN_REMIND_DISTANCE, remindDistance);
-
-                    if (distance <= remindDistance && distance != 0) {
-                        Toast.makeText(AddNewTaskActivity.this, "You are Already within the Selected region!", Toast.LENGTH_LONG).show();
-                    }
-
-
-                    Uri insertedUri = AddNewTaskActivity.this.getContentResolver().insert(TasksContract.TaskEntry.CONTENT_URI, taskValues);
-
-
-                    Intent intent = AddNewTaskActivity.this.getIntent();
-                    AddNewTaskActivity.this.setResult(RESULT_OK, intent);
-                    finish();
+                    return;
                 }
+                
+                distance = utility.getDistanceByPlaceName(mTaskLocation,
+                        utility.getCurrentLocation(AddNewTaskActivity.this),AddNewTaskActivity.this);
 
+                ContentValues taskValues = new ContentValues();
 
+                taskValues.put(TasksContract.TaskEntry.COLUMN_TASK_NAME, taskName.getText().toString());
+                taskValues.put(TasksContract.TaskEntry.COLUMN_LOCATION_NAME, mTaskLocation);
+                taskValues.put(TasksContract.TaskEntry.COLUMN_LOCATION_COLOR, mColorCode);
+                taskValues.put(TasksContract.TaskEntry.COLUMN_LOCATION_ALARM, String.valueOf(alarmStatus.isChecked()));
+                taskValues.put(TasksContract.TaskEntry.COLUMN_MIN_DISTANCE, distance);
+                taskValues.put(TasksContract.TaskEntry.COLUMN_DONE_STATUS, "false");
+                taskValues.put(TasksContract.TaskEntry.COLUMN_SNOOZE_TIME, "0");
+                taskValues.put(TasksContract.TaskEntry.COLUMN_REMIND_DISTANCE, remindDistance);
+
+                Uri insertedUri = AddNewTaskActivity.this.getContentResolver()
+                            .insert(TasksContract.TaskEntry.CONTENT_URI, taskValues);
+
+                if (distance <= remindDistance && distance != 0)
+                    Toast.makeText(AddNewTaskActivity.this, getString(R.string.already_in_region), Toast.LENGTH_LONG).show();
+
+                Intent intent = AddNewTaskActivity.this.getIntent();
+                AddNewTaskActivity.this.setResult(RESULT_OK, intent);
+                finish();
             }
         });
-
     }
-
 
     public void setScreenAsEdit(Intent intent) {
         CreateNewTask.setText("SAVE EDITS");
@@ -192,37 +238,32 @@ public class AddNewTaskActivity extends ActionBarActivity {
         if (aBar != null)
             aBar.setTitle("Edit Task");
 
-        String tName = intent.getStringExtra(DetailActivity.tName);
-        String tLoc = intent.getStringExtra(DetailActivity.tLocation);
-        int tCol = intent.getIntExtra(DetailActivity.tColor, 0);
-        String tAlarm = intent.getStringExtra(DetailActivity.tAlarm);
-        int tRemDis = intent.getIntExtra(DetailActivity.tRemDis, 50);
+        String tName = intent.getStringExtra(Constants.tName);
+        String tLoc = intent.getStringExtra(Constants.tLocation);
+        int tCol = intent.getIntExtra(Constants.tColor, 0);
+        String tAlarm = intent.getStringExtra(Constants.tAlarm);
+        int tRemDis = intent.getIntExtra(Constants.tRemDis, 50);
 
-        Log.e("TAG", "Taskname :" + tName + " " + tLoc + " " + tCol + " " + tAlarm + " " + tRemDis);
-
-        taskName.setText(tName);
 
         mTaskLocation = tLoc;
-        selectedLocationDisplayView.setText(tLoc);
+        mColorCode = tCol;
+        remindDistance = tRemDis;
 
-        returnedColorCode = tCol;
+        taskName.setText(tName);
+        selectedLocationDisplayView.setText(tLoc);
         baseLayout.setBackgroundColor(tCol);
         colorButton.setText("Color");
-
         if (tAlarm.equals("true"))
             alarmStatus.setChecked(true);
         else
             alarmStatus.setChecked(false);
 
-        remindDistance = tRemDis;
+
         String dispString = "Remind when closer than " + remindDistance;
-        if (Utility.isMetric(this))
+        if (utility.isMetric(this))
             dispString += "m";
         else
             dispString += "yd";
-
         remindDistanceView.setText(dispString);
     }
-
-
 }

@@ -32,7 +32,7 @@
             android:fontFamily="sans-serif-light"
             android:gravity="center"
             android:paddingBottom="10dp"
-            android:text="v3.2"
+            android:text="v3.3"
             android:textColor="@android:color/white"
             android:textSize="18sp" />
 
@@ -109,7 +109,7 @@
         <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Rate it on Play Store !"
+            android:text="Rate it!"
             android:id="@+id/rate"/>
 
         <Button

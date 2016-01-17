@@ -1,38 +1,20 @@
 package app.tasknearby.yashcreations.com.tasknearby;
 
-import android.annotation.TargetApi;
-import android.app.AlertDialog;
-import android.content.ContentUris;
-import android.content.ContentValues;
-import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.Cursor;
-import android.database.sqlite.SQLiteDatabase;
-import android.graphics.Paint;
-import android.location.Location;
-import android.location.LocationManager;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.LoaderManager;
 import android.support.v4.content.CursorLoader;
 import android.support.v4.content.Loader;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
-import android.widget.CursorAdapter;
-import android.widget.FrameLayout;
 import android.widget.ImageButton;
-import android.widget.LinearLayout;
 import android.widget.ListView;
-import android.widget.TextView;
-import android.widget.Toast;
-
-import app.tasknearby.yashcreations.com.tasknearby.database.TaskDbHelper;
 import app.tasknearby.yashcreations.com.tasknearby.database.TasksContract;
 
 /**
@@ -40,174 +22,76 @@ import app.tasknearby.yashcreations.com.tasknearby.database.TasksContract;
  */
 public class TasksFragment extends Fragment implements LoaderManager.LoaderCallbacks<Cursor> {
 
-    public static LoaderManager loaderManager;
-    final static int STATUS = 5;
-    String PROJECTION[] = {
-            TasksContract.TaskEntry.TABLE_NAME + "." + TasksContract.TaskEntry._ID,
-            TasksContract.TaskEntry.COLUMN_TASK_NAME,
-            TasksContract.TaskEntry.COLUMN_LOCATION_NAME,
-            TasksContract.TaskEntry.COLUMN_LOCATION_COLOR,
-            TasksContract.TaskEntry.COLUMN_DONE_STATUS,
-            TasksContract.TaskEntry.COLUMN_MIN_DISTANCE,
-            TasksContract.TaskEntry.COLUMN_LOCATION_ALARM,
-            TasksContract.TaskEntry.COLUMN_REMIND_DISTANCE,
-
-
-
-    };
-
-    public static final int COL_TASK_ID = 0;
-    public static final int COL_TASK_NAME = 1;
-    public static final int COL_LOCATION_NAME = 2;
-    public static final int COL_TASK_COLOR = 3;
-    public static final int COL_DONE = 4;
-    public static final int COL_MIN_DISTANCE = 5;
-    public static final int COL_ALARM = 6;
-    public static final int COL_REMIND_DIS = 7;
+    final int REQUEST_CODE_ADD_TASK = 5;
     public static int distance = 0;
-
-    public TasksFragment() {
-    }
+    final int LOADER_ID = 0;
 
     private TasksAdapter mTaskAdapter;
-
-    public void refreshLoader() {
-        getLoaderManager().restartLoader(LOADER_ID, null, this);
-    }
-
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        getLoaderManager().initLoader(LOADER_ID, null, this);
-        super.onCreate(savedInstanceState);
-    }
-
+    View rootView;
     @Override
     public View onCreateView(final LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-        View rootView = inflater.inflate(R.layout.fragment_main, container, false);
-        loaderManager = getLoaderManager();
-        getLoaderManager().initLoader(0, null, this);
+                             Bundle savedInstanceState)
+    {
+        rootView = inflater.inflate(R.layout.fragment_main, container, false);
+        ListView listview = (ListView) rootView.findViewById(R.id.listView_task);
+        final ImageButton FAB = (ImageButton) rootView.findViewById(R.id.btnCreate);
 
-
-        TextView noTaskView = (TextView) rootView.findViewById(R.id.textView);
-
-        LocationManager locationManager = (LocationManager) getActivity().getSystemService(Context.LOCATION_SERVICE);
-        if (!locationManager.isProviderEnabled(locationManager.GPS_PROVIDER)) {
-            Utility.showGpsOffDialog(getActivity());
-        }
+        getLoaderManager().initLoader(LOADER_ID, null, this);
 
         mTaskAdapter = new TasksAdapter(getActivity(),null, 0);
-
-        ListView listview = (ListView) rootView.findViewById(R.id.listView_task);
         listview.setAdapter(mTaskAdapter);
-
-
-
-        //Just for Checking Empty List View
-        //TODO: Find alternative and remove this
-        Uri uri = TasksContract.TaskEntry.CONTENT_URI;
-        String sortOrder = TasksContract.TaskEntry.COLUMN_DONE_STATUS + " ASC, " + TasksContract.TaskEntry.COLUMN_MIN_DISTANCE + " ASC ";
-        final Cursor cursor = getActivity().getContentResolver().query(uri, PROJECTION, null, null, sortOrder);
-        if(!cursor.moveToFirst())
-       {noTaskView.setVisibility(View.VISIBLE);}
-        cursor.close();
-
-
-
         listview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int pos, long l) {
                 Cursor c = mTaskAdapter.getCursor();
                 if (c != null && c.moveToPosition(pos)) {
 
-                    String ID = c.getString(COL_TASK_ID);
                     Intent intent = new Intent(getActivity(), DetailActivity.class);
-                    intent.putExtra("TaskID", ID);
-                    startActivity(intent);//todo:change this to start activity for result,1
+                    intent.putExtra(Constants.TaskID, c.getString(Constants.COL_TASK_ID));
+                    startActivity(intent);
                 }
             }
         });
-/*
-        listview.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
-            @Override
-            public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
-                final Cursor c=mTaskAdapter.getCursor();
-                if(c!=null && c.moveToPosition(position)) {
-                    final String values[] = {"Edit", "Delete"};
 
-                    AlertDialog.Builder alertDialog = new AlertDialog.Builder(getActivity());
-                    alertDialog.setItems(values, new DialogInterface.OnClickListener() {
-                        public void onClick(DialogInterface dialog, int item) {
-                            if (item == 0) //Edit
-                            {
-                                Intent editIntent=new Intent(getActivity(),AddNewTaskActivity.class);
-                                editIntent.putExtra(DetailActivity.tName,c.getString(COL_TASK_NAME));
-                                editIntent.putExtra(DetailActivity.tLocation,c.getString(COL_LOCATION_NAME));
-                                editIntent.putExtra(DetailActivity.tColor,c.getInt(COL_TASK_COLOR));
-                                editIntent.putExtra(DetailActivity.tAlarm,c.getString(COL_ALARM));
-                                editIntent.putExtra(DetailActivity.tRemDis, c.getInt(COL_REMIND_DIS));
-
-                               //Log.e("TAG","Putting remind dis="+c.getInt(COL_REMIND_DIS)+"c.getString returns "+c.getString(COL_REMIND_DIS));
-                                startActivityForResult(editIntent, DetailActivity.EDIT_RESULT);
-
-                            } else if (item == 1)//DELETE
-                            {
-
-
-                            }
-                        }
-                    });
-                    alertDialog.show();
-
-                }
-                return false;
-            }
-        });*/
-
-
-        final ImageButton btn_Create = (ImageButton) rootView.findViewById(R.id.btnCreate);
-        btn_Create.setOnTouchListener(new View.OnTouchListener() {
+        FAB.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View view, MotionEvent motionEvent) {
                 if (motionEvent.getAction() == MotionEvent.ACTION_UP) {
                     Intent intent = new Intent(getActivity(), AddNewTaskActivity.class);
-                    startActivityForResult(intent, STATUS);
+                    startActivityForResult(intent, REQUEST_CODE_ADD_TASK);
                     return true;
                 }
-
                 return false;
             }
         });
-
         return rootView;
     }
-
-    public static int LOADER_ID = 0;
 
     @Override
     public Loader onCreateLoader(int id, Bundle args) {
         String sortOrder = TasksContract.TaskEntry.COLUMN_DONE_STATUS + " ASC, " + TasksContract.TaskEntry.COLUMN_MIN_DISTANCE + " ASC ";
         Uri uri = TasksContract.TaskEntry.CONTENT_URI;
-        return new CursorLoader(getActivity(), uri, PROJECTION, null, null, sortOrder);
+        return new CursorLoader(getActivity(), uri, Constants.PROJECTION_TASKS, null, null, sortOrder);
     }
 
     @Override
     public void onLoadFinished(Loader<Cursor> loader, Cursor data) {
         mTaskAdapter.swapCursor(data);
+        if(data.getCount()==0)
+            rootView.findViewById(R.id.textView).setVisibility(View.VISIBLE);
+        else
+            rootView.findViewById(R.id.textView).setVisibility(View.GONE);
     }
-
 
     @Override
     public void onLoaderReset(Loader<Cursor> loader) {
         mTaskAdapter.swapCursor(null);
     }
+
     @Override
     public void onResume() {
         super.onResume();
-        refreshLoader();
+        getLoaderManager().restartLoader(LOADER_ID, null, this);
     }
-
-
-
 
 }

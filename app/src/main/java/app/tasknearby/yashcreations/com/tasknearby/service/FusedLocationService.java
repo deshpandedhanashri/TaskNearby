@@ -38,6 +38,7 @@ import app.tasknearby.yashcreations.com.tasknearby.AlarmActivity;
 import app.tasknearby.yashcreations.com.tasknearby.DetailActivity;
 import app.tasknearby.yashcreations.com.tasknearby.R;
 import app.tasknearby.yashcreations.com.tasknearby.Utility;
+import app.tasknearby.yashcreations.com.tasknearby.Constants;
 import app.tasknearby.yashcreations.com.tasknearby.database.TasksContract;
 
 /**
@@ -78,6 +79,7 @@ public class FusedLocationService extends Service implements GoogleApiClient.Con
     private GoogleApiClient mGoogleApiClient;
     private LocationRequest mLocationRequest;
 
+    Utility utility=new Utility();
     @Override
     public IBinder onBind(Intent intent) {
         return null;
@@ -103,9 +105,6 @@ public class FusedLocationService extends Service implements GoogleApiClient.Con
             mLocationRequest = new LocationRequest();
             createLocationRequest();
         }
-        Constants.UPDATE_INTERVAL = Utility.getUpdateInterval(this);
-        Constants.FATEST_INTERVAL = (Constants.UPDATE_INTERVAL - 4000);
-
     }
 
     @Override
@@ -203,7 +202,7 @@ public class FusedLocationService extends Service implements GoogleApiClient.Con
 
         while (c.moveToNext()) {
             placeName = c.getString(COL_LOCATION_NAME);
-            placeDistance = Utility.getDistanceByPlaceName(placeName, loc, this);
+            placeDistance = utility.getDistanceByPlaceName(placeName, loc, this);
             updateDatabaseDistance(placeDistance);                                           // PUT THE NEW MIN DISTANCE INTO DATABASE
 
             if ((placeDistance <= c.getInt(COL_REMIND_DISTANCE)) && (placeDistance != 0) && (c.getString(COL_DONE).equals("false")) && !isAlreadyRunning()&& !isSnoozed()) {
@@ -381,7 +380,7 @@ public class FusedLocationService extends Service implements GoogleApiClient.Con
                     stopLocationUpdates();
                 startLocationUpdates();
             } else
-                Log.e(TAG, "Upadate Interval Is Same as before ,So not restarting!");
+                Log.e(TAG, "Update Interval Is Same as before ,So not restarting!");
         }
     }
 

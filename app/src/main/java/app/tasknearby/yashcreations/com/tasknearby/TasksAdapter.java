@@ -17,10 +17,10 @@ import android.widget.TextView;
  * Created by Yash on 14/10/15.
  */
 public class TasksAdapter extends CursorAdapter {
+    Utility utility=new Utility();
     public TasksAdapter(Context context, Cursor c, int flags) {
         super(context, c, flags);
     }
-
 
     @Override
     public View newView(Context context, Cursor cursor, ViewGroup viewGroup) {
@@ -31,29 +31,21 @@ public class TasksAdapter extends CursorAdapter {
     public void bindView(View view, Context context, Cursor cursor) {
         TextView taskDistance = (TextView) view.findViewById(R.id.task_dist_textView);
         TextView taskNameView = (TextView) view.findViewById(R.id.task_name_textView);
-        String task = cursor.getString(TasksFragment.COL_TASK_NAME);
-        taskNameView.setText(task);
-
-        if(cursor.getString(TasksFragment.COL_DONE).equals("true"))
-        {taskNameView.setPaintFlags(taskNameView.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
-            taskDistance.setVisibility(View.INVISIBLE);
-        }
-        else
-        { taskNameView.setPaintFlags(taskNameView.getPaintFlags()&(~Paint.STRIKE_THRU_TEXT_FLAG));
-            taskDistance.setVisibility(View.VISIBLE);
-        }
-
         TextView taskLoc = (TextView) view.findViewById(R.id.task_location_textView);
-        String taskLocation = cursor.getString(TasksFragment.COL_LOCATION_NAME);
-        taskLoc.setText(taskLocation);
-
-
-        TasksFragment.distance = cursor.getInt(TasksFragment.COL_MIN_DISTANCE);
-        taskDistance.setText(Utility.getDistanceDisplayString(context,TasksFragment.distance));
-
         LinearLayout listItemLayout = (LinearLayout) view.findViewById(R.id.list_item_layout);
-        int colorCode = cursor.getInt(TasksFragment.COL_TASK_COLOR);
 
+        //TODO: Check WTF is this?
+        TasksFragment.distance = cursor.getInt(Constants.COL_MIN_DISTANCE);
+        String task = cursor.getString(Constants.COL_TASK_NAME);
+        String taskLocation = cursor.getString(Constants.COL_LOCATION_NAME);
+
+        taskNameView.setText(task);
+        taskLoc.setText(taskLocation);
+        taskDistance.setText(utility.getDistanceDisplayString(context,TasksFragment.distance));
+
+        int colorCode = cursor.getInt(Constants.COL_TASK_COLOR);
+
+        //Setting background colors of listItems
         Drawable bg=listItemLayout.getBackground();
         if(bg instanceof ShapeDrawable)
             ((ShapeDrawable)bg).getPaint().setColor(colorCode);
@@ -61,9 +53,16 @@ public class TasksAdapter extends CursorAdapter {
             ((GradientDrawable)bg).setColor(colorCode);
 
 
-
-        //  listItemLayout.setBackgroundColor(colorCode);
-
-
+        //If task is marked as Done, then strikethrough the text.
+        if(cursor.getString(Constants.COL_DONE).equals("true"))
+        {
+            taskNameView.setPaintFlags(taskNameView.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
+            taskDistance.setVisibility(View.INVISIBLE);
+        }
+        else
+        {
+            taskNameView.setPaintFlags(taskNameView.getPaintFlags()&(~Paint.STRIKE_THRU_TEXT_FLAG));
+            taskDistance.setVisibility(View.VISIBLE);
+        }
     }
 }

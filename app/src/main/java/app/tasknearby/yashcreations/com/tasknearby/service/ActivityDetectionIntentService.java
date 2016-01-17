@@ -10,6 +10,8 @@ import com.google.android.gms.location.DetectedActivity;
 
 import java.util.ArrayList;
 
+import app.tasknearby.yashcreations.com.tasknearby.Constants;
+
 /**
  * Created by Yash on 13/10/15.
  */
@@ -37,6 +39,6 @@ public class ActivityDetectionIntentService extends IntentService{
             Log.i(TAG, "Local Broadcast Manager is NUll");
 
         local.sendBroadcast(localIntent);
-        Log.i(TAG, "Sending Broadcast Sent!");
+        Log.i(TAG, "Broadcast Sent!");
     }
 }

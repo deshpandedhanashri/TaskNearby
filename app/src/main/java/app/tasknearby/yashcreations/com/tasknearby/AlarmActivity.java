@@ -54,7 +54,7 @@ public class AlarmActivity extends ActionBarActivity {
     int alarmTone = R.raw.alarm;  //Utility.getPreferredAlarmTone(this);
     Cursor c;
     Vibrator vibrator;
-
+    Utility utility=new Utility();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -78,7 +78,7 @@ public class AlarmActivity extends ActionBarActivity {
 
         if (c.moveToFirst()) {
             taskNameView.setText(c.getString(COL_TASK_NAME));
-            taskDisView.setText(Utility.getDistanceDisplayString(this, c.getInt(COL_MIN_DISTANCE)));
+            taskDisView.setText(utility.getDistanceDisplayString(this, c.getInt(COL_MIN_DISTANCE)));
             taskLocView.setText(c.getString(COL_LOCATION_NAME));
             baseLayout.setBackgroundColor(c.getInt(COL_TASK_COLOR));
 
