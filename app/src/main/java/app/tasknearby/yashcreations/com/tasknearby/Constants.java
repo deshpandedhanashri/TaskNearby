@@ -74,6 +74,9 @@ public class Constants {
     public static final String tRemDis="tRemDis";
 
 
+    public final static int SNOOZE_TIME_DURATION = 1*60*1000;
+
+
 
 
 }

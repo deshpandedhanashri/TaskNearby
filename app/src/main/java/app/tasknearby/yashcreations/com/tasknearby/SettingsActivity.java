@@ -1,5 +1,6 @@
 package app.tasknearby.yashcreations.com.tasknearby;
 
+import android.content.Intent;
 import android.media.Ringtone;
 import android.media.RingtoneManager;
 import android.net.Uri;
@@ -9,6 +10,9 @@ import android.preference.Preference;
 import android.preference.PreferenceActivity;
 import android.preference.PreferenceManager;
 import android.preference.RingtonePreference;
+import android.util.Log;
+
+import app.tasknearby.yashcreations.com.tasknearby.service.FusedLocationService;
 
 /**
  * Created by Yash on 01/05/15.
@@ -30,8 +34,8 @@ public class SettingsActivity extends PreferenceActivity implements Preference.O
         //bindPreferenceSummaryToValue(findPreference(getString(R.string.pref_status_key)));
         bindPreferenceSummaryToValue(findPreference(getString(R.string.pref_units_key)));
         bindPreferenceSummaryToValue(findPreference(getString(R.string.pref_tone_key)));
+        bindPreferenceSummaryToValue(findPreference(getString(R.string.pref_accuracy_key)));
     }
-
 
     /**
      * Attaches a listener so the summary is always updated with the preference value.
@@ -62,10 +66,15 @@ public class SettingsActivity extends PreferenceActivity implements Preference.O
             if (prefIndex >= 0) {
                 preference.setSummary(listPreference.getEntries()[prefIndex]);
             }
+            if(preference.getKey().equals(getString(R.string.pref_accuracy_key)) && MainActivity.isServiceRunning)
+            {
+                    Intent serviceIntent=new Intent(this, FusedLocationService.class);
+                    stopService(serviceIntent);
+                    startService(serviceIntent);
+            }
         }
         else if(preference instanceof RingtonePreference)
         {
-            //RingtonePreference ringtonePreference=(RingtonePreference)preference;
             try {
                 Ringtone ringtone = RingtoneManager.getRingtone(SettingsActivity.this, Uri.parse((String) value));
                 String summary = ringtone.getTitle(SettingsActivity.this);

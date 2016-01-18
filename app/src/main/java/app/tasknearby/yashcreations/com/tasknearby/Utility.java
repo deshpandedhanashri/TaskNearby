@@ -6,6 +6,7 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.pm.PackageManager;
 import android.database.Cursor;
 import android.location.Location;
 import android.location.LocationManager;
@@ -15,6 +16,8 @@ import android.provider.Settings;
 import android.support.v4.content.ContextCompat;
 
 import com.google.android.gms.maps.model.LatLng;
+
+import java.util.jar.Manifest;
 
 import app.tasknearby.yashcreations.com.tasknearby.database.TasksContract;
 
@@ -116,9 +119,14 @@ public class Utility {
     public Location getCurrentLocation(Context context) {
         LocationManager locationManager = (LocationManager) context.getSystemService(Context.LOCATION_SERVICE);
     //FIXME
-        Location currentLocation = locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
 
-        return currentLocation;
+        int permissionCheck1=ContextCompat.checkSelfPermission(context, android.Manifest.permission.ACCESS_COARSE_LOCATION);
+        int permissionCheck2=ContextCompat.checkSelfPermission(context, android.Manifest.permission.ACCESS_FINE_LOCATION);
+
+     //   if(permissionCheck1== PackageManager.PERMISSION_GRANTED && permissionCheck2==PackageManager.PERMISSION_GRANTED)
+            {Location currentLocation = locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
+             return currentLocation;}
+      //  return null;
     }
 
     public LatLng getLatLngByPlaceName(Context context, String placeName) {
@@ -155,5 +163,11 @@ public class Utility {
             else
                 return ((float) distance / 1760 + "mi");
         }
+    }
+
+    public String getSelectedAccuracy(Context context)
+    {
+       SharedPreferences prefs=PreferenceManager.getDefaultSharedPreferences(context);
+       return prefs.getString(context.getString(R.string.pref_accuracy_key),context.getString(R.string.pref_accuracy_default));
     }
 }

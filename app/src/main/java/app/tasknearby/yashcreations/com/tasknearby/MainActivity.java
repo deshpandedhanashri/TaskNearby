@@ -12,6 +12,7 @@ import android.preference.PreferenceManager;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 
@@ -28,7 +29,7 @@ import app.tasknearby.yashcreations.com.tasknearby.service.FusedLocationService;
 
 public class MainActivity extends ActionBarActivity {
 
-    boolean isServiceRunning = false;
+    public static boolean isServiceRunning = false;
     private final String TASKSFRAGMENT_TAG = "TFTAG";
     ToggleButton toggle;
     Utility utility=new Utility();

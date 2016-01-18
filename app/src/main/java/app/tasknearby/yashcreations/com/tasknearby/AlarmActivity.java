@@ -1,20 +1,16 @@
 package app.tasknearby.yashcreations.com.tasknearby;
 
-
 import android.content.ContentValues;
-import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.media.AudioManager;
 import android.media.MediaPlayer;
-import android.media.Ringtone;
 import android.media.RingtoneManager;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Vibrator;
 import android.preference.PreferenceManager;
-import android.preference.RingtonePreference;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -25,38 +21,17 @@ import android.widget.TextView;
 
 import app.tasknearby.yashcreations.com.tasknearby.database.TasksContract;
 
-
 public class AlarmActivity extends ActionBarActivity {
 
-    String PROJECTION[] = {
-            TasksContract.TaskEntry.TABLE_NAME + "." + TasksContract.TaskEntry._ID,
-            TasksContract.TaskEntry.COLUMN_TASK_NAME,
-            TasksContract.TaskEntry.COLUMN_LOCATION_NAME,
-            TasksContract.TaskEntry.COLUMN_LOCATION_COLOR,
-            TasksContract.TaskEntry.COLUMN_LOCATION_ALARM,
-            TasksContract.TaskEntry.COLUMN_DONE_STATUS,
-            TasksContract.TaskEntry.COLUMN_MIN_DISTANCE,
-            TasksContract.TaskEntry.COLUMN_SNOOZE_TIME,
-            TasksContract.TaskEntry.COLUMN_REMIND_DISTANCE
-
-    };
-
-    static final int COL_TASK_ID = 0;
-    static final int COL_TASK_NAME = 1;
-    static final int COL_LOCATION_NAME = 2;
-    static final int COL_TASK_COLOR = 3;
-    static final int COL_ALARM = 4;
-    static final int COL_DONE = 5;
-    static final int COL_MIN_DISTANCE = 6;
-    static final int COL_REMIND_DIS = 7;
-    static final int COL_SNOOZE = 8;
+    int alarmTone = R.raw.alarm;
     MediaPlayer mMediaPlayer = new MediaPlayer();
-    int alarmTone = R.raw.alarm;  //Utility.getPreferredAlarmTone(this);
     Cursor c;
     Vibrator vibrator;
     Utility utility=new Utility();
+
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(Bundle savedInstanceState)
+    {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_alarm);
 
@@ -66,23 +41,23 @@ public class AlarmActivity extends ActionBarActivity {
         TextView taskLocView = (TextView) this.findViewById(R.id.alarm_taskLoc);
         TextView taskDisView = (TextView) this.findViewById(R.id.alarmTaskDis);
         LinearLayout baseLayout = (LinearLayout) this.findViewById(R.id.alarmBaseLayout);
+        vibrator = (Vibrator) this.getSystemService(VIBRATOR_SERVICE);
 
         Intent intent = this.getIntent();
-        String ID = intent.getStringExtra("TaskID");
-        //      Log.e("ID","ID is "+ID);
+        String ID = intent.getStringExtra(Constants.TaskID);
 
         Uri uri = TasksContract.TaskEntry.CONTENT_URI;
-        c = this.getContentResolver().query(uri, PROJECTION,
+        c = this.getContentResolver().query(uri, Constants.PROJECTION_TASKS,
                 TasksContract.TaskEntry._ID + "=?",
                 new String[]{ID}, null);
 
         if (c.moveToFirst()) {
-            taskNameView.setText(c.getString(COL_TASK_NAME));
-            taskDisView.setText(utility.getDistanceDisplayString(this, c.getInt(COL_MIN_DISTANCE)));
-            taskLocView.setText(c.getString(COL_LOCATION_NAME));
-            baseLayout.setBackgroundColor(c.getInt(COL_TASK_COLOR));
-
+            taskNameView.setText(c.getString(Constants.COL_TASK_NAME));
+            taskDisView.setText(utility.getDistanceDisplayString(this, c.getInt(Constants.COL_MIN_DISTANCE)));
+            taskLocView.setText(c.getString(Constants.COL_LOCATION_NAME));
+            baseLayout.setBackgroundColor(c.getInt(Constants.COL_TASK_COLOR));
         }
+
         stopAlarm.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -90,22 +65,19 @@ public class AlarmActivity extends ActionBarActivity {
                     mMediaPlayer.stop();
 
                 ContentValues taskValues = new ContentValues();
-
-
-                taskValues.put(TasksContract.TaskEntry.COLUMN_TASK_NAME, c.getString(COL_TASK_NAME));
-                taskValues.put(TasksContract.TaskEntry.COLUMN_LOCATION_NAME, c.getString(COL_LOCATION_NAME));
-                taskValues.put(TasksContract.TaskEntry.COLUMN_LOCATION_COLOR, c.getInt(COL_TASK_COLOR));
-                taskValues.put(TasksContract.TaskEntry.COLUMN_LOCATION_ALARM, c.getString(COL_ALARM));
-                taskValues.put(TasksContract.TaskEntry.COLUMN_MIN_DISTANCE, c.getInt(COL_MIN_DISTANCE));
+                taskValues.put(TasksContract.TaskEntry.COLUMN_TASK_NAME, c.getString(Constants.COL_TASK_NAME));
+                taskValues.put(TasksContract.TaskEntry.COLUMN_LOCATION_NAME, c.getString(Constants.COL_LOCATION_NAME));
+                taskValues.put(TasksContract.TaskEntry.COLUMN_LOCATION_COLOR, c.getInt(Constants.COL_TASK_COLOR));
+                taskValues.put(TasksContract.TaskEntry.COLUMN_LOCATION_ALARM, c.getString(Constants.COL_ALARM));
+                taskValues.put(TasksContract.TaskEntry.COLUMN_MIN_DISTANCE, c.getInt(Constants.COL_MIN_DISTANCE));
                 taskValues.put(TasksContract.TaskEntry.COLUMN_DONE_STATUS, "true");
-                taskValues.put(TasksContract.TaskEntry.COLUMN_SNOOZE_TIME, c.getString(COL_SNOOZE));
-                taskValues.put(TasksContract.TaskEntry.COLUMN_REMIND_DISTANCE, c.getString(COL_REMIND_DIS));
-
+                taskValues.put(TasksContract.TaskEntry.COLUMN_SNOOZE_TIME, c.getString(Constants.COL_SNOOZE));
+                taskValues.put(TasksContract.TaskEntry.COLUMN_REMIND_DISTANCE, c.getString(Constants.COL_REMIND_DIS));
 
                 AlarmActivity.this.getContentResolver().update(
                         TasksContract.TaskEntry.CONTENT_URI,
                         taskValues, TasksContract.TaskEntry._ID + "=?",
-                        new String[]{c.getString(COL_TASK_ID)}
+                        new String[]{c.getString(Constants.COL_TASK_ID)}
                 );
                 c.close();
                 finish();
@@ -120,51 +92,43 @@ public class AlarmActivity extends ActionBarActivity {
 
                 ContentValues taskValues = new ContentValues();
 
-
-                taskValues.put(TasksContract.TaskEntry.COLUMN_TASK_NAME, c.getString(COL_TASK_NAME));
-                taskValues.put(TasksContract.TaskEntry.COLUMN_LOCATION_NAME, c.getString(COL_LOCATION_NAME));
-                taskValues.put(TasksContract.TaskEntry.COLUMN_LOCATION_COLOR, c.getInt(COL_TASK_COLOR));
-                taskValues.put(TasksContract.TaskEntry.COLUMN_LOCATION_ALARM, c.getString(COL_ALARM));
-                taskValues.put(TasksContract.TaskEntry.COLUMN_MIN_DISTANCE, c.getInt(COL_MIN_DISTANCE));
-                taskValues.put(TasksContract.TaskEntry.COLUMN_DONE_STATUS, c.getString(COL_DONE));
-                taskValues.put(TasksContract.TaskEntry.COLUMN_SNOOZE_TIME, System.currentTimeMillis() + 4 * 60 * 1000);
-                taskValues.put(TasksContract.TaskEntry.COLUMN_REMIND_DISTANCE, c.getString(COL_REMIND_DIS));
-
+                taskValues.put(TasksContract.TaskEntry.COLUMN_TASK_NAME, c.getString(Constants.COL_TASK_NAME));
+                taskValues.put(TasksContract.TaskEntry.COLUMN_LOCATION_NAME, c.getString(Constants.COL_LOCATION_NAME));
+                taskValues.put(TasksContract.TaskEntry.COLUMN_LOCATION_COLOR, c.getInt(Constants.COL_TASK_COLOR));
+                taskValues.put(TasksContract.TaskEntry.COLUMN_LOCATION_ALARM, c.getString(Constants.COL_ALARM));
+                taskValues.put(TasksContract.TaskEntry.COLUMN_MIN_DISTANCE, c.getInt(Constants.COL_MIN_DISTANCE));
+                taskValues.put(TasksContract.TaskEntry.COLUMN_DONE_STATUS, c.getString(Constants.COL_DONE));
+                taskValues.put(TasksContract.TaskEntry.COLUMN_SNOOZE_TIME, System.currentTimeMillis() + Constants.SNOOZE_TIME_DURATION);
+                taskValues.put(TasksContract.TaskEntry.COLUMN_REMIND_DISTANCE, c.getString(Constants.COL_REMIND_DIS));
 
                 AlarmActivity.this.getContentResolver().update(
                         TasksContract.TaskEntry.CONTENT_URI,
                         taskValues, TasksContract.TaskEntry._ID + "=?",
-                        new String[]{c.getString(COL_TASK_ID)}
+                        new String[]{c.getString(Constants.COL_TASK_ID)}
                 );
                 c.close();
                 finish();
             }
         });
-        vibrator = (Vibrator) this.getSystemService(VIBRATOR_SERVICE);
     }
 
 
     public class PlaySoundTask extends AsyncTask
-
     {
         @Override
         protected Object doInBackground(Object[] objects) {
-
             SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(AlarmActivity.this);
             String temp = prefs.getString(getString(R.string.pref_tone_key), null);
             Uri uri;
+
             if (temp == null)
                 uri = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_RINGTONE);
             else
                 uri = Uri.parse(temp);
 
-           // Log.e("TAG", "Uri is " + uri);
-
-
             try {
                 if (uri != null)
                     mMediaPlayer.setDataSource(AlarmActivity.this, uri);
-
                 else
                     mMediaPlayer = MediaPlayer.create(AlarmActivity.this, alarmTone);
 
@@ -173,7 +137,7 @@ public class AlarmActivity extends ActionBarActivity {
                 mMediaPlayer.prepare();
                 mMediaPlayer.start();
             } catch (Exception e) {
-                Log.e("TAG", "============Exception encounered");
+                Log.e("TAG", "Exception encounered while playing Alarm!");
             }
             return null;
         }
@@ -195,8 +159,6 @@ public class AlarmActivity extends ActionBarActivity {
         vibrator.cancel();
         if (mMediaPlayer.isPlaying())
             mMediaPlayer.stop();
-//        if (ringtone.isPlaying())
-//            ringtone.stop();
 
         c.close();
         finish();
@@ -211,40 +173,19 @@ public class AlarmActivity extends ActionBarActivity {
     @Override
     protected void onStart() {
         super.onStart();
-//
-//        SharedPreferences prefs= PreferenceManager.getDefaultSharedPreferences(AlarmActivity.this);
-//        String temp=prefs.getString(getString(R.string.pref_tone_key), null);
-//        Uri uri;
-//        if(temp==null)
-//            uri=RingtoneManager.getDefaultUri(RingtoneManager.TYPE_RINGTONE);
-//        else
-//            uri = Uri.parse(temp);
-//        if(uri!=null)
-//        {
-//            ringtone = RingtoneManager.getRingtone(this, uri);
-//            ringtone.play();
-//        }
         vibrator.vibrate(1000);
-        // AudioManager am = (AudioManager) getSystemService(Context.AUDIO_SERVICE);
-        //if (am.getRingerMode() == AudioManager.RINGER_MODE_NORMAL) {
         PlaySoundTask m = new PlaySoundTask();
         m.execute();
-        //}
-
-
     }
 
     @Override
     protected void onStop() {
         super.onStop();
         if (!c.isClosed()) c.close();
-
     }
 
     @Override
     protected void onDestroy() {
-//        if (ringtone.isPlaying())
-//            ringtone.stop();
         vibrator.cancel();
         if (mMediaPlayer.isPlaying())
             mMediaPlayer.stop();

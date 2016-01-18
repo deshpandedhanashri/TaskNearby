@@ -36,60 +36,13 @@
     <favorites_list name="TaskNearby" />
   </component>
   <component name="FileEditorManager">
-    <leaf>
-      <file leaf-file-name="FusedLocationService.java" pinned="false" current-in-tab="true">
-        <entry file="file:///mnt/566A35016A34E003/Users/Yash/AndroidStudioProjects/TaskNearby/app/src/main/java/app/tasknearby/yashcreations/com/tasknearby/service/FusedLocationService.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="1.3807106">
-              <caret line="177" column="35" selection-start-line="177" selection-start-column="35" selection-end-line="177" selection-end-column="35" />
-              <folding>
-                <element signature="docComment;class#FusedLocationService#0" expanded="false" />
-                <element signature="method#onCreate#0;class#FusedLocationService#0" expanded="false" />
-                <element signature="e#2992#3029#0" expanded="true" />
-                <element signature="e#3031#3072#0" expanded="true" />
-                <element signature="e#3110#3152#0" expanded="true" />
-                <element signature="method#onStartCommand#0;class#FusedLocationService#0" expanded="false" />
-                <element signature="method#buildGoogleApiClient#0;class#FusedLocationService#0" expanded="false" />
-                <element signature="method#checkPlayServices#0;class#FusedLocationService#0" expanded="false" />
-                <element signature="method#startLocationUpdates#0;class#FusedLocationService#0" expanded="false" />
-                <element signature="method#stopLocationUpdates#0;class#FusedLocationService#0" expanded="false" />
-                <element signature="method#createLocationRequest#0;class#FusedLocationService#0" expanded="false" />
-                <element signature="method#startActivityUpdates#0;class#FusedLocationService#0" expanded="false" />
-                <element signature="method#stopActivityUpdates#0;class#FusedLocationService#0" expanded="false" />
-                <element signature="method#getPendingIntent#0;class#FusedLocationService#0" expanded="false" />
-                <element signature="method#updateDatabaseDistance#0;class#FusedLocationService#0" expanded="false" />
-                <element signature="method#showNotification#0;class#FusedLocationService#0" expanded="false" />
-                <element signature="method#onDestroy#0;class#FusedLocationService#0" expanded="false" />
-                <element signature="method#onConnectionFailed#0;class#FusedLocationService#0" expanded="false" />
-                <element signature="method#onConnected#0;class#FusedLocationService#0" expanded="false" />
-                <element signature="method#onLocationChanged#0;class#FusedLocationService#0" expanded="false" />
-                <element signature="method#isAlreadyRunning#0;class#FusedLocationService#0" expanded="false" />
-                <element signature="method#isSnoozed#0;class#FusedLocationService#0" expanded="false" />
-                <element signature="method#onResult#0;class#FusedLocationService#0" expanded="false" />
-                <element signature="class#ActivityDetectionReceiver#0;class#FusedLocationService#0" expanded="false" />
-                <element signature="method#onReceive#0;class#ActivityDetectionReceiver#0;class#FusedLocationService#0" expanded="false" />
-                <element signature="method#getActivityString#0;class#FusedLocationService#0" expanded="false" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="Constants.java" pinned="false" current-in-tab="false">
-        <entry file="file:///mnt/566A35016A34E003/Users/Yash/AndroidStudioProjects/TaskNearby/app/src/main/java/app/tasknearby/yashcreations/com/tasknearby/Constants.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0">
-              <caret line="20" column="32" selection-start-line="20" selection-start-column="32" selection-end-line="20" selection-end-column="32" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-    </leaf>
+    <leaf />
   </component>
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
         <option value="Class" />
+        <option value="resourceFile" />
       </list>
     </option>
   </component>
@@ -1609,23 +1562,28 @@
         <option value="/mnt/566A35016A34E003/Users/Yash/AndroidStudioProjects/TaskNearby/app/build.gradle" />
         <option value="/mnt/566A35016A34E003/Users/Yash/AndroidStudioProjects/TaskNearby/app/src/main/res/layout/activity_about.xml" />
         <option value="/mnt/566A35016A34E003/Users/Yash/AndroidStudioProjects/TaskNearby/app/src/main/java/app/tasknearby/yashcreations/com/tasknearby/AboutActivity.java" />
-        <option value="/mnt/566A35016A34E003/Users/Yash/AndroidStudioProjects/TaskNearby/app/src/main/java/app/tasknearby/yashcreations/com/tasknearby/SettingsActivity.java" />
         <option value="/mnt/566A35016A34E003/Users/Yash/AndroidStudioProjects/TaskNearby/app/src/main/java/app/tasknearby/yashcreations/com/tasknearby/SavedLocationListActivity.java" />
         <option value="/mnt/566A35016A34E003/Users/Yash/AndroidStudioProjects/TaskNearby/app/src/main/java/app/tasknearby/yashcreations/com/tasknearby/TODOTasks.java" />
         <option value="/mnt/566A35016A34E003/Users/Yash/AndroidStudioProjects/TaskNearby/app/src/main/java/app/tasknearby/yashcreations/com/tasknearby/TasksFragment.java" />
         <option value="/mnt/566A35016A34E003/Users/Yash/AndroidStudioProjects/TaskNearby/app/src/main/java/app/tasknearby/yashcreations/com/tasknearby/service/Constants.java" />
-        <option value="/mnt/566A35016A34E003/Users/Yash/AndroidStudioProjects/TaskNearby/app/src/main/java/app/tasknearby/yashcreations/com/tasknearby/AlarmActivity.java" />
         <option value="/mnt/566A35016A34E003/Users/Yash/AndroidStudioProjects/TaskNearby/app/src/main/java/app/tasknearby/yashcreations/com/tasknearby/TasksAdapter.java" />
-        <option value="/mnt/566A35016A34E003/Users/Yash/AndroidStudioProjects/TaskNearby/app/src/main/java/app/tasknearby/yashcreations/com/tasknearby/Utility.java" />
         <option value="/mnt/566A35016A34E003/Users/Yash/AndroidStudioProjects/TaskNearby/app/src/main/java/app/tasknearby/yashcreations/com/tasknearby/GetPlaceFromMap.java" />
         <option value="/mnt/566A35016A34E003/Users/Yash/AndroidStudioProjects/TaskNearby/app/src/main/res/values/strings.xml" />
         <option value="/mnt/566A35016A34E003/Users/Yash/AndroidStudioProjects/TaskNearby/app/src/main/java/app/tasknearby/yashcreations/com/tasknearby/AddNewTaskActivity.java" />
         <option value="/mnt/566A35016A34E003/Users/Yash/AndroidStudioProjects/TaskNearby/app/src/main/java/app/tasknearby/yashcreations/com/tasknearby/service/ActivityDetectionIntentService.java" />
         <option value="/mnt/566A35016A34E003/Users/Yash/AndroidStudioProjects/TaskNearby/app/src/main/java/app/tasknearby/yashcreations/com/tasknearby/DetailActivity.java" />
-        <option value="/mnt/566A35016A34E003/Users/Yash/AndroidStudioProjects/TaskNearby/app/src/main/java/app/tasknearby/yashcreations/com/tasknearby/MainActivity.java" />
-        <option value="/mnt/566A35016A34E003/Users/Yash/AndroidStudioProjects/TaskNearby/app/src/main/java/app/tasknearby/yashcreations/com/tasknearby/Constants.java" />
         <option value="/mnt/566A35016A34E003/Users/Yash/AndroidStudioProjects/TaskNearby/app/src/main/AndroidManifest.xml" />
         <option value="/mnt/566A35016A34E003/Users/Yash/AndroidStudioProjects/TaskNearby/app/src/main/java/app/tasknearby/yashcreations/com/tasknearby/service/FusedLocationService.java" />
+        <option value="/mnt/566A35016A34E003/Users/Yash/AndroidStudioProjects/TaskNearby/app/src/main/java/app/tasknearby/yashcreations/com/tasknearby/AlarmActivity.java" />
+        <option value="/mnt/566A35016A34E003/Users/Yash/AndroidStudioProjects/TaskNearby/app/src/main/java/app/tasknearby/yashcreations/com/tasknearby/Constants.java" />
+        <option value="/mnt/566A35016A34E003/Users/Yash/AndroidStudioProjects/TaskNearby/app/src/main/java/app/tasknearby/yashcreations/com/tasknearby/Utility.java" />
+        <option value="/mnt/566A35016A34E003/Users/Yash/AndroidStudioProjects/TaskNearby/app/src/main/java/app/tasknearby/yashcreations/com/tasknearby/SettingsActivity.java" />
+        <option value="/mnt/566A35016A34E003/Users/Yash/AndroidStudioProjects/TaskNearby/app/src/main/java/app/tasknearby/yashcreations/com/tasknearby/MainActivity.java" />
+        <option value="/mnt/566A35016A34E003/Users/Yash/AndroidStudioProjects/TaskNearby/app/src/main/res/layout/fragment_main.xml" />
+        <option value="/mnt/566A35016A34E003/Users/Yash/AndroidStudioProjects/TaskNearby/app/src/main/res/values/color.xml" />
+        <option value="/mnt/566A35016A34E003/Users/Yash/AndroidStudioProjects/TaskNearby/app/src/main/res/drawable/list_item_pressed.xml" />
+        <option value="/mnt/566A35016A34E003/Users/Yash/AndroidStudioProjects/TaskNearby/app/src/main/res/drawable/list_item_normal.xml" />
+        <option value="/mnt/566A35016A34E003/Users/Yash/AndroidStudioProjects/TaskNearby/app/src/main/res/drawable/list_selector.xml" />
       </list>
     </option>
   </component>
@@ -1640,10 +1598,9 @@
     <order />
   </component>
   <component name="ProjectFrameBounds">
-    <option name="x" value="-1" />
-    <option name="y" value="-4" />
-    <option name="width" value="1368" />
-    <option name="height" value="773" />
+    <option name="y" value="24" />
+    <option name="width" value="1366" />
+    <option name="height" value="744" />
   </component>
   <component name="ProjectLevelVcsManager" settingsEditedManually="false">
     <OptionsSetting value="true" id="Add" />
@@ -1668,7 +1625,6 @@
       <sortByType />
     </navigator>
     <panes>
-      <pane id="Scratches" />
       <pane id="Scope" />
       <pane id="PackagesPane" />
       <pane id="AndroidView">
@@ -1691,6 +1647,28 @@
             <PATH_ELEMENT>
               <option name="myItemId" value="app" />
               <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidModuleNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="res" />
+              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidResFolderNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="TaskNearby" />
+              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="app" />
+              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidModuleNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="res" />
+              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidResFolderNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="values" />
+              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidResFolderTypeNode" />
             </PATH_ELEMENT>
           </PATH>
           <PATH>
@@ -1725,8 +1703,19 @@
               <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidPsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="TaskNearby" />
+              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="app" />
+              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidModuleNode" />
+            </PATH_ELEMENT>
+          </PATH>
         </subPane>
       </pane>
+      <pane id="Scratches" />
       <pane id="ProjectPane" />
     </panes>
   </component>
@@ -1924,17 +1913,18 @@
     </todo-panel>
   </component>
   <component name="ToolWindowManager">
-    <frame x="-1" y="-4" width="1368" height="773" extended-state="6" />
-    <editor active="true" />
+    <frame x="0" y="24" width="1366" height="744" extended-state="7" />
+    <editor active="false" />
     <layout>
       <window_info id="Palette&#9;" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Designer" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
+      <window_info id="Preview" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3299293" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="13" side_tool="false" content_ui="tabs" />
       <window_info id="Android Model" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="4" side_tool="true" content_ui="tabs" />
       <window_info id="Capture Analysis" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
-      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32850242" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Android Monitor" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.8937198" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Android Monitor" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.8389694" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Captures" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="4" side_tool="true" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32850242" sideWeight="0.5" order="8" side_tool="true" content_ui="tabs" />
       <window_info id="Capture Tool" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
@@ -1947,14 +1937,13 @@
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Application Servers" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="11" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.17727272" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.17727272" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3268921" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3268921" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
-      <window_info id="Preview" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3299293" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
-      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32850242" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="SLIDING" type="SLIDING" visible="false" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
     </layout>
@@ -1963,11 +1952,11 @@
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Android Monitor" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.8937198" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32850242" sideWeight="0.5" order="8" side_tool="true" content_ui="tabs" />
-      <window_info id="Build Variants" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="true" content_ui="tabs" />
-      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
       <window_info id="Gradle Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="9" side_tool="true" content_ui="tabs" />
-      <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32850242" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
+      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
+      <window_info id="Build Variants" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="true" content_ui="tabs" />
       <window_info id="Gradle" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32850242" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Application Servers" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="11" side_tool="false" content_ui="tabs" />
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.17727272" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3268921" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
@@ -1986,8 +1975,8 @@
       <window_info id="Capture Tool" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32850242" sideWeight="0.5" order="12" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="SLIDING" type="SLIDING" visible="false" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
+      <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
     </layout-to-restore>
   </component>
@@ -2014,34 +2003,6 @@
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file:///mnt/566A35016A34E003/Users/Yash/AndroidStudioProjects/TaskNearby/app/src/main/java/app/tasknearby/yashcreations/com/tasknearby/TasksAdapter.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="26" column="65" selection-start-line="26" selection-start-column="65" selection-end-line="26" selection-end-column="65" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file:///mnt/566A35016A34E003/Users/Yash/AndroidStudioProjects/TaskNearby/app/src/main/java/app/tasknearby/yashcreations/com/tasknearby/TasksFragment.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file:///mnt/566A35016A34E003/Users/Yash/AndroidStudioProjects/TaskNearby/app/src/main/java/app/tasknearby/yashcreations/com/tasknearby/database/TasksProvider.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="79" column="72" selection-start-line="79" selection-start-column="72" selection-end-line="79" selection-end-column="72" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file:///mnt/566A35016A34E003/Users/Yash/AndroidStudioProjects/TaskNearby/app/src/main/java/app/tasknearby/yashcreations/com/tasknearby/database/TaskDbHelper.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="33" column="0" selection-start-line="33" selection-start-column="0" selection-end-line="33" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file:///mnt/566A35016A34E003/Users/Yash/AndroidStudioProjects/TaskNearby/app/src/main/java/app/tasknearby/yashcreations/com/tasknearby/database/TasksContract.java">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
@@ -2132,13 +2093,13 @@
       </provider>
     </entry>
     <entry file="file:///mnt/566A35016A34E003/Users/Yash/AndroidStudioProjects/TaskNearby/app/src/main/res/layout/activity_get_place_from_map.xml">
+      <provider editor-type-id="android-designer">
+        <state />
+      </provider>
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.10714286">
           <caret line="4" column="29" selection-start-line="4" selection-start-column="29" selection-end-line="4" selection-end-column="29" />
         </state>
-      </provider>
-      <provider editor-type-id="android-designer">
-        <state />
       </provider>
     </entry>
     <entry file="file:///mnt/566A35016A34E003/Users/Yash/AndroidStudioProjects/TaskNearby/app/src/main/res/drawable/list_item_background.xml">
@@ -2163,26 +2124,19 @@
       </provider>
     </entry>
     <entry file="file:///mnt/566A35016A34E003/Users/Yash/AndroidStudioProjects/TaskNearby/app/src/main/res/layout/activity_add_new_task.xml">
+      <provider editor-type-id="android-designer">
+        <state />
+      </provider>
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.24107143">
           <caret line="184" column="40" selection-start-line="184" selection-start-column="40" selection-end-line="184" selection-end-column="40" />
         </state>
-      </provider>
-      <provider editor-type-id="android-designer">
-        <state />
       </provider>
     </entry>
     <entry file="file:///mnt/566A35016A34E003/Users/Yash/AndroidStudioProjects/TaskNearby/app/src/main/res/values/styles.xml">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="-8.793103">
           <caret line="15" column="0" selection-start-line="15" selection-start-column="0" selection-end-line="15" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file:///mnt/566A35016A34E003/Users/Yash/AndroidStudioProjects/TaskNearby/app/src/main/res/xml/pref_general.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-0.035532996">
-          <caret line="4" column="1" selection-start-line="4" selection-start-column="1" selection-end-line="4" selection-end-column="1" />
         </state>
       </provider>
     </entry>
@@ -2207,48 +2161,13 @@
         </state>
       </provider>
     </entry>
-    <entry file="file:///mnt/566A35016A34E003/Users/Yash/AndroidStudioProjects/TaskNearby/app/src/main/java/app/tasknearby/yashcreations/com/tasknearby/AboutActivity.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.25888324">
-          <caret line="9" column="0" selection-start-line="9" selection-start-column="0" selection-end-line="9" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file:///mnt/566A35016A34E003/Users/Yash/AndroidStudioProjects/TaskNearby/app/src/main/java/app/tasknearby/yashcreations/com/tasknearby/SettingsActivity.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="1.8409475">
-          <caret line="64" column="0" selection-start-line="64" selection-start-column="0" selection-end-line="64" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file:///mnt/566A35016A34E003/Users/Yash/AndroidStudioProjects/TaskNearby/app/src/main/res/layout/activity_about.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="1.0">
-          <caret line="81" column="36" selection-start-line="81" selection-start-column="36" selection-end-line="81" selection-end-column="36" />
-        </state>
-      </provider>
       <provider editor-type-id="android-designer">
         <state />
       </provider>
-    </entry>
-    <entry file="file:///mnt/566A35016A34E003/Users/Yash/AndroidStudioProjects/TaskNearby/app/src/main/java/app/tasknearby/yashcreations/com/tasknearby/TasksFragment.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.63282573">
-          <caret line="77" column="61" selection-start-line="77" selection-start-column="61" selection-end-line="77" selection-end-column="61" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file:///mnt/566A35016A34E003/Users/Yash/AndroidStudioProjects/TaskNearby/app/src/main/java/app/tasknearby/yashcreations/com/tasknearby/TODOTasks.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.37394246">
-          <caret line="13" column="30" selection-start-line="13" selection-start-column="30" selection-end-line="13" selection-end-column="30" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file:///mnt/566A35016A34E003/Users/Yash/AndroidStudioProjects/TaskNearby/app/src/main/res/values/color.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.31641287">
-          <caret line="11" column="39" selection-start-line="11" selection-start-column="39" selection-end-line="11" selection-end-column="39" />
+        <state vertical-scroll-proportion="1.0">
+          <caret line="81" column="36" selection-start-line="81" selection-start-column="36" selection-end-line="81" selection-end-column="36" />
         </state>
       </provider>
     </entry>
@@ -2273,13 +2192,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file:///mnt/566A35016A34E003/Users/Yash/AndroidStudioProjects/TaskNearby/app/src/main/java/app/tasknearby/yashcreations/com/tasknearby/Utility.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.4314721">
-          <caret line="15" column="0" selection-start-line="15" selection-start-column="0" selection-end-line="15" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file:///mnt/566A35016A34E003/Users/Yash/AndroidStudioProjects/TaskNearby/app/src/main/java/app/tasknearby/yashcreations/com/tasknearby/SavedLocationListActivity.java">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.14382403">
@@ -2291,13 +2203,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.14382403">
           <caret line="8" column="13" selection-start-line="8" selection-start-column="13" selection-end-line="8" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file:///mnt/566A35016A34E003/Users/Yash/AndroidStudioProjects/TaskNearby/app/src/main/java/app/tasknearby/yashcreations/com/tasknearby/AlarmActivity.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.028764805">
-          <caret line="56" column="34" selection-start-line="56" selection-start-column="34" selection-end-line="56" selection-end-column="34" />
         </state>
       </provider>
     </entry>
@@ -2336,13 +2241,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file:///mnt/566A35016A34E003/Users/Yash/AndroidStudioProjects/TaskNearby/app/src/main/res/values/strings.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-15.275862">
-          <caret line="96" column="37" selection-start-line="96" selection-start-column="37" selection-end-line="96" selection-end-column="37" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file:///mnt/566A35016A34E003/Users/Yash/AndroidStudioProjects/TaskNearby/app/src/main/AndroidManifest.xml">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.5752961">
@@ -2350,33 +2248,6 @@
           <folding>
             <element signature="e#1092#1505#0" expanded="false" />
           </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file:///mnt/566A35016A34E003/Users/Yash/AndroidStudioProjects/TaskNearby/app/src/main/java/app/tasknearby/yashcreations/com/tasknearby/MainActivity.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="97" column="21" selection-start-line="97" selection-start-column="21" selection-end-line="97" selection-end-column="21" />
-          <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="method#onCreate#0;class#MainActivity#0" expanded="false" />
-            <element signature="method#checkPlayServices#0;class#MainActivity#0" expanded="false" />
-            <element signature="method#startServ#0;class#MainActivity#0" expanded="false" />
-            <element signature="method#stopServ#0;class#MainActivity#0" expanded="false" />
-            <element signature="method#setToggleBg#0;class#MainActivity#0" expanded="false" />
-            <element signature="method#onCreateOptionsMenu#0;class#MainActivity#0" expanded="false" />
-            <element signature="method#onOptionsItemSelected#0;class#MainActivity#0" expanded="false" />
-            <element signature="method#onActivityResult#0;class#MainActivity#0" expanded="false" />
-            <element signature="method#getAppStatus#0;class#MainActivity#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file:///mnt/566A35016A34E003/Users/Yash/AndroidStudioProjects/TaskNearby/app/src/main/java/app/tasknearby/yashcreations/com/tasknearby/Constants.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="20" column="32" selection-start-line="20" selection-start-column="32" selection-end-line="20" selection-end-column="32" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -2390,14 +2261,14 @@
     </entry>
     <entry file="file:///mnt/566A35016A34E003/Users/Yash/AndroidStudioProjects/TaskNearby/app/src/main/java/app/tasknearby/yashcreations/com/tasknearby/service/FusedLocationService.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="1.3807106">
-          <caret line="177" column="35" selection-start-line="177" selection-start-column="35" selection-end-line="177" selection-end-column="35" />
+        <state vertical-scroll-proportion="1.8121828">
+          <caret line="227" column="40" selection-start-line="227" selection-start-column="40" selection-end-line="227" selection-end-column="40" />
           <folding>
             <element signature="docComment;class#FusedLocationService#0" expanded="false" />
             <element signature="method#onCreate#0;class#FusedLocationService#0" expanded="false" />
-            <element signature="e#2992#3029#0" expanded="true" />
-            <element signature="e#3031#3072#0" expanded="true" />
-            <element signature="e#3110#3152#0" expanded="true" />
+            <element signature="e#2992#3029#0" expanded="false" />
+            <element signature="e#3031#3072#0" expanded="false" />
+            <element signature="e#3110#3152#0" expanded="false" />
             <element signature="method#onStartCommand#0;class#FusedLocationService#0" expanded="false" />
             <element signature="method#buildGoogleApiClient#0;class#FusedLocationService#0" expanded="false" />
             <element signature="method#checkPlayServices#0;class#FusedLocationService#0" expanded="false" />
@@ -2420,6 +2291,151 @@
             <element signature="method#onReceive#0;class#ActivityDetectionReceiver#0;class#FusedLocationService#0" expanded="false" />
             <element signature="method#getActivityString#0;class#FusedLocationService#0" expanded="false" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file:///mnt/566A35016A34E003/Users/Yash/AndroidStudioProjects/TaskNearby/app/src/main/java/app/tasknearby/yashcreations/com/tasknearby/Constants.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="1.7546531">
+          <caret line="76" column="61" selection-start-line="76" selection-start-column="61" selection-end-line="76" selection-end-column="61" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file:///mnt/566A35016A34E003/Users/Yash/AndroidStudioProjects/TaskNearby/app/src/main/java/app/tasknearby/yashcreations/com/tasknearby/AboutActivity.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.11505922">
+          <caret line="10" column="13" selection-start-line="10" selection-start-column="13" selection-end-line="10" selection-end-column="13" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file:///mnt/566A35016A34E003/Users/Yash/AndroidStudioProjects/TaskNearby/app/src/main/java/app/tasknearby/yashcreations/com/tasknearby/AlarmActivity.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-0.14382403">
+          <caret line="100" column="114" selection-start-line="100" selection-start-column="114" selection-end-line="100" selection-end-column="114" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file:///mnt/566A35016A34E003/Users/Yash/AndroidStudioProjects/TaskNearby/app/src/main/res/xml/pref_general.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="23" column="44" selection-start-line="23" selection-start-column="44" selection-end-line="23" selection-end-column="44" />
+          <folding>
+            <element signature="e#166#194#0" expanded="false" />
+            <element signature="e#322#346#0" expanded="false" />
+            <element signature="e#369#395#0" expanded="false" />
+            <element signature="e#485#508#0" expanded="false" />
+            <element signature="e#738#765#0" expanded="false" />
+            <element signature="e#788#817#0" expanded="false" />
+            <element signature="e#847#878#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file:///mnt/566A35016A34E003/Users/Yash/AndroidStudioProjects/TaskNearby/app/src/main/java/app/tasknearby/yashcreations/com/tasknearby/SettingsActivity.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.30964467">
+          <caret line="72" column="48" selection-start-line="72" selection-start-column="48" selection-end-line="72" selection-end-column="48" />
+          <folding>
+            <element signature="e#2906#2943#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file:///mnt/566A35016A34E003/Users/Yash/AndroidStudioProjects/TaskNearby/app/src/main/java/app/tasknearby/yashcreations/com/tasknearby/MainActivity.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="3.0203047">
+          <caret line="166" column="0" selection-start-line="166" selection-start-column="0" selection-end-line="166" selection-end-column="0" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="method#checkPlayServices#0;class#MainActivity#0" expanded="false" />
+            <element signature="method#startServ#0;class#MainActivity#0" expanded="false" />
+            <element signature="method#stopServ#0;class#MainActivity#0" expanded="false" />
+            <element signature="method#setToggleBg#0;class#MainActivity#0" expanded="false" />
+            <element signature="method#onCreateOptionsMenu#0;class#MainActivity#0" expanded="false" />
+            <element signature="method#onOptionsItemSelected#0;class#MainActivity#0" expanded="false" />
+            <element signature="method#onActivityResult#0;class#MainActivity#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file:///mnt/566A35016A34E003/Users/Yash/AndroidStudioProjects/TaskNearby/app/src/main/java/app/tasknearby/yashcreations/com/tasknearby/Utility.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.7986464">
+          <caret line="171" column="5" selection-start-line="171" selection-start-column="5" selection-end-line="171" selection-end-column="5" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="e#6938#6983#0" expanded="true" />
+            <element signature="e#6984#7033#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file:///mnt/566A35016A34E003/Users/Yash/AndroidStudioProjects/TaskNearby/app/src/main/res/values/strings.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.36298934">
+          <caret line="81" column="25" selection-start-line="81" selection-start-column="25" selection-end-line="81" selection-end-column="25" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file:///mnt/566A35016A34E003/Users/Yash/AndroidStudioProjects/TaskNearby/app/src/main/java/app/tasknearby/yashcreations/com/tasknearby/TasksFragment.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.63282573">
+          <caret line="77" column="61" selection-start-line="77" selection-start-column="61" selection-end-line="77" selection-end-column="61" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file:///mnt/566A35016A34E003/Users/Yash/AndroidStudioProjects/TaskNearby/app/src/main/res/drawable/list_item_normal.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="0" column="38" selection-start-line="0" selection-start-column="38" selection-end-line="0" selection-end-column="38" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file:///mnt/566A35016A34E003/Users/Yash/AndroidStudioProjects/TaskNearby/app/src/main/res/drawable/list_selector.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.05752961">
+          <caret line="2" column="0" selection-start-line="2" selection-start-column="0" selection-end-line="2" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file:///mnt/566A35016A34E003/Users/Yash/AndroidStudioProjects/TaskNearby/app/src/main/res/values/color.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.28764805">
+          <caret line="10" column="51" selection-start-line="10" selection-start-column="51" selection-end-line="10" selection-end-column="51" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file:///mnt/566A35016A34E003/Users/Yash/AndroidStudioProjects/TaskNearby/app/src/main/res/drawable/circle.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="38" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file:///mnt/566A35016A34E003/Users/Yash/AndroidStudioProjects/TaskNearby/app/src/main/res/drawable/list_item_pressed.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.028764805">
+          <caret line="1" column="0" selection-start-line="1" selection-start-column="0" selection-end-line="1" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file:///mnt/566A35016A34E003/Users/Yash/AndroidStudioProjects/TaskNearby/app/src/main/res/layout/fragment_main.xml">
+      <provider editor-type-id="android-designer">
+        <state />
+      </provider>
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.425">
+          <caret line="14" column="53" selection-start-line="14" selection-start-column="53" selection-end-line="14" selection-end-column="53" />
+          <folding />
         </state>
       </provider>
     </entry>

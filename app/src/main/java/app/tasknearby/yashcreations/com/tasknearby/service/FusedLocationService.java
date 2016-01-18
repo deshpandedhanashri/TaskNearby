@@ -225,7 +225,7 @@ public class FusedLocationService extends Service implements GoogleApiClient.Con
     }
 
 /**********
- * Main method that decides what to do! *
+ * Main method that decides what to do!
  * *******/
     @Override
     public void onLocationChanged(Location loc)
