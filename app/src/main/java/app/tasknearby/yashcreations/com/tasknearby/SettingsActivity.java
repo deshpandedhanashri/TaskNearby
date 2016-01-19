@@ -10,7 +10,9 @@ import android.preference.Preference;
 import android.preference.PreferenceActivity;
 import android.preference.PreferenceManager;
 import android.preference.RingtonePreference;
+import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.view.View;
 
 import app.tasknearby.yashcreations.com.tasknearby.service.FusedLocationService;
 
@@ -25,6 +27,17 @@ public class SettingsActivity extends PreferenceActivity implements Preference.O
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setContentView(R.layout.layout_settings);
+
+        Toolbar toolbar=(Toolbar)findViewById(R.id.actionbar);
+        toolbar.setTitle("Settings");
+        toolbar.setNavigationIcon(getResources().getDrawable(R.drawable.ic_action_back));
+        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                SettingsActivity.this.finish();
+            }
+        });
         // Add 'general' preferences, defined in the XML file
         addPreferencesFromResource(R.xml.pref_general);
 

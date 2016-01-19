@@ -1,6 +1,7 @@
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:fillViewport="true">
     />
 
     <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
@@ -13,21 +14,22 @@
         android:paddingRight="@dimen/activity_horizontal_margin"
         android:paddingTop="@dimen/activity_vertical_margin"
         tools:context="app.tasknearby.yashcreations.com.tasknearby.HelpActivity"
-        android:background="@drawable/abs">
+        android:background="@color/white">
 
         <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="133dp"
+            android:layout_height="133dp"
             android:layout_gravity="center"
             android:src="@mipmap/icon_hd" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:fontFamily="sans-serif-condensed"
             android:paddingTop="20dp"
             android:text="@string/help_content"
-            android:textSize="20sp" android:textColor="#ffffff"/>
+            android:textSize="20sp"
+            android:fontFamily="sans-serif-light"
+            android:textColor="@android:color/black" />
 
     </LinearLayout>
 </ScrollView>
