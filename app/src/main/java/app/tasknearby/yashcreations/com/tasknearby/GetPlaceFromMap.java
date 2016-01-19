@@ -8,6 +8,8 @@ import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.Button;
 import android.widget.Toast;
 
 import com.google.android.gms.maps.CameraUpdateFactory;
@@ -29,9 +31,11 @@ public class GetPlaceFromMap extends ActionBarActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_get_place_from_map);
 
+        final Button selectPlace=(Button)findViewById(R.id.selectPlace);
         map = ((MapFragment) getFragmentManager().findFragmentById(R.id.map_fragment)).getMap();
         map.setMyLocationEnabled(true);
         map.setBuildingsEnabled(true);
+        selectPlace.setEnabled(false);
 
 
 
@@ -52,6 +56,21 @@ public class GetPlaceFromMap extends ActionBarActivity {
                         .anchor(0.5f, 1.0f) // Anchors the marker on the sharp point
                         .position(point));
                 finalPoint = point;
+                selectPlace.setEnabled(true);
+            }
+        });
+
+        selectPlace.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (finalPoint == null) {
+                    Toast.makeText(GetPlaceFromMap.this, "Select a Location First!", Toast.LENGTH_SHORT).show();
+                } else {
+                    Intent intent = GetPlaceFromMap.this.getIntent();
+                    intent.putExtra(Constants.LATITUDE, finalPoint.latitude).putExtra(Constants.LONGITUDE, finalPoint.longitude);
+                    GetPlaceFromMap.this.setResult(RESULT_OK, intent);
+                    finish();
+                }
             }
         });
     }
@@ -65,18 +84,7 @@ public class GetPlaceFromMap extends ActionBarActivity {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
-        if (id == R.id.action_select) {
-            if (finalPoint == null) {
-                Toast.makeText(this, "Select a Location First!", Toast.LENGTH_SHORT).show();
-            } else {
-                Intent intent = GetPlaceFromMap.this.getIntent();
-                intent.putExtra(Constants.LATITUDE, finalPoint.latitude).putExtra(Constants.LONGITUDE, finalPoint.longitude);
-                GetPlaceFromMap.this.setResult(RESULT_OK, intent);
-                finish();
-            }
-            return true;
-        }
-        else if(id==android.R.id.home)
+        if(id==android.R.id.home)
         {   finish();
             return true;}
 

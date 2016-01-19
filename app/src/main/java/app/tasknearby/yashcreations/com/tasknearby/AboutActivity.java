@@ -16,7 +16,6 @@ public class AboutActivity extends ActionBarActivity {
         setContentView(R.layout.activity_about);
 
         Button sourceCode = (Button) findViewById(R.id.source_code);
-        Button feedback = (Button) findViewById(R.id.feedback);
         Button share = (Button) findViewById(R.id.share);
         Button rate = (Button) findViewById(R.id.rate);
 
@@ -34,18 +33,6 @@ public class AboutActivity extends ActionBarActivity {
             }
         });
 
-        feedback.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                String url = "https://goo.gl/o821cR";
-                Intent intent = new Intent(Intent.ACTION_VIEW);
-                intent.setData(Uri.parse(url));
-                if (intent.resolveActivity(AboutActivity.this.getPackageManager()) != null)
-                    startActivity(intent);
-                else
-                    Toast.makeText(AboutActivity.this, "No app found to open the Web page", Toast.LENGTH_SHORT).show();
-            }
-        });
 
         sourceCode.setOnClickListener(new View.OnClickListener() {
             @Override

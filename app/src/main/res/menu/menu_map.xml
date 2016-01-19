@@ -3,9 +3,4 @@
     xmlns:tools="http://schemas.android.com/tools"
     tools:context="app.tasknearby.yashcreations.com.tasknearby.DetailActivity">
 
-    <item
-        android:id="@+id/action_select"
-        android:orderInCategory="100"
-        android:title="Select Place"
-        app:showAsAction="always" />
 </menu>

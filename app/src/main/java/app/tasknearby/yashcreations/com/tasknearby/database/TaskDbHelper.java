@@ -1,8 +1,12 @@
 package app.tasknearby.yashcreations.com.tasknearby.database;
 
 import android.content.Context;
+import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.util.Log;
+
+import java.util.Currency;
 
 /**
  * Created by Yash on 22/04/15.
@@ -10,7 +14,7 @@ import android.database.sqlite.SQLiteOpenHelper;
 public class TaskDbHelper extends SQLiteOpenHelper {
     static public TaskDbHelper mInstace=null;
 
-    static public final int DATABASE_VERSION = 1;
+    static public final int DATABASE_VERSION = 2;
     static public String DATABASE_NAME = "task_database.db";
 
     public TaskDbHelper(Context context) {
@@ -30,7 +34,9 @@ public class TaskDbHelper extends SQLiteOpenHelper {
                 TasksContract.LocationEntry._ID + " INTEGER PRIMARY KEY, " +
                 TasksContract.LocationEntry.COLUMN_PLACE_NAME + " TEXT UNIQUE NOT NULL, " +
                 TasksContract.LocationEntry.COLUMN_COORD_LAT + " REAL NOT NULL, " +
-                TasksContract.LocationEntry.COLUMN_COORD_LONG + " REAL NOT NULL" + ");";
+                TasksContract.LocationEntry.COLUMN_COORD_LONG + " REAL NOT NULL, " +
+                TasksContract.LocationEntry.COLUMN_COUNT + " INTEGER DEFAULT 1 ,"+
+                TasksContract.LocationEntry.COLUMN_HIDDEN + " INTEGER DEFAULT 0 "+");";
 
         sqLiteDatabase.execSQL(CREATE_LOCATION_TABLE);
 
@@ -55,10 +61,27 @@ public class TaskDbHelper extends SQLiteOpenHelper {
 
 
     @Override
-    public void onUpgrade(SQLiteDatabase sqLiteDatabase, int i, int i2) {
-        sqLiteDatabase.execSQL("DROP TABLE IF EXISTS " + TasksContract.LocationEntry.TABLE_NAME);
-        sqLiteDatabase.execSQL("DROP TABLE IF EXISTS " + TasksContract.TaskEntry.TABLE_NAME);
-        onCreate(sqLiteDatabase);
+    public void onUpgrade(SQLiteDatabase sqLiteDatabase, int oldVersion, int newVersion) {
 
+      switch (oldVersion)
+      {
+          case 1:
+              Log.e("DbHelper","Upgrading....");
+              String addCountHidden="ALTER TABLE "
+                      + TasksContract.LocationEntry.TABLE_NAME
+                      +" ADD COLUMN "+ TasksContract.LocationEntry.COLUMN_COUNT+" INTEGER DEFAULT 1"
+                      +";";
+              sqLiteDatabase.execSQL(addCountHidden);
+
+              addCountHidden="ALTER TABLE "
+                      + TasksContract.LocationEntry.TABLE_NAME
+                      +" ADD COLUMN "+TasksContract.LocationEntry.COLUMN_HIDDEN+" INTEGER DEFAULT 0"
+                      +";";
+              sqLiteDatabase.execSQL(addCountHidden);
+
+              break;
+          default:
+              Log.e("DbHelperOnUpgrade","No version matched");
+      }
     }
 }

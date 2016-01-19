@@ -30,12 +30,17 @@ public class Constants {
             TasksContract.LocationEntry.TABLE_NAME + "." + TasksContract.LocationEntry._ID,
             TasksContract.LocationEntry.COLUMN_PLACE_NAME,
             TasksContract.LocationEntry.COLUMN_COORD_LAT,
-            TasksContract.LocationEntry.COLUMN_COORD_LONG
+            TasksContract.LocationEntry.COLUMN_COORD_LONG,
+            TasksContract.LocationEntry.COLUMN_COUNT,
+            TasksContract.LocationEntry.COLUMN_HIDDEN
     };
 
     static final int COL_PLACE_NAME = 1;
     static final int COL_LAT = 2;
     static final int COL_LON = 3;
+    static final int COL_COUNT = 4;
+    static final int COL_HIDDEN = 5;
+
 
 
     /*

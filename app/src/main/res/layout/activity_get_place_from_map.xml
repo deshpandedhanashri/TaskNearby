@@ -1,17 +1,31 @@
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#ffffff"
     tools:context="app.tasknearby.yashcreations.com.tasknearby.GetPlaceFromMap">
 
- <fragment
+    <fragment
 
         android:id="@+id/map_fragment"
         class="com.google.android.gms.maps.MapFragment"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
 
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom"
+        android:padding="3dp">
 
-</LinearLayout>
+        <Button
+            android:id="@+id/selectPlace"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/rounded_map_button"
+            android:text="USE THIS PLACE"
+            android:textColor="@color/white" />
+    </FrameLayout>
+
+
+</FrameLayout>

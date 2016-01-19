@@ -5,6 +5,7 @@ import android.content.ContentValues;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.database.Cursor;
 import android.net.Uri;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.ActionBarActivity;
@@ -225,6 +226,9 @@ public class AddNewTaskActivity extends ActionBarActivity {
                 if (distance <= remindDistance && distance != 0)
                     Toast.makeText(AddNewTaskActivity.this, getString(R.string.already_in_region), Toast.LENGTH_LONG).show();
 
+
+                incrementSelectedLocCount(mTaskLocation);
+
                 Intent intent = AddNewTaskActivity.this.getIntent();
                 AddNewTaskActivity.this.setResult(RESULT_OK, intent);
                 finish();
@@ -265,5 +269,28 @@ public class AddNewTaskActivity extends ActionBarActivity {
         else
             dispString += "yd";
         remindDistanceView.setText(dispString);
+    }
+
+    public void incrementSelectedLocCount(String locationName)
+    {
+        Cursor cc=this.getContentResolver().query(TasksContract.LocationEntry.CONTENT_URI,
+                new String[]{TasksContract.LocationEntry.COLUMN_COUNT},
+                TasksContract.LocationEntry.COLUMN_PLACE_NAME+"=?",
+                new String[]{locationName},
+                null);
+
+        if(cc.moveToFirst())
+        {
+            int count=cc.getInt(0);
+            cc.close();
+            ContentValues values=new ContentValues();
+            values.put(TasksContract.LocationEntry.COLUMN_COUNT,++count);
+            this.getContentResolver().update(TasksContract.LocationEntry.CONTENT_URI,
+                    values,
+                    TasksContract.LocationEntry.COLUMN_PLACE_NAME+"=?",
+                    new String[]{locationName});
+        }
+        if(!cc.isClosed())
+            cc.close();
     }
 }

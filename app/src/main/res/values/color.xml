@@ -10,6 +10,7 @@
     <color name="list_item_normal">#ffffff</color>
     <color name="list_item_pressed">#f5f5f5</color>
 
+    <color name="lighter_green">#29d74b</color>
     <color name="white">#ffffff</color>
     <color name="Green">#1DA237</color>
 </resources>
