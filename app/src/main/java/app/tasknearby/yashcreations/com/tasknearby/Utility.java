@@ -17,7 +17,6 @@ import android.support.v4.content.ContextCompat;
 
 import com.google.android.gms.maps.model.LatLng;
 
-import java.util.jar.Manifest;
 
 import app.tasknearby.yashcreations.com.tasknearby.database.TasksContract;
 
@@ -118,15 +117,16 @@ public class Utility {
 
     public Location getCurrentLocation(Context context) {
         LocationManager locationManager = (LocationManager) context.getSystemService(Context.LOCATION_SERVICE);
-    //FIXME
+
+    //TODO: Confirm that this thing Works :|
 
         int permissionCheck1=ContextCompat.checkSelfPermission(context, android.Manifest.permission.ACCESS_COARSE_LOCATION);
         int permissionCheck2=ContextCompat.checkSelfPermission(context, android.Manifest.permission.ACCESS_FINE_LOCATION);
 
-     //   if(permissionCheck1== PackageManager.PERMISSION_GRANTED && permissionCheck2==PackageManager.PERMISSION_GRANTED)
+        if(permissionCheck1== PackageManager.PERMISSION_GRANTED && permissionCheck2==PackageManager.PERMISSION_GRANTED)
             {Location currentLocation = locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
              return currentLocation;}
-      //  return null;
+        return null;
     }
 
     public LatLng getLatLngByPlaceName(Context context, String placeName) {

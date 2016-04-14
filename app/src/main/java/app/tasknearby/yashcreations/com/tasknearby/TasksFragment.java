@@ -32,7 +32,7 @@ public class TasksFragment extends Fragment implements LoaderManager.LoaderCallb
     public View onCreateView(final LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState)
     {
-        rootView = inflater.inflate(R.layout.fragment_main, container, false);
+        rootView = inflater.inflate(R.layout.fragment_main, container,false);
         ListView listview = (ListView) rootView.findViewById(R.id.listView_task);
         final ImageButton FAB = (ImageButton) rootView.findViewById(R.id.btnCreate);
 
