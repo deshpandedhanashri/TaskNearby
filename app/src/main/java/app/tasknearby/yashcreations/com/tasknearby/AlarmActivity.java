@@ -11,7 +11,7 @@ import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Vibrator;
 import android.preference.PreferenceManager;
-import android.support.v7.app.ActionBarActivity;
+import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -21,7 +21,7 @@ import android.widget.TextView;
 
 import app.tasknearby.yashcreations.com.tasknearby.database.TasksContract;
 
-public class AlarmActivity extends ActionBarActivity {
+public class AlarmActivity extends AppCompatActivity {
 
     int alarmTone = R.raw.alarm;
     MediaPlayer mMediaPlayer = new MediaPlayer();
@@ -98,7 +98,7 @@ public class AlarmActivity extends ActionBarActivity {
                 taskValues.put(TasksContract.TaskEntry.COLUMN_LOCATION_ALARM, c.getString(Constants.COL_ALARM));
                 taskValues.put(TasksContract.TaskEntry.COLUMN_MIN_DISTANCE, c.getInt(Constants.COL_MIN_DISTANCE));
                 taskValues.put(TasksContract.TaskEntry.COLUMN_DONE_STATUS, c.getString(Constants.COL_DONE));
-                taskValues.put(TasksContract.TaskEntry.COLUMN_SNOOZE_TIME, System.currentTimeMillis() + Constants.SNOOZE_TIME_DURATION);
+                taskValues.put(TasksContract.TaskEntry.COLUMN_SNOOZE_TIME, System.currentTimeMillis());
                 taskValues.put(TasksContract.TaskEntry.COLUMN_REMIND_DISTANCE, c.getString(Constants.COL_REMIND_DIS));
 
                 AlarmActivity.this.getContentResolver().update(
@@ -145,12 +145,10 @@ public class AlarmActivity extends ActionBarActivity {
 
     @Override
     protected void onResume() {
-
-        SharedPreferences sp = getSharedPreferences("ACTIVITYINFO", MODE_PRIVATE);
+        SharedPreferences sp = getSharedPreferences(Constants.PREF_IS_ALARM_ACTIVITY_RUNNING, MODE_PRIVATE);
         SharedPreferences.Editor ed = sp.edit();
         ed.putBoolean("active", true);
         ed.commit();
-
         super.onResume();
     }
 
@@ -162,11 +160,10 @@ public class AlarmActivity extends ActionBarActivity {
 
         c.close();
         finish();
-        SharedPreferences sp = getSharedPreferences("ACTIVITYINFO", MODE_PRIVATE);
+        SharedPreferences sp = getSharedPreferences(Constants.PREF_IS_ALARM_ACTIVITY_RUNNING, MODE_PRIVATE);
         SharedPreferences.Editor ed = sp.edit();
         ed.putBoolean("active", false);
         ed.commit();
-
         super.onPause();
     }
 

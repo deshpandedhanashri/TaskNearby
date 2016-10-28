@@ -16,6 +16,7 @@ import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -27,14 +28,15 @@ import android.support.v7.widget.Toolbar;
 import android.widget.ToggleButton;
 
 import com.google.android.gms.common.ConnectionResult;
+import com.google.android.gms.common.GoogleApiAvailability;
 import com.google.android.gms.common.GooglePlayServicesUtil;
 
 import app.tasknearby.yashcreations.com.tasknearby.service.FusedLocationService;
 
-public class MainActivity extends ActionBarActivity {
+public class MainActivity extends AppCompatActivity {
 
     public static boolean isServiceRunning = false;
-    private final String TASKSFRAGMENT_TAG = "TFTAG";
+    private final String TASKSFRAGMENT_TAG = "TaskFragment";
     ToggleButton toggle;
     Utility utility=new Utility();
 
@@ -53,22 +55,15 @@ public class MainActivity extends ActionBarActivity {
         if(Build.VERSION.SDK_INT<23)
             continueNormalWorking();
         else
-        {
             checkPermissions();
-        }
-
     }
 
-    public void checkPermissions()
-    {
+    public void checkPermissions() {
         if(ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION)== PackageManager.PERMISSION_GRANTED
                 &&ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION)== PackageManager.PERMISSION_GRANTED)
-        {    //Good to go
-            continueNormalWorking();
-        }
-        else{
+            continueNormalWorking();        //Good to go
+        else
             requestPermission();
-        }
     }
 
     void requestPermission() {
@@ -123,17 +118,18 @@ public class MainActivity extends ActionBarActivity {
                     setToggleBg(false);
                     editor.putString(MainActivity.this.getString(R.string.pref_status_key), "disabled");
                 }
-                editor.commit();
+                editor.apply();
             }
         });
 
     }
     private boolean checkPlayServices() {
-        int resultCode = GooglePlayServicesUtil.isGooglePlayServicesAvailable(this);
+        GoogleApiAvailability gmsAvailability = GoogleApiAvailability.getInstance();
+        int resultCode = gmsAvailability.isGooglePlayServicesAvailable(this) ;
         if (resultCode != ConnectionResult.SUCCESS) {
-            if (GooglePlayServicesUtil.isUserRecoverableError(resultCode)) {
-                GooglePlayServicesUtil.getErrorDialog(resultCode, this,
-                        1000).show();
+            if (gmsAvailability.isUserResolvableError(resultCode)) {
+                gmsAvailability.getErrorDialog(this, resultCode, 1000)
+                        .show();
             } else {
                 Toast.makeText(getApplicationContext(),
                         "This device is not supported", Toast.LENGTH_LONG)

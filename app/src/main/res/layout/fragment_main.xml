@@ -28,7 +28,7 @@
         android:layout_gravity="center"
         android:fontFamily="sans-serif-condensed"
         android:gravity="center"
-        android:hint="Click the Add New Task button at the corner of the screen to Add new tasks"
+        android:hint="Click the Add New Task button at the corner of the screen to Add new tasks!"
         android:padding="16dp"
         android:textSize="18sp"
         android:visibility="invisible" />

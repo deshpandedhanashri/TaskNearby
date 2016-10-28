@@ -15,10 +15,10 @@ import app.tasknearby.yashcreations.com.tasknearby.Constants;
 /**
  * Created by Yash on 13/10/15.
  */
-public class ActivityDetectionIntentService extends IntentService{
-    public ActivityDetectionIntentService()
-        { super("Hello!");  }
-    public static final String TAG="ActivityService";
+public class ActivityDetectionService extends IntentService {
+    public final String TAG = "ActivityDetection";
+
+    public ActivityDetectionService() { super("ActivityDetectionService"); }
 
     @Override
     public void onCreate() {
@@ -28,17 +28,15 @@ public class ActivityDetectionIntentService extends IntentService{
     @Override
     protected void onHandleIntent(Intent intent) {
 
-        ActivityRecognitionResult result=ActivityRecognitionResult.extractResult(intent);
-        ArrayList<DetectedActivity> detectedActivities=(ArrayList)result.getProbableActivities();
+        ActivityRecognitionResult result = ActivityRecognitionResult.extractResult(intent);
+        ArrayList<DetectedActivity> detectedActivities = (ArrayList<DetectedActivity>) result.getProbableActivities();
 
-        Intent localIntent= new Intent(Constants.INTENT_FILTER);
+        Intent localIntent = new Intent(Constants.ACTIVITY_DETECTION_INTENT_FILTER);
         localIntent.putParcelableArrayListExtra(Constants.ReceiverIntentExtra, detectedActivities);
-        Log.i(TAG, "Sending Broadcast!");
-        LocalBroadcastManager local=LocalBroadcastManager.getInstance(this);
-        if(local==null)
+        LocalBroadcastManager local = LocalBroadcastManager.getInstance(this);
+        if (local == null)
             Log.i(TAG, "Local Broadcast Manager is NUll");
-
         local.sendBroadcast(localIntent);
-        Log.i(TAG, "Broadcast Sent!");
+        Log.i(TAG, "Activity Broadcast Sent!");
     }
 }

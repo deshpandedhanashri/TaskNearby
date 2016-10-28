@@ -6,6 +6,7 @@ import android.location.Location;
 import android.location.LocationManager;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -15,24 +16,31 @@ import android.widget.Toast;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.MapFragment;
 import com.google.android.gms.maps.GoogleMap;
+import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 
 
-public class GetPlaceFromMap extends ActionBarActivity {
+public class GetPlaceFromMap extends AppCompatActivity {
 
     GoogleMap map;
     LatLng finalPoint = null;
     Utility utility=new Utility();
 
     @Override
+    @SuppressWarnings({"MissingPermission"})
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_get_place_from_map);
 
         final Button selectPlace=(Button)findViewById(R.id.selectPlace);
-        map = ((MapFragment) getFragmentManager().findFragmentById(R.id.map_fragment)).getMap();
+        ((MapFragment) getFragmentManager().findFragmentById(R.id.map_fragment)).getMapAsync(new OnMapReadyCallback() {
+            @Override
+            public void onMapReady(GoogleMap googleMap) {
+                map = googleMap ;
+            }
+        });
         map.setMyLocationEnabled(true);
         map.setBuildingsEnabled(true);
         selectPlace.setEnabled(false);

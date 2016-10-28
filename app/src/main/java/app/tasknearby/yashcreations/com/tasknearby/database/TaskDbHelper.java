@@ -1,12 +1,9 @@
 package app.tasknearby.yashcreations.com.tasknearby.database;
 
 import android.content.Context;
-import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
-
-import java.util.Currency;
 
 /**
  * Created by Yash on 22/04/15.

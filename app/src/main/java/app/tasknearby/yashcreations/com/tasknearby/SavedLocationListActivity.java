@@ -10,6 +10,7 @@ import android.media.Image;
 import android.net.Uri;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
@@ -24,7 +25,7 @@ import android.widget.TextView;
 import app.tasknearby.yashcreations.com.tasknearby.database.TasksContract;
 
 
-public class SavedLocationListActivity extends ActionBarActivity {
+public class SavedLocationListActivity extends AppCompatActivity {
 
     CursorAdapter mLocationAdapter;
     Cursor cursor;

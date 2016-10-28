@@ -22,14 +22,5 @@
         android:defaultValue="@string/pref_accuracy_default"
         android:entries="@array/pref_accuracy_values"
         android:entryValues="@array/pref_accuracy_entries"/>
-<!--
-    <ListPreference
-        android:key="@string/pref_status_key"
-        android:title="@string/pref_status_label"
-        android:defaultValue="@string/pref_status_default"
-        android:entries="@array/pref_status_values"
-        android:entryValues="@array/pref_status_entries"/>
-
--->
 
 </PreferenceScreen>

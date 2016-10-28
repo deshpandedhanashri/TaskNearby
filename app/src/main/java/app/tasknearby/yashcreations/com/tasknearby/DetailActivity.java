@@ -9,6 +9,7 @@ import android.location.Location;
 import android.net.Uri;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -26,7 +27,7 @@ import com.google.android.gms.maps.model.MarkerOptions;
 
 import app.tasknearby.yashcreations.com.tasknearby.database.TasksContract;
 
-public class DetailActivity extends ActionBarActivity {
+public class DetailActivity extends AppCompatActivity {
 
     int REQUEST_CODE_EDIT = 16;
     Cursor c;
@@ -47,8 +48,8 @@ public class DetailActivity extends ActionBarActivity {
         distanceView = (TextView) findViewById(R.id.detail_distance);
         TextView alarmView = (TextView) findViewById(R.id.detail_alarm);
         final Button markDone = (Button) findViewById(R.id.btnMarkDone);
-        map = ((MapFragment) getFragmentManager().findFragmentById(R.id.detail_map)).getMap();
-        map.setMyLocationEnabled(true);
+//        map = ((MapFragment) getFragmentManager().findFragmentById(R.id.detail_map)).getMap();
+//        map.setMyLocationEnabled(true);
 
         final Location currentLocation = utility.getCurrentLocation(this);
         int distance = 0;

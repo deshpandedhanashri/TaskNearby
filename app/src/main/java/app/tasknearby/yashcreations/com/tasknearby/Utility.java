@@ -1,5 +1,6 @@
 package app.tasknearby.yashcreations.com.tasknearby;
 
+import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.ContentValues;
 import android.content.Context;
@@ -14,7 +15,12 @@ import android.net.Uri;
 import android.preference.PreferenceManager;
 import android.provider.Settings;
 import android.support.v4.content.ContextCompat;
+import android.widget.Toast;
 
+import com.google.android.gms.common.ConnectionResult;
+import com.google.android.gms.common.GoogleApiAvailability;
+import com.google.android.gms.common.GooglePlayServicesUtil;
+import com.google.android.gms.location.DetectedActivity;
 import com.google.android.gms.maps.model.LatLng;
 
 
@@ -170,4 +176,47 @@ public class Utility {
        SharedPreferences prefs=PreferenceManager.getDefaultSharedPreferences(context);
        return prefs.getString(context.getString(R.string.pref_accuracy_key),context.getString(R.string.pref_accuracy_default));
     }
+
+    public boolean checkPlayServices(Context context) {
+        GoogleApiAvailability gmsAvailability = GoogleApiAvailability.getInstance();
+        int resultCode = gmsAvailability.isGooglePlayServicesAvailable(context) ;
+        if (resultCode != ConnectionResult.SUCCESS) {
+            if (gmsAvailability.isUserResolvableError(resultCode)) {
+                gmsAvailability.getErrorDialog((Activity) context, resultCode, 1000)
+                        .show();
+            } else {
+                Toast.makeText(context,
+                        "This device is not supported", Toast.LENGTH_LONG)
+                        .show();
+            }
+            return false;
+        }
+        return true;
+    }
+
+    public String getActivityString(int detectedActivityType) {
+
+        switch (detectedActivityType) {
+            case DetectedActivity.IN_VEHICLE:
+                return "Vehicle";
+            case DetectedActivity.ON_BICYCLE:
+                return "on_bicycle";
+            case DetectedActivity.ON_FOOT:
+                return "on_foot1";
+            case DetectedActivity.RUNNING:
+                return "running";
+            case DetectedActivity.STILL:
+                return "still ";
+            case DetectedActivity.TILTING:
+                return "tilting";
+            case DetectedActivity.UNKNOWN:
+                return "unknown";
+            case DetectedActivity.WALKING:
+                return "walking";
+            default:
+                return "UNDETECTABLE";
+        }
+    }
+
+
 }

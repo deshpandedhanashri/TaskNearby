@@ -34,7 +34,7 @@ public class TasksAdapter extends CursorAdapter {
         TextView taskLoc = (TextView) view.findViewById(R.id.task_location_textView);
         LinearLayout listItemLayout = (LinearLayout) view.findViewById(R.id.list_item_layout);
 
-        //TODO: Check WTF is this?
+
         TasksFragment.distance = cursor.getInt(Constants.COL_MIN_DISTANCE);
         String task = cursor.getString(Constants.COL_TASK_NAME);
         String taskLocation = cursor.getString(Constants.COL_LOCATION_NAME);

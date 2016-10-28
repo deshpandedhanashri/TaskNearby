@@ -8,9 +8,10 @@ import android.content.Intent;
 import android.database.Cursor;
 import android.net.Uri;
 import android.support.v4.content.ContextCompat;
-import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.view.View;
+import android.view.inputmethod.ExtractedText;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.CheckBox;
@@ -20,12 +21,15 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.gms.location.places.ui.PlacePicker;
+
 import app.tasknearby.yashcreations.com.tasknearby.database.TasksContract;
 
 
-public class AddNewTaskActivity extends ActionBarActivity {
+public class AddNewTaskActivity extends AppCompatActivity {
     int REQUEST_CODE_GET_FROM_MAP = 3;
     int REQUEST_CODE_SAVED_PLACES = 6;
+    int REQUEST_CODE_PLACE_PICKER = 9 ;
 
     String mTaskLocation = null, mColorName;
     int mColorCode, remindDistance, distance;
@@ -53,12 +57,10 @@ public class AddNewTaskActivity extends ActionBarActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if (requestCode == REQUEST_CODE_GET_FROM_MAP) {        //LOCATION SELECTED FROM MAP
-            if (resultCode == RESULT_OK) {
-                double lat = data.getDoubleExtra(Constants.LATITUDE, 0);
-                double lon = data.getDoubleExtra(Constants.LONGITUDE, 0);
-                savePlaceDialog(this, lat, lon);
-            }
+        if (requestCode == REQUEST_CODE_PLACE_PICKER) {        //LOCATION SELECTED FROM MAP
+
+
+
         } else if (requestCode == REQUEST_CODE_SAVED_PLACES)                         //LOCATION SELECTED FROM SAVED PLACES
         {
             if (resultCode == RESULT_OK) {
@@ -125,8 +127,12 @@ public class AddNewTaskActivity extends ActionBarActivity {
         selFromMap.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(getApplicationContext(), GetPlaceFromMap.class);
-                startActivityForResult(intent, REQUEST_CODE_GET_FROM_MAP);
+                PlacePicker.IntentBuilder builder = new PlacePicker.IntentBuilder();
+                try {
+                    startActivityForResult(builder.build(AddNewTaskActivity.this), REQUEST_CODE_PLACE_PICKER);
+                }catch (Exception e) {
+                    e.printStackTrace();
+                }
             }
         });
 
