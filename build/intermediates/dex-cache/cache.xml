@@ -12,6 +12,33 @@
     </item>
     <item
         is-multidex="false"
+        jar="/home/yash/TaskNearby/app/build/intermediates/exploded-aar/com.android.support/gridlayout-v7/24.2.1/jars/classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="24.0.2"
+        sha1="4e6470fe5081bd76bb727ea9d0d9de373ac5940b">
+        <dex dex="/home/yash/TaskNearby/app/build/intermediates/pre-dexed/debug/com.android.support-gridlayout-v7-24.2.1_e5604ceaeb0238dc7bc976181ab50d228f480e7d.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/home/yash/TaskNearby/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/24.2.1/jars/classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="24.0.2"
+        sha1="43b2dba6b5a0b14527961b75329d0b90025f15ea">
+        <dex dex="/home/yash/TaskNearby/app/build/intermediates/pre-dexed/debug/com.android.support-appcompat-v7-24.2.1_e679c192dc69d8be7f6888a257351634d8c4d472.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/home/yash/TaskNearby/app/build/intermediates/incremental-runtime-classes/debug/instant-run.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="24.0.2"
+        sha1="fdb20ae693ffc6d8b7c621ae3332bd342adffa5d">
+        <dex dex="/home/yash/TaskNearby/app/build/intermediates/pre-dexed/debug/instant-run_a4f15af3cd52852b23810bd4c3a3c7575f8c7d66.jar" />
+    </item>
+    <item
+        is-multidex="false"
         jar="/home/yash/TaskNearby/app/build/intermediates/exploded-aar/com.android.support/support-core-ui/24.2.1/jars/classes.jar"
         jumboMode="true"
         optimize="true"
@@ -21,12 +48,30 @@
     </item>
     <item
         is-multidex="false"
+        jar="/home/yash/TaskNearby/app/build/intermediates/exploded-aar/com.android.support/cardview-v7/24.2.1/jars/classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="24.0.2"
+        sha1="c5e6490573cd2cc8018417f60ddd251138b6ed61">
+        <dex dex="/home/yash/TaskNearby/app/build/intermediates/pre-dexed/debug/com.android.support-cardview-v7-24.2.1_718b03dd353a37d7559427e252028b6b4e238969.jar" />
+    </item>
+    <item
+        is-multidex="false"
         jar="/home/yash/TaskNearby/app/build/intermediates/incremental-classes/debug/instant-run-bootstrap.jar"
         jumboMode="true"
         optimize="true"
         revision="24.0.2"
-        sha1="e0d3752652755acdfcdd4a82c9dfb051df16f85d">
+        sha1="50eb930b608cb510cbb0e95bc3194e662b3c4e7e">
         <dex dex="/home/yash/TaskNearby/app/build/intermediates/pre-dexed/debug/instant-run-bootstrap_fc55c4e9a65f90dd492cd5c8678c1926c5a4f3e8.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/home/yash/TaskNearby/app/build/intermediates/exploded-aar/com.android.support/support-compat/24.2.1/jars/classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="24.0.2"
+        sha1="0ecb4b595fa0f0f8018a149ace3ea6525624f94e">
+        <dex dex="/home/yash/TaskNearby/app/build/intermediates/pre-dexed/debug/com.android.support-support-compat-24.2.1_610b15ee5a5fc4360fc399863c66bc51e02728ce.jar" />
     </item>
     <item
         is-multidex="false"
@@ -38,6 +83,23 @@
         <dex dex="/home/yash/TaskNearby/app/build/intermediates/pre-dexed/debug/com.google.android.gms-play-services-tasks-9.4.0_8040012eb064d220f8f77ca4a4f2b1be52831a65.jar" />
     </item>
     <item
+        jar="/home/yash/TaskNearby/app/build/intermediates/incremental-classes/debug/instant-run-bootstrap.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="23.0.3"
+        sha1="f72da7ffd4e038d9003f46b805c0ee919560aefa">
+        <dex dex="/home/yash/TaskNearby/app/build/intermediates/pre-dexed/debug/instant-run-bootstrap_fc55c4e9a65f90dd492cd5c8678c1926c5a4f3e8.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/home/yash/TaskNearby/app/build/intermediates/exploded-aar/com.google.android.gms/play-services-location/9.4.0/jars/classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="24.0.2"
+        sha1="0b060160e7daee343f5315b3da91b0ff2d7eed89">
+        <dex dex="/home/yash/TaskNearby/app/build/intermediates/pre-dexed/debug/com.google.android.gms-play-services-location-9.4.0_3ec1fb84c81de4976ec0c52961c8de50f87a58f3.jar" />
+    </item>
+    <item
         is-multidex="false"
         jar="/home/yash/TaskNearby/app/build/intermediates/exploded-aar/com.android.support/support-core-utils/24.2.1/jars/classes.jar"
         jumboMode="true"
@@ -45,6 +107,15 @@
         revision="24.0.2"
         sha1="9c4c3bc902450c39ed54de170db4fb12aea20a35">
         <dex dex="/home/yash/TaskNearby/app/build/intermediates/pre-dexed/debug/com.android.support-support-core-utils-24.2.1_be66079286b54007b5a49c80e04d99fde0d249d1.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/home/yash/TaskNearby/app/build/intermediates/exploded-aar/com.google.android.gms/play-services-base/9.4.0/jars/classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="24.0.2"
+        sha1="3dee4ce5844d39d843d503fb8fe04e51e5bfffac">
+        <dex dex="/home/yash/TaskNearby/app/build/intermediates/pre-dexed/debug/com.google.android.gms-play-services-base-9.4.0_32a30f2ed1e0c3bc68aad0a18e5c0bb9cdeae676.jar" />
     </item>
     <item
         is-multidex="false"
@@ -75,6 +146,24 @@
     </item>
     <item
         is-multidex="false"
+        jar="/home/yash/TaskNearby/app/build/intermediates/exploded-aar/com.android.support/support-media-compat/24.2.1/jars/classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="24.0.2"
+        sha1="09b462bbcb77650284bd6614f1a32f360ef369f8">
+        <dex dex="/home/yash/TaskNearby/app/build/intermediates/pre-dexed/debug/com.android.support-support-media-compat-24.2.1_2ae56bde1d39e68b26ed58be4c7326656650a03e.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/home/yash/TaskNearby/app/build/intermediates/exploded-aar/com.android.support/support-v4/24.2.1/jars/classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="24.0.2"
+        sha1="d7c42c80f6509b9ea4db28ca7859ffae08ec5741">
+        <dex dex="/home/yash/TaskNearby/app/build/intermediates/pre-dexed/debug/com.android.support-support-v4-24.2.1_7214e1b139a76fca817a2b7857eff05501948d9e.jar" />
+    </item>
+    <item
+        is-multidex="false"
         jar="/home/yash/TaskNearby/app/build/intermediates/exploded-aar/com.android.support/support-fragment/24.2.1/jars/libs/internal_impl-24.2.1.jar"
         jumboMode="true"
         optimize="true"
@@ -90,6 +179,24 @@
         revision="24.0.2"
         sha1="8de3aafecbdf98a61db6427f008f2d515bcd2544">
         <dex dex="/home/yash/TaskNearby/app/build/intermediates/pre-dexed/debug/support-annotations-24.2.1_de085d3dc357b2f6fd98152a887ca9f74bdec44e.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/home/yash/TaskNearby/app/build/intermediates/exploded-aar/com.android.support/support-media-compat/24.2.1/jars/libs/internal_impl-24.2.1.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="24.0.2"
+        sha1="fbf8da429efd5ad21e02e3e5ecaa1efc4167878d">
+        <dex dex="/home/yash/TaskNearby/app/build/intermediates/pre-dexed/debug/internal_impl-24.2.1_b7314a44d519b204209b3d23d8673e64d6b520bf.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/home/yash/TaskNearby/app/build/intermediates/exploded-aar/com.google.android.gms/play-services-places/9.4.0/jars/classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="24.0.2"
+        sha1="e35002351f2d415093a9b564652d4b56be6a0593">
+        <dex dex="/home/yash/TaskNearby/app/build/intermediates/pre-dexed/debug/com.google.android.gms-play-services-places-9.4.0_8867a3fea51622fc9cb9e483a4851f8f631740ad.jar" />
     </item>
     <item
         is-multidex="false"
@@ -144,104 +251,6 @@
         revision="24.0.2"
         sha1="b9a1ac78ad7ef3abedc4a4b30cd92bcacb939d1f">
         <dex dex="/home/yash/TaskNearby/app/build/intermediates/pre-dexed/debug/com.android.support-support-fragment-24.2.1_8532a2fd108d1d9f6aa87a3e259bc6b1b565fe41.jar" />
-    </item>
-    <item
-        is-multidex="false"
-        jar="/home/yash/TaskNearby/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/24.2.1/jars/classes.jar"
-        jumboMode="true"
-        optimize="true"
-        revision="24.0.2"
-        sha1="43b2dba6b5a0b14527961b75329d0b90025f15ea">
-        <dex dex="/home/yash/TaskNearby/app/build/intermediates/pre-dexed/debug/com.android.support-appcompat-v7-24.2.1_e679c192dc69d8be7f6888a257351634d8c4d472.jar" />
-    </item>
-    <item
-        is-multidex="false"
-        jar="/home/yash/TaskNearby/app/build/intermediates/incremental-runtime-classes/debug/instant-run.jar"
-        jumboMode="true"
-        optimize="true"
-        revision="24.0.2"
-        sha1="2a7bfd2c40888cf7ce064ddf2c62472fb0d0de84">
-        <dex dex="/home/yash/TaskNearby/app/build/intermediates/pre-dexed/debug/instant-run_a4f15af3cd52852b23810bd4c3a3c7575f8c7d66.jar" />
-    </item>
-    <item
-        is-multidex="false"
-        jar="/home/yash/TaskNearby/app/build/intermediates/exploded-aar/com.android.support/cardview-v7/24.2.1/jars/classes.jar"
-        jumboMode="true"
-        optimize="true"
-        revision="24.0.2"
-        sha1="c5e6490573cd2cc8018417f60ddd251138b6ed61">
-        <dex dex="/home/yash/TaskNearby/app/build/intermediates/pre-dexed/debug/com.android.support-cardview-v7-24.2.1_718b03dd353a37d7559427e252028b6b4e238969.jar" />
-    </item>
-    <item
-        is-multidex="false"
-        jar="/home/yash/TaskNearby/app/build/intermediates/exploded-aar/com.android.support/support-compat/24.2.1/jars/classes.jar"
-        jumboMode="true"
-        optimize="true"
-        revision="24.0.2"
-        sha1="0ecb4b595fa0f0f8018a149ace3ea6525624f94e">
-        <dex dex="/home/yash/TaskNearby/app/build/intermediates/pre-dexed/debug/com.android.support-support-compat-24.2.1_610b15ee5a5fc4360fc399863c66bc51e02728ce.jar" />
-    </item>
-    <item
-        jar="/home/yash/TaskNearby/app/build/intermediates/incremental-classes/debug/instant-run-bootstrap.jar"
-        jumboMode="true"
-        optimize="true"
-        revision="23.0.3"
-        sha1="f72da7ffd4e038d9003f46b805c0ee919560aefa">
-        <dex dex="/home/yash/TaskNearby/app/build/intermediates/pre-dexed/debug/instant-run-bootstrap_fc55c4e9a65f90dd492cd5c8678c1926c5a4f3e8.jar" />
-    </item>
-    <item
-        is-multidex="false"
-        jar="/home/yash/TaskNearby/app/build/intermediates/exploded-aar/com.google.android.gms/play-services-location/9.4.0/jars/classes.jar"
-        jumboMode="true"
-        optimize="true"
-        revision="24.0.2"
-        sha1="0b060160e7daee343f5315b3da91b0ff2d7eed89">
-        <dex dex="/home/yash/TaskNearby/app/build/intermediates/pre-dexed/debug/com.google.android.gms-play-services-location-9.4.0_3ec1fb84c81de4976ec0c52961c8de50f87a58f3.jar" />
-    </item>
-    <item
-        is-multidex="false"
-        jar="/home/yash/TaskNearby/app/build/intermediates/exploded-aar/com.google.android.gms/play-services-base/9.4.0/jars/classes.jar"
-        jumboMode="true"
-        optimize="true"
-        revision="24.0.2"
-        sha1="3dee4ce5844d39d843d503fb8fe04e51e5bfffac">
-        <dex dex="/home/yash/TaskNearby/app/build/intermediates/pre-dexed/debug/com.google.android.gms-play-services-base-9.4.0_32a30f2ed1e0c3bc68aad0a18e5c0bb9cdeae676.jar" />
-    </item>
-    <item
-        is-multidex="false"
-        jar="/home/yash/TaskNearby/app/build/intermediates/exploded-aar/com.android.support/support-media-compat/24.2.1/jars/classes.jar"
-        jumboMode="true"
-        optimize="true"
-        revision="24.0.2"
-        sha1="09b462bbcb77650284bd6614f1a32f360ef369f8">
-        <dex dex="/home/yash/TaskNearby/app/build/intermediates/pre-dexed/debug/com.android.support-support-media-compat-24.2.1_2ae56bde1d39e68b26ed58be4c7326656650a03e.jar" />
-    </item>
-    <item
-        is-multidex="false"
-        jar="/home/yash/TaskNearby/app/build/intermediates/exploded-aar/com.android.support/support-v4/24.2.1/jars/classes.jar"
-        jumboMode="true"
-        optimize="true"
-        revision="24.0.2"
-        sha1="d7c42c80f6509b9ea4db28ca7859ffae08ec5741">
-        <dex dex="/home/yash/TaskNearby/app/build/intermediates/pre-dexed/debug/com.android.support-support-v4-24.2.1_7214e1b139a76fca817a2b7857eff05501948d9e.jar" />
-    </item>
-    <item
-        is-multidex="false"
-        jar="/home/yash/TaskNearby/app/build/intermediates/exploded-aar/com.android.support/support-media-compat/24.2.1/jars/libs/internal_impl-24.2.1.jar"
-        jumboMode="true"
-        optimize="true"
-        revision="24.0.2"
-        sha1="fbf8da429efd5ad21e02e3e5ecaa1efc4167878d">
-        <dex dex="/home/yash/TaskNearby/app/build/intermediates/pre-dexed/debug/internal_impl-24.2.1_b7314a44d519b204209b3d23d8673e64d6b520bf.jar" />
-    </item>
-    <item
-        is-multidex="false"
-        jar="/home/yash/TaskNearby/app/build/intermediates/exploded-aar/com.google.android.gms/play-services-places/9.4.0/jars/classes.jar"
-        jumboMode="true"
-        optimize="true"
-        revision="24.0.2"
-        sha1="e35002351f2d415093a9b564652d4b56be6a0593">
-        <dex dex="/home/yash/TaskNearby/app/build/intermediates/pre-dexed/debug/com.google.android.gms-play-services-places-9.4.0_8867a3fea51622fc9cb9e483a4851f8f631740ad.jar" />
     </item>
 
 </items>

@@ -57,7 +57,7 @@ public class TasksFragment extends Fragment implements LoaderManager.LoaderCallb
             @Override
             public boolean onTouch(View view, MotionEvent motionEvent) {
                 if (motionEvent.getAction() == MotionEvent.ACTION_UP) {
-                    Intent intent = new Intent(getActivity(), AddNewTaskActivity.class);
+                    Intent intent = new Intent(getActivity(), NewTaskActivity.class);
                     startActivityForResult(intent, REQUEST_CODE_ADD_TASK);
                     return true;
                 }

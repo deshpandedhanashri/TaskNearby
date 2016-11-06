@@ -61,6 +61,7 @@ public class Constants {
     public static final String tRemDis = "tRemDis";
 
     public static final String savedLocation = "loc";
+    public static final String LatLngExtra = "latLngExtra";
     public static final String TaskID = "TaskID";
     public static final String LATITUDE = "lat", LONGITUDE = "lon";
 }

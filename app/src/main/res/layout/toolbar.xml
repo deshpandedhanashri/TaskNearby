@@ -13,6 +13,10 @@
             android:layout_width="70dp"
             android:layout_height="2dp"
             android:layout_weight="1"/>
+    <android.support.v7.widget.SwitchCompat
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/app_switch"/>
 
     <ToggleButton
         android:layout_width="35dp"

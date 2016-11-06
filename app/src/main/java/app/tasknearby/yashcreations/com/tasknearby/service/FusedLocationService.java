@@ -10,6 +10,7 @@ import android.content.ContentValues;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.content.IntentSender;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.database.Cursor;
@@ -25,6 +26,7 @@ import android.util.Log;
 
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
+import com.google.android.gms.common.api.PendingResult;
 import com.google.android.gms.common.api.ResultCallback;
 import com.google.android.gms.common.api.Status;
 import com.google.android.gms.location.ActivityRecognition;
@@ -32,11 +34,16 @@ import com.google.android.gms.location.DetectedActivity;
 import com.google.android.gms.location.LocationListener;
 import com.google.android.gms.location.LocationRequest;
 import com.google.android.gms.location.LocationServices;
+import com.google.android.gms.location.LocationSettingsRequest;
+import com.google.android.gms.location.LocationSettingsResult;
+import com.google.android.gms.location.LocationSettingsStates;
+import com.google.android.gms.location.LocationSettingsStatusCodes;
 
 import java.util.ArrayList;
 
 import app.tasknearby.yashcreations.com.tasknearby.AlarmActivity;
 import app.tasknearby.yashcreations.com.tasknearby.DetailActivity;
+import app.tasknearby.yashcreations.com.tasknearby.MainActivity;
 import app.tasknearby.yashcreations.com.tasknearby.R;
 import app.tasknearby.yashcreations.com.tasknearby.Utility;
 import app.tasknearby.yashcreations.com.tasknearby.Constants;
@@ -335,4 +342,6 @@ public class FusedLocationService extends Service implements GoogleApiClient.Con
                 Log.i(TAG, "Update Interval Is same as before.So, not restarting!");
         }
     }
+
+
 }

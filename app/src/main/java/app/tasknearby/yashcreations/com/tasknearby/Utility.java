@@ -17,12 +17,11 @@ import android.provider.Settings;
 import android.support.v4.content.ContextCompat;
 import android.widget.Toast;
 
+
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GoogleApiAvailability;
-import com.google.android.gms.common.GooglePlayServicesUtil;
 import com.google.android.gms.location.DetectedActivity;
 import com.google.android.gms.maps.model.LatLng;
-
 
 import app.tasknearby.yashcreations.com.tasknearby.database.TasksContract;
 
@@ -126,7 +125,7 @@ public class Utility {
 
     //TODO: Confirm that this thing Works :|
 
-        int permissionCheck1=ContextCompat.checkSelfPermission(context, android.Manifest.permission.ACCESS_COARSE_LOCATION);
+        int permissionCheck1= ContextCompat.checkSelfPermission(context, android.Manifest.permission.ACCESS_COARSE_LOCATION);
         int permissionCheck2=ContextCompat.checkSelfPermission(context, android.Manifest.permission.ACCESS_FINE_LOCATION);
 
         if(permissionCheck1== PackageManager.PERMISSION_GRANTED && permissionCheck2==PackageManager.PERMISSION_GRANTED)

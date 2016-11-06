@@ -10,6 +10,7 @@ import android.net.Uri;
 import android.support.v4.content.ContextCompat;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
 import android.view.inputmethod.ExtractedText;
 import android.view.inputmethod.InputMethodManager;
@@ -21,6 +22,8 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.gms.common.api.Status;
+import com.google.android.gms.location.places.Place;
 import com.google.android.gms.location.places.ui.PlacePicker;
 
 import app.tasknearby.yashcreations.com.tasknearby.database.TasksContract;
@@ -58,8 +61,13 @@ public class AddNewTaskActivity extends AppCompatActivity {
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == REQUEST_CODE_PLACE_PICKER) {        //LOCATION SELECTED FROM MAP
-
-
+            Place place = PlacePicker.getPlace(this,data);
+            selectedLocationDisplayView.setText(place.getName());
+            Toast.makeText(this,"Place's ID: " + place.getId(), Toast.LENGTH_LONG).show();
+            Log.e("TAG", "Place's name: " + place.getName() );
+            Log.e("TAG", "Place's address: " + place.getAddress() );
+            Log.e("TAG", "Place's lat_lng: " + place.getLatLng() );
+            Log.e("TAG", "Place's id: " + place.getId() );
 
         } else if (requestCode == REQUEST_CODE_SAVED_PLACES)                         //LOCATION SELECTED FROM SAVED PLACES
         {

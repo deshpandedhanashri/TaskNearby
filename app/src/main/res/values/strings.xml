@@ -1,15 +1,26 @@
 <resources>
     <string name="app_name">Task Nearby</string>
-    <string name="hello_world">Hello world!</string>
     <string name="action_settings">Settings</string>
+    <string name="title_activity_new_task">Add Task</string>
     <string name="title_activity_add_new_task">Add a Task</string>
     <string name="title_activity_get_place_from_map">Select a Place</string>
     <string name="title_activity_saved_location_list">Saved Places</string>
 
-<string name="local_service_started">Service Started</string>
-   <string name="title_activity_detail">Task Details</string>
-    <string name="title_activity_alarm">Task Nearby</string>
 
+    <string name="hint_input_task_name">Enter task\'s name</string>
+    <string name="location">Select Location : </string>
+    <string name="select_from_saved_places">Saved Places</string>
+    <string name="select_from_map">Pick a place</string>
+    <string name="or">OR</string>
+    <string name="alarm">Alarm</string>
+    <string name="remind_distance">Remind when closer than </string>
+
+
+
+
+    <string name="local_service_started">Service Started</string>
+    <string name="title_activity_detail">Task Details</string>
+    <string name="title_activity_alarm">Task Nearby</string>
 
 
     <string name="pref_units_key">units</string>
@@ -51,7 +62,6 @@
     <string name="pref_interval_label">Location Update Interval</string>
 
 
-
     <string name="pref_status_key">status</string>
     <string name="pref_status_default">enabled</string>
 
@@ -85,7 +95,6 @@
     <string name="pref_accuracy_label">Location Accuracy</string>
 
 
-
     <string name="title_activity_about">About App</string>
     <string name="title_activity_help">Help</string>
     <string name="help_content">How often do you pass right by the grocery store and forget to pick up milk? Have you ever headed to the airport to catch an international flight, only to realize your passport is back at home?
@@ -93,8 +102,9 @@
     As the name suggests, location-based reminders are notifications or alerts that are triggered when you (or really, your GPS-enabled smartphone) are in a particular place. \n\nFor example, you can set a location-based reminder that says, "Buy milk" the next time you walk or drive past your favorite grocery store.
         There are also location-based automations which can be used to define the range and much more!!</string>
 
-    
+
     <string name="already_in_region">You are Already within the Selected region!</string>
-    
+
+
 
 </resources>

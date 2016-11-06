@@ -53,7 +53,7 @@ public class TasksAdapter extends CursorAdapter {
             ((GradientDrawable)bg).setColor(colorCode);
 
 
-        //If task is marked as Done, then strikethrough the text.
+        //If mTask is marked as Done, then strikethrough the text.
         if(cursor.getString(Constants.COL_DONE).equals("true"))
         {
             taskNameView.setPaintFlags(taskNameView.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
