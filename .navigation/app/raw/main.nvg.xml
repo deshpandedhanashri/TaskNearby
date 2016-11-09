@@ -94,7 +94,7 @@
     <statePointEntry>
       <state      
         class = "com.android.tools.idea.editors.navigation.model.ActivityState"      
-        className = "app.tasknearby.yashcreations.com.tasknearby.AddNewTaskActivity"/>
+        className = "app.tasknearby.yashcreations.com.tasknearby.NewTaskActivity"/>
       <point      
         x = "750"      
         y = "6410"/>

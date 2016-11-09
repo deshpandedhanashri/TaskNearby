@@ -49,8 +49,8 @@ public class GetPlaceFromMap extends AppCompatActivity {
 
         LocationManager locationManager = (LocationManager) this.getSystemService(Context.LOCATION_SERVICE);
         if (!locationManager.isProviderEnabled(locationManager.GPS_PROVIDER))
-            utility.showGpsOffDialog(this);
-
+//            utility.showGpsOffDialog(this);
+;
         Location location = utility.getCurrentLocation(this);
         if (location != null)
             map.animateCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(location.getLatitude(), location.getLongitude()), 15));

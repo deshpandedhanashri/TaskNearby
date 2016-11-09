@@ -61,7 +61,7 @@
         jumboMode="true"
         optimize="true"
         revision="24.0.2"
-        sha1="50eb930b608cb510cbb0e95bc3194e662b3c4e7e">
+        sha1="68277d8a87a3956e885f03e5658963eb2c180b73">
         <dex dex="/home/yash/TaskNearby/app/build/intermediates/pre-dexed/debug/instant-run-bootstrap_fc55c4e9a65f90dd492cd5c8678c1926c5a4f3e8.jar" />
     </item>
     <item

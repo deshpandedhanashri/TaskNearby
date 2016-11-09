@@ -13,8 +13,12 @@
     <string name="select_from_map">Pick a place</string>
     <string name="or">OR</string>
     <string name="alarm">Alarm</string>
-    <string name="remind_distance">Remind when closer than </string>
-
+    <string name="save">SAVE</string>
+    <string name="expires">Expires :</string>
+    <string name="never">Never</string>
+    <string name="remind_distance">Reminder Range : </string>
+    <string name="no_permissions_granted">Location access permission denied.\n The app won\'t work correctly.</string>
+    <string name="gps_off">Location is turned Off!\nPlease turn it on.</string>
 
 
 

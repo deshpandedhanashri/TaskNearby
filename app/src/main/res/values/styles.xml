@@ -1,11 +1,19 @@
 <resources>
 
-    <style name="ChangingColorTheme" parent="Theme.AppCompat.Light.NoActionBar">
+    <style name="TealTheme" parent="Theme.AppCompat.Light.NoActionBar">
         <!-- Customize your theme here. -->
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
         <item name="toolbarStyle">@style/Toolbar</item>
+
+        <!-- Active thumb color & Active track color(30% transparency) -->
+        <item name="colorControlActivated">@color/teal</item>
+        <!-- Inactive thumb color -->
+        <item name="colorSwitchThumbNormal">@color/teal</item>
+        <!-- Inactive track color(30% transparency) -->
+        <item name="android:colorForeground">@color/teal</item>
+
     </style>
 
     <style name="Toolbar" parent="Widget.AppCompat.Toolbar">
@@ -46,7 +54,9 @@
 
     <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
 
-    <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
+    <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light">
+        <item name="android:textColorSecondary">@android:color/darker_gray</item>
+    </style>
 
 
 </resources>

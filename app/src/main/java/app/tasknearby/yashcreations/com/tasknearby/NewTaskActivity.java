@@ -1,6 +1,7 @@
 package app.tasknearby.yashcreations.com.tasknearby;
 
 import android.content.Context;
+import android.graphics.Typeface;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AlertDialog;
 import android.content.ContentValues;
@@ -13,10 +14,15 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.text.InputType;
 import android.text.TextUtils;
+import android.util.Log;
+import android.view.KeyEvent;
 import android.view.View;
+import android.view.ViewGroup;
 import android.view.inputmethod.InputMethodManager;
+import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
+import android.widget.NumberPicker;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -24,20 +30,25 @@ import com.google.android.gms.location.places.Place;
 import com.google.android.gms.location.places.ui.PlacePicker;
 import com.google.android.gms.maps.model.LatLng;
 
+import java.io.IOException;
+
 import app.tasknearby.yashcreations.com.tasknearby.database.TasksContract;
 
 import static android.R.id.input;
+
+//TODO: Support edit operation
 
 public class NewTaskActivity extends AppCompatActivity implements View.OnClickListener {
 
     public static final int REQUEST_PLACE_PICKER = 1;
     public static final int REQUEST_SAVED_PLACES = 2;
     EditText mTaskNameInput, mLocationNameInput;
-    TextView remindDistanceTV, colorNameTV;
+    TextView remindDistanceTV, mExpiryDateTV;
     CheckBox alarmCheckBox;
     Task mTask;
     LatLng latLng;
     Utility utility;
+    private Typeface mTfRegular ;
 
     class Task {
         String mTaskName;
@@ -55,20 +66,24 @@ public class NewTaskActivity extends AppCompatActivity implements View.OnClickLi
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setDisplayShowTitleEnabled(false);
 
         mTaskNameInput = (EditText) findViewById(R.id.task_name_input);
         mLocationNameInput = (EditText) findViewById(R.id.locationNameInput);
         remindDistanceTV = (TextView) findViewById(R.id.remind_distance_tv);
-        colorNameTV = (TextView) findViewById(R.id.color_name_tv);
         alarmCheckBox = (CheckBox) findViewById(R.id.alarm_checkBox);
 
         findViewById(R.id.select_from_saved).setOnClickListener(this);
         findViewById(R.id.pick_from_map).setOnClickListener(this);
         findViewById(R.id.alarmLayout).setOnClickListener(this);
-        findViewById(R.id.colorLLayout).setOnClickListener(this);
         findViewById(R.id.remindDistanceLayout).setOnClickListener(this);
-        findViewById(R.id.fab).setOnClickListener(this);
+        findViewById(R.id.expireLayout).setOnClickListener(this);
 
+        Button saveButton = (Button) findViewById(R.id.save_button);
+        saveButton.setTypeface(Typeface.DEFAULT_BOLD);
+        saveButton.setOnClickListener(this);
+
+        mLocationNameInput.setVisibility(View.INVISIBLE);
         mTask = new Task();
         mTask.mRemindDistance = 75;
         mTask.mColorCode = R.color.Tangerine;
@@ -76,6 +91,10 @@ public class NewTaskActivity extends AppCompatActivity implements View.OnClickLi
         utility = new Utility();
         if(!utility.isMetric(this))
             remindDistanceTV.setText("75 yd");
+
+        mTfRegular = Typeface.createFromAsset(getAssets(), "fonts/RalewayMedium.ttf");
+        overrideFonts(this, findViewById(R.id.content_new_task));
+        remindDistanceTV.setTypeface(Typeface.DEFAULT_BOLD);
     }
 
     @Override
@@ -97,13 +116,13 @@ public class NewTaskActivity extends AppCompatActivity implements View.OnClickLi
             case R.id.alarmLayout:
                 alarmCheckBox.setChecked(!alarmCheckBox.isChecked());
                 break;
-            case R.id.colorLLayout:
-                showColorSelectionDialog();
-                break;
+//            case R.id.colorLLayout:
+//                showColorSelectionDialog();
+//                break;
             case R.id.remindDistanceLayout:
                 showRemindDistanceDialog();
                 break;
-            case R.id.fab:
+            case R.id.save_button:
                 createTask();
                 break;
         }
@@ -255,14 +274,32 @@ public class NewTaskActivity extends AppCompatActivity implements View.OnClickLi
             else
                 mLocationNameInput.setText(place.getName());
             latLng = place.getLatLng();
+            mLocationNameInput.setVisibility(View.VISIBLE);
         } else if (requestCode == REQUEST_SAVED_PLACES) {
             if (resultCode == RESULT_OK) {
                 String locationName = data.getStringExtra(Constants.savedLocation);
                 latLng = (LatLng) data.getParcelableExtra(Constants.LatLngExtra);
                 mLocationNameInput.setText(locationName);
+                mLocationNameInput.setVisibility(View.VISIBLE);
             }
         }
     }
+    private void overrideFonts(final Context context, final View v) {
+        try {
+            if (v instanceof ViewGroup) {
+                ViewGroup vg = (ViewGroup) v;
+                for (int i = 0; i < vg.getChildCount(); i++) {
+                    View child = vg.getChildAt(i);
+                    overrideFonts(context, child);
+                }
+            } else if (v instanceof TextView ) {
+                ((TextView) v).setTypeface(mTfRegular);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
 }
     /******************************************************
 

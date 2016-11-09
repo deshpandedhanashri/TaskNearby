@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.LoaderManager;
 import android.support.v4.content.CursorLoader;
@@ -34,7 +35,8 @@ public class TasksFragment extends Fragment implements LoaderManager.LoaderCallb
     {
         rootView = inflater.inflate(R.layout.fragment_main, container,false);
         ListView listview = (ListView) rootView.findViewById(R.id.listView_task);
-        final ImageButton FAB = (ImageButton) rootView.findViewById(R.id.btnCreate);
+
+        FloatingActionButton fab = (FloatingActionButton) getActivity().findViewById(R.id.fabMain);
 
         getLoaderManager().initLoader(LOADER_ID, null, this);
 
@@ -53,17 +55,14 @@ public class TasksFragment extends Fragment implements LoaderManager.LoaderCallb
             }
         });
 
-        FAB.setOnTouchListener(new View.OnTouchListener() {
+        fab.setOnClickListener(new View.OnClickListener() {
             @Override
-            public boolean onTouch(View view, MotionEvent motionEvent) {
-                if (motionEvent.getAction() == MotionEvent.ACTION_UP) {
-                    Intent intent = new Intent(getActivity(), NewTaskActivity.class);
-                    startActivityForResult(intent, REQUEST_CODE_ADD_TASK);
-                    return true;
-                }
-                return false;
+            public void onClick(View v) {
+                Intent intent = new Intent(getActivity(), NewTaskActivity.class);
+                startActivityForResult(intent, REQUEST_CODE_ADD_TASK);
             }
         });
+
         return rootView;
     }
 

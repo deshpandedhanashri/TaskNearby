@@ -2,6 +2,10 @@ package app.tasknearby.yashcreations.com.tasknearby;
 
 
 import android.Manifest;
+import android.graphics.Typeface;
+import android.support.v7.app.AlertDialog;
+import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.IntentSender;
 import android.content.SharedPreferences;
@@ -9,13 +13,18 @@ import android.content.pm.PackageManager;
 import android.graphics.drawable.Drawable;
 import android.graphics.drawable.GradientDrawable;
 import android.graphics.drawable.ShapeDrawable;
+import android.location.LocationManager;
 import android.os.Build;
 import android.preference.PreferenceManager;
+import android.provider.Settings;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.design.widget.Snackbar;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.SwitchCompat;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -32,7 +41,6 @@ import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.common.api.PendingResult;
 import com.google.android.gms.common.api.ResultCallback;
 import com.google.android.gms.common.api.Status;
-import com.google.android.gms.location.ActivityRecognition;
 import com.google.android.gms.location.LocationRequest;
 import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.location.LocationSettingsRequest;
@@ -40,15 +48,22 @@ import com.google.android.gms.location.LocationSettingsResult;
 import com.google.android.gms.location.LocationSettingsStates;
 import com.google.android.gms.location.LocationSettingsStatusCodes;
 
+import java.io.IOException;
+
 import app.tasknearby.yashcreations.com.tasknearby.service.FusedLocationService;
 
-public class MainActivity extends AppCompatActivity implements GoogleApiClient.ConnectionCallbacks{
+public class MainActivity extends AppCompatActivity {
 
-    public static boolean isServiceRunning = false;
-    private final String TAG = "TaskFragment";
-    ToggleButton toggle;
-    Utility utility=new Utility();
-    GoogleApiClient mGoogleApiClient ;
+    /**
+     * Problems:
+     * => GPS turned off dialog box
+     */
+
+    public static final String TAG = MainActivity.class.getSimpleName();
+    private Utility utility;
+    private boolean isServiceRunning = false;
+
+    private SwitchCompat appSwitch;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -61,78 +76,65 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
         }
         Toolbar toolbar = (Toolbar) this.findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+        if(getSupportActionBar()!=null)
+            getSupportActionBar().setDisplayShowTitleEnabled(false);
+        TextView mTitleView = (TextView) toolbar.findViewById(R.id.toolbarTV);
+        mTitleView.setTypeface(Typeface.createFromAsset(getAssets(),"fonts/Raleway-SemiBold.ttf"));
 
-        if(Build.VERSION.SDK_INT<23)
-            continueNormalWorking();
+        utility = new Utility();
+
+        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.M)
+            startApp();
         else
             checkPermissions();
     }
 
-    public void checkPermissions() {
-        if(ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION)== PackageManager.PERMISSION_GRANTED
-                &&ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION)== PackageManager.PERMISSION_GRANTED)
-            continueNormalWorking();        //Good to go
+    private void checkPermissions() {
+        boolean mFinePermission = ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED;
+        boolean mCoarsePermission = ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) == PackageManager.PERMISSION_GRANTED;
+        if (mFinePermission && mCoarsePermission)
+            startApp();
         else
-            requestPermission();
-    }
-
-    void requestPermission() {
-        ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION,Manifest.permission.ACCESS_COARSE_LOCATION}, 1);
+            ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION}, 1);
     }
 
     @Override
-    public void onRequestPermissionsResult(int requestCode, String permissions[], int[] grantResults) {
+    public void onRequestPermissionsResult(int requestCode, @NonNull String permissions[], @NonNull int[] grantResults) {
         switch (requestCode) {
             case 1:
                 if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                     checkPermissions();
                 } else {
-                    Toast.makeText(this,"No permissions Granted hence exiting!",Toast.LENGTH_LONG).show();
-                    finish();
+                    Snackbar.make(findViewById(android.R.id.content), getString(R.string.no_permissions_granted), Snackbar.LENGTH_LONG).show();
                 }
                 break;
         }
     }
 
+    private void startApp() {
+        appSwitch = (SwitchCompat) this.findViewById(R.id.app_switch);
+        LocationManager locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
+        if (!locationManager.isProviderEnabled(locationManager.GPS_PROVIDER))
+            showGpsOffDialog(this);
 
-    public void continueNormalWorking()
-    {
-        toggle = (ToggleButton) this.findViewById(R.id.toggle);
-
-//        LocationManager locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
-//        if (!locationManager.isProviderEnabled(locationManager.GPS_PROVIDER)) {
-//            utility.showGpsOffDialog(this);
-//        }
-
-        mGoogleApiClient = new GoogleApiClient.Builder(this)
-                .addConnectionCallbacks(this)
-                .addApi(LocationServices.API)
-                .build();
-        if(mGoogleApiClient != null)
-            mGoogleApiClient.connect();
-
-        if (getAppStatus() && checkPlayServices()) {
+        if (isAppEnabled() && utility.checkPlayServices(this)) {
             startServ();
-            toggle.setChecked(true);
-            setToggleBg(true);
-        } else setToggleBg(false);
+            appSwitch.setChecked(true);
+        } else
+            appSwitch.setChecked(false);
 
-        toggle.setOnClickListener(new View.OnClickListener() {
+        appSwitch.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
                 SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(MainActivity.this);
                 SharedPreferences.Editor editor = prefs.edit();
-                if (toggle.isChecked()) {
+                if (appSwitch.isChecked()) {
                     if (!isServiceRunning)              //If service is not running then start it!
                         startServ();
-                    setToggleBg(true);                  //Background Set to Green
                     editor.putString(MainActivity.this.getString(R.string.pref_status_key), "enabled");
-                }
-                else {
+                } else {
                     if (isServiceRunning)
                         stopServ();
-                    setToggleBg(false);
                     editor.putString(MainActivity.this.getString(R.string.pref_status_key), "disabled");
                 }
                 editor.apply();
@@ -140,21 +142,19 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
         });
 
     }
-    private boolean checkPlayServices() {
-        GoogleApiAvailability gmsAvailability = GoogleApiAvailability.getInstance();
-        int resultCode = gmsAvailability.isGooglePlayServicesAvailable(this) ;
-        if (resultCode != ConnectionResult.SUCCESS) {
-            if (gmsAvailability.isUserResolvableError(resultCode)) {
-                gmsAvailability.getErrorDialog(this, resultCode, 1000)
-                        .show();
-            } else {
-                Toast.makeText(getApplicationContext(),
-                        "This device is not supported", Toast.LENGTH_LONG)
-                        .show();
-            }
-            return false;
-        }
-        return true;
+
+    private void showGpsOffDialog(final Context context) {
+        AlertDialog.Builder alertDialog = new AlertDialog.Builder(context);
+        alertDialog.setTitle("No Location")
+                .setMessage(getString(R.string.gps_off))
+                .setPositiveButton("TURN ON",
+                        new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int which) {
+                                Intent intent = new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS);
+                                context.startActivity(intent);
+                            }
+                        });
+        alertDialog.show();
     }
 
     void startServ() {
@@ -165,18 +165,6 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
     void stopServ() {
         stopService(new Intent(this, FusedLocationService.class));
         isServiceRunning = false;
-    }
-
-    void setToggleBg(boolean green) {
-        Drawable bg = toggle.getBackground();
-        int color = ContextCompat.getColor(this, R.color.Tomato);
-        if (green)
-            color = ContextCompat.getColor(this,R.color.Green);
-
-        if (bg instanceof ShapeDrawable)
-            ((ShapeDrawable) bg).getPaint().setColor(color);
-        else if (bg instanceof GradientDrawable)
-            ((GradientDrawable) bg).setColor(color);
     }
 
     @Override
@@ -201,7 +189,6 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
             startActivity(new Intent(this, HelpActivity.class));
             return true;
         }
-
         return super.onOptionsItemSelected(item);
     }
 
@@ -209,22 +196,38 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (resultCode == RESULT_OK) {
-            //TODO: Change this to SnackBar
-            Toast.makeText(this, "Task Added!", Toast.LENGTH_SHORT).show();
+            Snackbar.make(findViewById(android.R.id.content), "Task Added!", Snackbar.LENGTH_LONG).show();
             TextView tv = (TextView) this.findViewById(R.id.textView);
             tv.setVisibility(View.INVISIBLE);
         }
     }
 
-    public boolean getAppStatus() {
+    public boolean isAppEnabled() {
         SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
         String m = prefs.getString(this.getString(R.string.pref_status_key),
                 this.getString(R.string.pref_status_default));
-        if (m.equals("enabled"))
-            return true;
-        else
-            return false;
+        return m.equals("enabled");
     }
+}
+/*
+
+//    public static boolean isServiceRunning = false;
+//    private final String TAG = "TaskFragment";
+//    SwitchCompat appSwitch;
+//    Utility utility=new Utility();
+//    GoogleApiClient mGoogleApiClient ;
+
+    mGoogleApiClient = new GoogleApiClient.Builder(this)
+            .addConnectionCallbacks(this)
+    .addApi(LocationServices.API)
+    .build();
+    if(mGoogleApiClient != null)
+            mGoogleApiClient.connect();
+
+
+
+
+
 
 
     void dialogShower(){
@@ -287,4 +290,8 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
         Toast.makeText(this,"ERROR",Toast.LENGTH_LONG).show();
     }
 
-}
+    @Override
+    public void onClick(View v) {
+
+    }
+}*/

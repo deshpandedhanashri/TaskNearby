@@ -11,7 +11,6 @@
     <item
         android:id="@+id/action_edit"
         android:title="Edit"
-        android:icon="@drawable/ic_action_edit"
         app:showAsAction="always"/>
     <item
         android:id="@+id/action_share"

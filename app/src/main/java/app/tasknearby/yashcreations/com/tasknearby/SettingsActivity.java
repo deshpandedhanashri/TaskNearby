@@ -76,7 +76,7 @@ public class SettingsActivity extends PreferenceActivity implements Preference.O
             if (prefIndex >= 0) {
                 preference.setSummary(listPreference.getEntries()[prefIndex]);
             }
-            if(preference.getKey().equals(getString(R.string.pref_accuracy_key)) && MainActivity.isServiceRunning)
+            if(preference.getKey().equals(getString(R.string.pref_accuracy_key)) )
             {
                     Intent serviceIntent=new Intent(this, FusedLocationService.class);
                     stopService(serviceIntent);

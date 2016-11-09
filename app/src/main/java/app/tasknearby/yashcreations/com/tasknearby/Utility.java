@@ -23,6 +23,8 @@ import com.google.android.gms.common.GoogleApiAvailability;
 import com.google.android.gms.location.DetectedActivity;
 import com.google.android.gms.maps.model.LatLng;
 
+import java.text.DecimalFormat;
+
 import app.tasknearby.yashcreations.com.tasknearby.database.TasksContract;
 
 /**
@@ -71,26 +73,7 @@ public class Utility {
         c.close();
     }
 
-    public void showGpsOffDialog(final Context context) {
-        AlertDialog.Builder alertDialog = new AlertDialog.Builder(context);
 
-        alertDialog.setTitle("No Location Available");
-        alertDialog.setMessage("Location is turned Off!\nPlease click Ok to switch it On");
-        alertDialog.setPositiveButton("OK",
-                new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog, int which) {
-                        Intent intent = new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS);
-                        context.startActivity(intent);
-                    }
-                });
-        alertDialog.setNegativeButton("Cancel",
-                new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog, int which) {
-                        dialog.cancel();
-                    }
-                });
-        alertDialog.show();
-    }
 
     public int getDistanceByPlaceName(String placeName, Location currentLocation, Context context) {
         float distance = 0;
@@ -155,18 +138,19 @@ public class Utility {
     }
 
     public String getDistanceDisplayString(Context context, int distance) {
+        DecimalFormat df = new DecimalFormat("#.#");
         if (isMetric(context)) {
             if (distance < 1000)
                 return (distance + "m");
             else
-                return ((float) distance / 1000 + "km");
+                return (df.format((float) distance / 1000) + "km");
         } else {
             Double d = distance * 1.09361;
             distance = d.intValue();
             if (distance < 1760)
                 return (distance + "yd");
             else
-                return ((float) distance / 1760 + "mi");
+                return (df.format((float) distance / 1760) + "mi");
         }
     }
 
