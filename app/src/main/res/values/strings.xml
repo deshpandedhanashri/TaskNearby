@@ -12,20 +12,35 @@
     <string name="select_from_saved_places">Saved Places</string>
     <string name="select_from_map">Pick a place</string>
     <string name="or">OR</string>
+    <string name="on">On</string>
+    <string name="app_version">v3.5</string>
+    <string name="developer">Developer</string>
+    <string name="off">Off</string>
     <string name="alarm">Alarm</string>
     <string name="save">SAVE</string>
     <string name="expires">Expires :</string>
+    <string name="turn_on_button">TURN ON</string>
     <string name="never">Never</string>
     <string name="remind_distance">Reminder Range : </string>
+    <string name="unmark_done">Unmark as done</string>
+    <string name="delete_command">DELETE</string>
+    <string name="delete">Delete</string>
+    <string name="edit">Edit</string>
+    <string name="share">Share</string>
+    <string name="cancel_command">@android:string/cancel</string>
+    <string name="mark_done">Mark as done</string>
     <string name="no_permissions_granted">Location access permission denied.\n The app won\'t work correctly.</string>
-    <string name="gps_off">Location is turned Off!\nPlease turn it on.</string>
-
-
+    <string name="gps_off">Location is turned off! To use the app with high accuracy please turn it on.\nDon\'t worry, Task Nearby uses advanced techniques to use GPS smartly and efficiently hence causing negligible battery drain.</string>
+    <string name="gps_off_dialog_title">No Location</string>
+    <string name="remind_dis_dialog_title">Reminder Range</string>
+    <string name="remind_dis_dialog_hint_m">Range in m</string>
+    <string name="remind_dis_dialog_hint_yd">Range in yd</string>
+    <string name="default_remind_distance_yd">75 yd</string>
 
     <string name="local_service_started">Service Started</string>
     <string name="title_activity_detail">Task Details</string>
     <string name="title_activity_alarm">Task Nearby</string>
-
+    <string name="developer_email_id">verma.yash8@gmail.com</string>
 
     <string name="pref_units_key">units</string>
     <string name="pref_units_default">Metric(m)</string>
@@ -101,6 +116,8 @@
 
     <string name="title_activity_about">About App</string>
     <string name="title_activity_help">Help</string>
+    <string name="share_base_string">Hey!Try out the all new Task Nearby app.This app has awesome location based reminders.Download it from Google Play Store!
+Visit: </string>
     <string name="help_content">How often do you pass right by the grocery store and forget to pick up milk? Have you ever headed to the airport to catch an international flight, only to realize your passport is back at home?
     \nGet Organised now by using Location Based Reminders present in Task Nearby App.
     As the name suggests, location-based reminders are notifications or alerts that are triggered when you (or really, your GPS-enabled smartphone) are in a particular place. \n\nFor example, you can set a location-based reminder that says, "Buy milk" the next time you walk or drive past your favorite grocery store.
@@ -108,7 +125,7 @@
 
 
     <string name="already_in_region">You are Already within the Selected region!</string>
-
-
+    <string name="title_activity_task_detail">TaskDetailActivity</string>
+    <string name="not_connected_internet">You\'re not connected to internet !</string>
 
 </resources>

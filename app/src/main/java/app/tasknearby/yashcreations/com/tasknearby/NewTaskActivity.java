@@ -1,28 +1,29 @@
 package app.tasknearby.yashcreations.com.tasknearby;
 
-import android.content.Context;
-import android.graphics.Typeface;
-import android.support.design.widget.Snackbar;
-import android.support.v7.app.AlertDialog;
+import android.app.DatePickerDialog;
 import android.content.ContentValues;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.Cursor;
+import android.graphics.Typeface;
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.design.widget.Snackbar;
+import android.support.v7.app.ActionBar;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.text.InputType;
 import android.text.TextUtils;
 import android.util.Log;
-import android.view.KeyEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.CheckBox;
+import android.widget.DatePicker;
 import android.widget.EditText;
-import android.widget.NumberPicker;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -30,13 +31,10 @@ import com.google.android.gms.location.places.Place;
 import com.google.android.gms.location.places.ui.PlacePicker;
 import com.google.android.gms.maps.model.LatLng;
 
-import java.io.IOException;
+import java.util.Calendar;
+import java.util.Date;
 
 import app.tasknearby.yashcreations.com.tasknearby.database.TasksContract;
-
-import static android.R.id.input;
-
-//TODO: Support edit operation
 
 public class NewTaskActivity extends AppCompatActivity implements View.OnClickListener {
 
@@ -50,27 +48,32 @@ public class NewTaskActivity extends AppCompatActivity implements View.OnClickLi
     Utility utility;
     private Typeface mTfRegular ;
 
-    class Task {
+    public static class Task {
         String mTaskName;
         String mTaskLocation;
-        String mTaskColor;
-        int mColorCode;
         boolean isAlarmEnabled;
         int mRemindDistance;
+        String mExpiryDate ;
+        String mTaskColor;
+        int mColorCode;
     }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_newtask);
+
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        getSupportActionBar().setDisplayShowTitleEnabled(false);
-
+        ActionBar actionBar = getSupportActionBar();
+        if (actionBar != null) {
+            actionBar.setDisplayHomeAsUpEnabled(true);
+            actionBar.setDisplayShowTitleEnabled(false);
+        }
         mTaskNameInput = (EditText) findViewById(R.id.task_name_input);
         mLocationNameInput = (EditText) findViewById(R.id.locationNameInput);
         remindDistanceTV = (TextView) findViewById(R.id.remind_distance_tv);
+        mExpiryDateTV = (TextView) findViewById(R.id.expiryDateTV);
         alarmCheckBox = (CheckBox) findViewById(R.id.alarm_checkBox);
 
         findViewById(R.id.select_from_saved).setOnClickListener(this);
@@ -90,11 +93,39 @@ public class NewTaskActivity extends AppCompatActivity implements View.OnClickLi
         mTask.mTaskColor = "Tangerine";
         utility = new Utility();
         if(!utility.isMetric(this))
-            remindDistanceTV.setText("75 yd");
+            remindDistanceTV.setText(getString(R.string.default_remind_distance_yd));
 
         mTfRegular = Typeface.createFromAsset(getAssets(), "fonts/RalewayMedium.ttf");
         overrideFonts(this, findViewById(R.id.content_new_task));
         remindDistanceTV.setTypeface(Typeface.DEFAULT_BOLD);
+        mExpiryDateTV.setTypeface(Typeface.DEFAULT_BOLD);
+
+        if(getIntent().hasExtra(Constants.KEY_EDIT_TASK_NAME)) {
+            Bundle bundle = getIntent().getExtras() ;
+            mTaskNameInput.setText(bundle.getString(Constants.KEY_EDIT_TASK_NAME));
+            mLocationNameInput.setVisibility(View.VISIBLE);
+            mLocationNameInput.setText(bundle.getString(Constants.KEY_EDIT_TASK_LOCATION));
+            alarmCheckBox.setChecked(bundle.getBoolean(Constants.KEY_EDIT_ALARM));
+            remindDistanceTV.setText(String.valueOf(bundle.getInt(Constants.KEY_EDIT_REMIND_DIS)));
+            if(utility.isMetric(this))
+                remindDistanceTV.append(" m");
+            else
+                remindDistanceTV.append(" yd");
+            mTask.mRemindDistance = bundle.getInt(Constants.KEY_EDIT_REMIND_DIS) ;
+            latLng = utility.getLatLngByPlaceName(this, bundle.getString(Constants.KEY_EDIT_TASK_LOCATION));
+        }
+/*
+        String android_id = Settings.Secure.getString(this.getContentResolver(), Settings.Secure.ANDROID_ID);
+        String deviceId = md5(android_id).toUpperCase();
+
+        //TODO: Code for ads
+        MobileAds.initialize(this, getString(R.string.admob_app_id));
+        AdView mAdView = (AdView) findViewById(R.id.adView2);
+        AdRequest adRequest = new AdRequest.Builder().addTestDevice(deviceId).build();
+        mAdView.loadAd(adRequest);
+        boolean isTestDevice = adRequest.isTestDevice(this);
+
+        Log.e("TAG", "is Admob Test Device ? "+deviceId+" "+isTestDevice);*/
     }
 
     @Override
@@ -106,6 +137,8 @@ public class NewTaskActivity extends AppCompatActivity implements View.OnClickLi
                 startActivityForResult(intent, REQUEST_SAVED_PLACES);
                 break;
             case R.id.pick_from_map:
+                if(!utility.isConnected(this))
+                    Toast.makeText(this,getString(R.string.not_connected_internet),Toast.LENGTH_LONG).show();
                 PlacePicker.IntentBuilder builder = new PlacePicker.IntentBuilder();
                 try {
                     startActivityForResult(builder.build(this), REQUEST_PLACE_PICKER);
@@ -116,9 +149,9 @@ public class NewTaskActivity extends AppCompatActivity implements View.OnClickLi
             case R.id.alarmLayout:
                 alarmCheckBox.setChecked(!alarmCheckBox.isChecked());
                 break;
-//            case R.id.colorLLayout:
-//                showColorSelectionDialog();
-//                break;
+            case R.id.expireLayout:
+                showDateSelectionDialog();
+                break;
             case R.id.remindDistanceLayout:
                 showRemindDistanceDialog();
                 break;
@@ -128,31 +161,26 @@ public class NewTaskActivity extends AppCompatActivity implements View.OnClickLi
         }
 
     }
-
-    private void showColorSelectionDialog() {
-        final String values[] = {"Tomato", "Tangerine", "Peacock", "Lavender", "Grape", "Pink"};
-        final AlertDialog.Builder alertDialog = new AlertDialog.Builder(this);
-
-        alertDialog.setTitle("Select a color");
-        alertDialog.setItems(values, new DialogInterface.OnClickListener() {
-            public void onClick(DialogInterface dialog, int item) {
-                mTask.mTaskColor = values[item];
-                colorNameTV.setText("Color: " + mTask.mTaskColor);
-                mTask.mColorCode = utility.getColorCodeFromString(NewTaskActivity.this, values[item]);
-                //TODO: Change theme Color
+    private void showDateSelectionDialog(){
+        Date currentDate = Calendar.getInstance().getTime() ;
+        DatePickerDialog mDPDialog = new DatePickerDialog(this, new DatePickerDialog.OnDateSetListener() {
+            @Override
+            public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
+                Toast.makeText(NewTaskActivity.this, "Date is: " + year + "/" + month + "/" + dayOfMonth,Toast.LENGTH_LONG).show();
             }
-        });
-        alertDialog.show();
+        }, 2013,11,8);
+        mDPDialog.show();
+
     }
 
     private void showRemindDistanceDialog() {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setTitle("Reminder Range");
+        builder.setTitle(getString(R.string.remind_dis_dialog_title));
         final EditText input = new EditText(this);
         if (utility.isMetric(this))
-            input.setHint("Range in metres");
+            input.setHint(getString(R.string.remind_dis_dialog_hint_m));
         else
-            input.setHint("Range in yards");
+            input.setHint(getString(R.string.remind_dis_dialog_hint_yd));
         input.setRawInputType(InputType.TYPE_CLASS_PHONE);
         builder.setMessage("Please enter the range around the selected location for reminder");
         builder.setView(input);
@@ -193,6 +221,7 @@ public class NewTaskActivity extends AppCompatActivity implements View.OnClickLi
         mTask.mTaskName = mTaskNameInput.getText().toString();
         mTask.mTaskLocation = mLocationNameInput.getText().toString();
         mTask.isAlarmEnabled = alarmCheckBox.isChecked();
+        Log.e("TAG", "createTask: Alarm checkbox status: "+ alarmCheckBox.isChecked());
 
         if (TextUtils.isEmpty(mTask.mTaskName)) {
             Snackbar.make(findViewById(android.R.id.content), "Please enter the task's name!", Snackbar.LENGTH_LONG).show();
@@ -222,7 +251,8 @@ public class NewTaskActivity extends AppCompatActivity implements View.OnClickLi
         taskValues.put(TasksContract.TaskEntry.COLUMN_TASK_NAME, mTask.mTaskName);
         taskValues.put(TasksContract.TaskEntry.COLUMN_LOCATION_NAME, mTask.mTaskLocation);
         taskValues.put(TasksContract.TaskEntry.COLUMN_LOCATION_COLOR, mTask.mColorCode);
-        taskValues.put(TasksContract.TaskEntry.COLUMN_LOCATION_ALARM, mTask.isAlarmEnabled);
+        taskValues.put(TasksContract.TaskEntry.COLUMN_LOCATION_ALARM, String.valueOf(mTask.isAlarmEnabled))
+        ;
         taskValues.put(TasksContract.TaskEntry.COLUMN_MIN_DISTANCE, currentDistance);
         taskValues.put(TasksContract.TaskEntry.COLUMN_DONE_STATUS, "false");
         taskValues.put(TasksContract.TaskEntry.COLUMN_SNOOZE_TIME, "0");
@@ -301,68 +331,3 @@ public class NewTaskActivity extends AppCompatActivity implements View.OnClickLi
     }
 
 }
-    /******************************************************
-
-
-
-    public void savePlaceDialog(final Context context, final Double latitude, final Double longitude) {
-
-        final AlertDialog.Builder alertDialog = new AlertDialog.Builder(context);
-
-        alertDialog.setTitle("Save the new Place");
-        final EditText input = new EditText(context);
-        alertDialog.setView(input);
-        input.setHint("Place's Name");
-        alertDialog.setPositiveButton("Save",
-                new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog, int which) {
-                        String place = input.getText().toString();
-                        mTaskLocation = place;
-                        selectedLocationDisplayView.setText(place);
-                        utility.addLocation(context, place, latitude, longitude);
-                        InputMethodManager imm = (InputMethodManager) context.getSystemService(    //To Hide The Keyboard
-                                Context.INPUT_METHOD_SERVICE);
-                        imm.hideSoftInputFromWindow(input.getWindowToken(), 0);
-                        Toast.makeText(context, "Place Saved", Toast.LENGTH_SHORT).show();
-                    }
-                });
-        alertDialog.show();
-    }
-
-    public void setScreenAsEdit(Intent intent) {
-        CreateNewTask.setText("SAVE EDITS");
-        android.support.v7.app.ActionBar aBar = getSupportActionBar();
-        if (aBar != null)
-            aBar.setTitle("Edit Task");
-
-        String tName = intent.getStringExtra(Constants.tName);
-        String tLoc = intent.getStringExtra(Constants.tLocation);
-        int tCol = intent.getIntExtra(Constants.tColor, 0);
-        String tAlarm = intent.getStringExtra(Constants.tAlarm);
-        int tRemDis = intent.getIntExtra(Constants.tRemDis, 50);
-
-
-        mTaskLocation = tLoc;
-        mColorCode = tCol;
-        remindDistance = tRemDis;
-
-        taskName.setText(tName);
-        selectedLocationDisplayView.setText(tLoc);
-        baseLayout.setBackgroundColor(tCol);
-        colorButton.setText("Color");
-        if (tAlarm.equals("true"))
-            alarmStatus.setChecked(true);
-        else
-            alarmStatus.setChecked(false);
-
-        String dispString = "Remind when closer than " + remindDistance;
-        if (utility.isMetric(this))
-            dispString += "m";
-        else
-            dispString += "yd";
-        remindDistanceView.setText(dispString);
-    }
-
-     }
-
-*/

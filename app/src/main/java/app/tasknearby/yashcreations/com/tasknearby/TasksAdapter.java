@@ -19,12 +19,11 @@ import android.widget.TextView;
  */
 public class TasksAdapter extends CursorAdapter {
     private Utility utility=new Utility();
-    private Typeface mTfRegular, mTfBold ;
+    private Typeface mTfRegular ;
 
     TasksAdapter(Context context, Cursor c, int flags) {
         super(context, c, flags);
         mTfRegular = Typeface.createFromAsset(context.getAssets(), "fonts/Raleway-Regular.ttf");
-        mTfBold = Typeface.createFromAsset(context.getAssets(), "fonts/Raleway-SemiBold.ttf");
     }
 
     @Override

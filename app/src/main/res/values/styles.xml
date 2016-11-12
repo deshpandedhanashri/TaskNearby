@@ -6,15 +6,16 @@
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
         <item name="toolbarStyle">@style/Toolbar</item>
-
-        <!-- Active thumb color & Active track color(30% transparency) -->
-        <item name="colorControlActivated">@color/teal</item>
-        <!-- Inactive thumb color -->
-        <item name="colorSwitchThumbNormal">@color/teal</item>
-        <!-- Inactive track color(30% transparency) -->
-        <item name="android:colorForeground">@color/teal</item>
-
     </style>
+
+    <style name="TealTheme_Dark" parent="Theme.AppCompat.NoActionBar">
+        <!-- Customize your theme here. -->
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorAccent">@color/colorAccent</item>
+        <item name="toolbarStyle">@style/Toolbar</item>
+    </style>
+
 
     <style name="Toolbar" parent="Widget.AppCompat.Toolbar">
         <item name="android:background">?attr/colorPrimary</item>

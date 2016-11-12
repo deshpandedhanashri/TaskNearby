@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <color name="colorPrimary">@color/white</color>
-    <color name="colorPrimaryDark">@color/light_gray</color>
+    <color name="colorPrimaryDark">@color/teal_light</color>
     <color name="colorAccent">@color/teal</color>
 
     <color name="teal">#009688</color>
@@ -9,6 +9,10 @@
     <color name="yellow">#FDD835</color>
     <color name="yellow_dark">#FBC02D</color>
     <color name="amber">#FFC107</color>
+    <color name="teal_light">#26a69a</color>
+
+
+    <color name="DarkPink">#e42474</color>
 
 
     <color name="Tomato">#ec2d01</color>

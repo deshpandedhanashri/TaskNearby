@@ -1,6 +1,7 @@
 package app.tasknearby.yashcreations.com.tasknearby.service;
 
 import android.Manifest;
+import android.app.KeyguardManager;
 import android.app.Notification;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
@@ -19,10 +20,13 @@ import android.media.RingtoneManager;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.IBinder;
+import android.os.PowerManager;
 import android.preference.PreferenceManager;
+import android.support.annotation.NonNull;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.content.LocalBroadcastManager;
 import android.util.Log;
+import android.view.WindowManager;
 
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
@@ -42,20 +46,20 @@ import com.google.android.gms.location.LocationSettingsStatusCodes;
 import java.util.ArrayList;
 
 import app.tasknearby.yashcreations.com.tasknearby.AlarmActivity;
-import app.tasknearby.yashcreations.com.tasknearby.DetailActivity;
 import app.tasknearby.yashcreations.com.tasknearby.MainActivity;
 import app.tasknearby.yashcreations.com.tasknearby.R;
+import app.tasknearby.yashcreations.com.tasknearby.TaskDetailActivity;
 import app.tasknearby.yashcreations.com.tasknearby.Utility;
 import app.tasknearby.yashcreations.com.tasknearby.Constants;
 import app.tasknearby.yashcreations.com.tasknearby.database.TasksContract;
 
 /**
  * Created by Yash on 28/05/15.
- *
+ * <p>
  * FusedLocationService : A service that keeps running in the background to check for upcoming reminders.
  * As soon as the location of the user changes the @method onLocationChanged is called with the new location
  * of the user. This service automatically uses ActivityRecognition API to turn location updates on and off.
- * */
+ */
 
 public class FusedLocationService extends Service implements GoogleApiClient.ConnectionCallbacks,
         GoogleApiClient.OnConnectionFailedListener,
@@ -63,8 +67,10 @@ public class FusedLocationService extends Service implements GoogleApiClient.Con
         ResultCallback<Status> {
 
     public final String TAG = "FusedLocationService";
-    GoogleApiClient mGoogleApiClient;
-    LocationRequest mLocationRequest;
+
+    public static boolean isAlarmRunning = false;
+    private GoogleApiClient mGoogleApiClient;
+    private LocationRequest mLocationRequest;
     private ActivityDetectionReceiver mReceiver;
 
     Utility utility = new Utility();
@@ -209,27 +215,35 @@ public class FusedLocationService extends Service implements GoogleApiClient.Con
     private void showNotification() {
         NotificationManager notificationManager = (NotificationManager) this.getSystemService(NOTIFICATION_SERVICE);
 
-        Intent intent = new Intent(this, DetailActivity.class);
+        Intent intent = new Intent(this, TaskDetailActivity.class);
         intent.putExtra(Constants.TaskID, cursor.getString(Constants.COL_TASK_ID));
         PendingIntent pIntent = PendingIntent.getActivity(this, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT);
 
         Notification.Builder notificationBuilder = new Notification.Builder(this)
                 .setContentTitle(cursor.getString(Constants.COL_TASK_NAME))
                 .setContentText(cursor.getString(Constants.COL_LOCATION_NAME))
-                .setSmallIcon(R.mipmap.ic_launcher)
+                .setSmallIcon(getNotificationIcon())
                 .setContentIntent(pIntent)
                 .setAutoCancel(false)
                 .setSound(RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION));
 
         if (Build.VERSION.SDK_INT < 16)
             notificationManager.notify(0, notificationBuilder.getNotification());
-        else
+        else {
+            if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP)
+                notificationBuilder.setColor(ContextCompat.getColor(this,R.color.teal));
             notificationManager.notify(0, notificationBuilder.build());
+        }
     }
-
+    private int getNotificationIcon(){
+        if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP)
+            return R.drawable.ic_stat_tasknearby_notif_icon ;
+        return R.mipmap.ic_launcher ;
+    }
 
     /****************
      * onLocationChanged Method : Called every time user's location changes
+     *
      * @param loc : Contains the new location
      *************/
     @Override
@@ -240,9 +254,9 @@ public class FusedLocationService extends Service implements GoogleApiClient.Con
 
         int remindDistance, placeDistance;
         boolean isMarkedDone;
-        String placeName ;
+        String placeName;
 
-        while (cursor.moveToNext()) {
+        while (cursor != null && cursor.moveToNext()) {
             placeName = cursor.getString(Constants.COL_LOCATION_NAME);
             remindDistance = cursor.getInt(Constants.COL_REMIND_DIS);
             isMarkedDone = cursor.getString(Constants.COL_DONE).equals("true");
@@ -250,36 +264,34 @@ public class FusedLocationService extends Service implements GoogleApiClient.Con
 
             updateDatabaseDistance(placeDistance);
 
+            if (isAlarmRunning)
+                Log.i(TAG, "ALARM already running=============>");
+
             if ((placeDistance <= remindDistance)
                     && (placeDistance != 0)
                     && !isMarkedDone
-                    && !isAlreadyRunning()
+                    && !isAlarmRunning
                     && !isSnoozed()) {
                 showNotification();
                 if (cursor.getString(Constants.COL_ALARM).equals("true")) {
-                    Log.e(TAG, "Starting Alarm Activity");
-                    Intent alarmIntent = new Intent(this, AlarmActivity.class);
-                    alarmIntent.putExtra(Constants.TaskID, cursor.getString(Constants.COL_TASK_ID));
-                    alarmIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                    startActivity(alarmIntent);
+                    Log.i(TAG, "Starting Alarm Activity.");
+
+                    Intent intent2 = new Intent(this, AlarmActivity.class);
+                    intent2.putExtra(Constants.TaskID, cursor.getString(Constants.COL_TASK_ID));
+                    intent2.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                    startActivity(intent2);
                 }
             }
         }
         cursor.close();
     }
 
-    public boolean isAlreadyRunning() {
-        SharedPreferences sp = getSharedPreferences(Constants.PREF_IS_ALARM_ACTIVITY_RUNNING, MODE_PRIVATE);
-        boolean active = sp.getBoolean("active", false);
-        if (active == true)
-            Log.e(TAG, "Already Running Alarm....");
-        return active;
-    }
-
     public boolean isSnoozed() {
+        Log.e(TAG, "isSnoozed: true");
         if (System.currentTimeMillis() < cursor.getLong(Constants.COL_SNOOZE) + Constants.SNOOZE_TIME_DURATION)
-            return true ;
-        return false ;
+            return true;
+        Log.e(TAG, "isSnoozed: false THE ALARM ISN'T SNOOZED");
+        return false;
     }
 
     /* Activity Detection Logic */

@@ -11,6 +11,8 @@ import android.content.pm.PackageManager;
 import android.database.Cursor;
 import android.location.Location;
 import android.location.LocationManager;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.net.Uri;
 import android.preference.PreferenceManager;
 import android.provider.Settings;
@@ -38,18 +40,18 @@ public class Utility {
     public int getColorCodeFromString(Context context, String colorName) {
         int cId;
         if (colorName.equals("Tomato"))
-            cId=R.color.Tomato;
+            cId = R.color.Tomato;
         else if (colorName.equals("Tangerine"))
-            cId=R.color.Tangerine;
+            cId = R.color.Tangerine;
         else if (colorName.equals("Lavender"))
-            cId=R.color.Lavender;
+            cId = R.color.Lavender;
         else if (colorName.equals("Peacock"))
-            cId=R.color.Peacock;
+            cId = R.color.Peacock;
         else if (colorName.equals("Pink"))
-            cId=R.color.Pink;
+            cId = R.color.Pink;
         else //grape
-            cId=R.color.Grape;
-        return ContextCompat.getColor(context,cId);
+            cId = R.color.Grape;
+        return ContextCompat.getColor(context, cId);
     }
 
     public void addLocation(Context context, String placeName, Double latitude, Double longitude) {
@@ -74,7 +76,6 @@ public class Utility {
     }
 
 
-
     public int getDistanceByPlaceName(String placeName, Location currentLocation, Context context) {
         float distance = 0;
         Location location = new Location("Dummy");
@@ -87,8 +88,7 @@ public class Utility {
         if (c.moveToNext()) {
             location.setLatitude(c.getDouble(0));
             location.setLongitude(c.getDouble(1));
-        }
-        else {
+        } else {
             location.setLatitude(currentLocation.getLatitude());
             location.setLongitude(currentLocation.getLongitude());
         }
@@ -106,14 +106,13 @@ public class Utility {
     public Location getCurrentLocation(Context context) {
         LocationManager locationManager = (LocationManager) context.getSystemService(Context.LOCATION_SERVICE);
 
-    //TODO: Confirm that this thing Works :|
+        int permissionCheck1 = ContextCompat.checkSelfPermission(context, android.Manifest.permission.ACCESS_COARSE_LOCATION);
+        int permissionCheck2 = ContextCompat.checkSelfPermission(context, android.Manifest.permission.ACCESS_FINE_LOCATION);
 
-        int permissionCheck1= ContextCompat.checkSelfPermission(context, android.Manifest.permission.ACCESS_COARSE_LOCATION);
-        int permissionCheck2=ContextCompat.checkSelfPermission(context, android.Manifest.permission.ACCESS_FINE_LOCATION);
-
-        if(permissionCheck1== PackageManager.PERMISSION_GRANTED && permissionCheck2==PackageManager.PERMISSION_GRANTED)
-            {Location currentLocation = locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
-             return currentLocation;}
+        if (permissionCheck1 == PackageManager.PERMISSION_GRANTED && permissionCheck2 == PackageManager.PERMISSION_GRANTED) {
+            Location currentLocation = locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
+            return currentLocation;
+        }
         return null;
     }
 
@@ -154,15 +153,14 @@ public class Utility {
         }
     }
 
-    public String getSelectedAccuracy(Context context)
-    {
-       SharedPreferences prefs=PreferenceManager.getDefaultSharedPreferences(context);
-       return prefs.getString(context.getString(R.string.pref_accuracy_key),context.getString(R.string.pref_accuracy_default));
+    public String getSelectedAccuracy(Context context) {
+        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(context);
+        return prefs.getString(context.getString(R.string.pref_accuracy_key), context.getString(R.string.pref_accuracy_default));
     }
 
     public boolean checkPlayServices(Context context) {
         GoogleApiAvailability gmsAvailability = GoogleApiAvailability.getInstance();
-        int resultCode = gmsAvailability.isGooglePlayServicesAvailable(context) ;
+        int resultCode = gmsAvailability.isGooglePlayServicesAvailable(context);
         if (resultCode != ConnectionResult.SUCCESS) {
             if (gmsAvailability.isUserResolvableError(resultCode)) {
                 gmsAvailability.getErrorDialog((Activity) context, resultCode, 1000)
@@ -175,6 +173,13 @@ public class Utility {
             return false;
         }
         return true;
+    }
+
+    public boolean isConnected(Context context) {
+        ConnectivityManager connectivityManager
+                = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo activeNetworkInfo = connectivityManager.getActiveNetworkInfo();
+        return activeNetworkInfo != null && activeNetworkInfo.isConnected();
     }
 
     public String getActivityString(int detectedActivityType) {

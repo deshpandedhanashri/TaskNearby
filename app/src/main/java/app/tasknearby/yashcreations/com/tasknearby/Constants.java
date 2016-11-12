@@ -51,17 +51,21 @@ public class Constants {
     public final static String ReceiverIntentExtra = "detectedActivities";
     public final static String ACTIVITY_DETECTION_INTENT_FILTER = "com.commando.taskNearby" + ReceiverIntentExtra;
     public final static String PREF_IS_ALARM_ACTIVITY_RUNNING = "ACTIVITYINFO" ;
-    public final static int SNOOZE_TIME_DURATION = 1 * 60 * 1000;
-
-    /* Edit Constants */
-    public static final String tName = "tName";
-    public static final String tLocation = "tLoc";
-    public static final String tColor = "tColor";
-    public static final String tAlarm = "tAlarm";
-    public static final String tRemDis = "tRemDis";
+    public final static int SNOOZE_TIME_DURATION = 30 * 60 * 1000;       //this is 30 minutes
 
     public static final String savedLocation = "loc";
     public static final String LatLngExtra = "latLngExtra";
     public static final String TaskID = "TaskID";
+    public static final String KEY_EDIT_TASK_NAME = "EDIT_TASK_NAME";
+    public static final String KEY_EDIT_TASK_LOCATION = "EDIT_TASK_LOC";
+    public static final String KEY_EDIT_ALARM = "EDIT_TASK_ALARM";
+    public static final String KEY_EDIT_REMIND_DIS = "EDIT_TASK_REM_DIS";
     public static final String LATITUDE = "lat", LONGITUDE = "lon";
+
+
+    public static final String ANALYTICS_KEY_APP_OPENED = "key_app_opened" ;
+    public static final String ANALYTICS_KEY_TASK_ADDED = "key_task_added" ;
+    public static final String ANALYTICS_KEY_ALARM_TRIGGERED = "key_alarm_triggered" ;
+    public static final String ANALYTICS_KEY_ALARM_SNOOZED = "key_alarm_snoozed" ;
+
 }

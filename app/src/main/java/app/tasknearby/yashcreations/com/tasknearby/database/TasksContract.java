@@ -10,11 +10,10 @@ import android.provider.BaseColumns;
  */
 public class TasksContract {
 
-
-    public static final String CONTENT_AUTHORITY = "com.yashcreations.tasknearby.app";
-    public static final Uri BASE_CONTENT_URI = Uri.parse("content://" + CONTENT_AUTHORITY);
-    public static String PATH_TASKS = "tasks";
-    public static String PATH_LOCATION = "location";
+    static final String CONTENT_AUTHORITY = "com.yashcreations.tasknearby.app";
+    static final Uri BASE_CONTENT_URI = Uri.parse("content://" + CONTENT_AUTHORITY);
+    static String PATH_TASKS = "tasks";
+    static String PATH_LOCATION = "location";
 
     public static final class LocationEntry implements BaseColumns {
 

@@ -1,26 +1,28 @@
 <?xml version="1.0" encoding="utf-8"?>
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
-    <ListPreference
-        android:defaultValue="@string/pref_units_default"
-        android:entries="@array/pref_units_values"
-        android:entryValues="@array/pref_units_entries"
-        android:key="@string/pref_units_key"
-        android:title="@string/pref_units_label" />    <!--not user visible but constants-->
+    <PreferenceCategory android:title="Personalization">
+        <ListPreference
+            android:defaultValue="@string/pref_units_default"
+            android:entries="@array/pref_units_values"
+            android:entryValues="@array/pref_units_entries"
+            android:key="@string/pref_units_key"
+            android:title="@string/pref_units_label" />    <!--not user visible but constants-->
 
-    <RingtonePreference
-        android:key="@string/pref_tone_key"
-        android:showDefault="true"
-        android:showSilent="false"
-        android:title="Alarm Tone"
-        android:summary="Select Alarm Tone"
-        android:ringtoneType="all" />
-
-
-    <ListPreference
-        android:key="@string/pref_accuracy_key"
-        android:title="@string/pref_accuracy_label"
-        android:defaultValue="@string/pref_accuracy_default"
-        android:entries="@array/pref_accuracy_values"
-        android:entryValues="@array/pref_accuracy_entries"/>
+        <RingtonePreference
+            android:key="@string/pref_tone_key"
+            android:ringtoneType="all"
+            android:showDefault="true"
+            android:showSilent="false"
+            android:summary="Select Alarm Tone"
+            android:title="Alarm Tone" />
+    </PreferenceCategory>
+    <PreferenceCategory android:title="Accuracy">
+        <ListPreference
+            android:defaultValue="@string/pref_accuracy_default"
+            android:entries="@array/pref_accuracy_values"
+            android:entryValues="@array/pref_accuracy_entries"
+            android:key="@string/pref_accuracy_key"
+            android:title="@string/pref_accuracy_label" />
+    </PreferenceCategory>
 
 </PreferenceScreen>

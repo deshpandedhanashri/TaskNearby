@@ -1,24 +1,21 @@
 package app.tasknearby.yashcreations.com.tasknearby;
 
-import android.support.v7.app.AlertDialog;
 import android.content.ContentValues;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.Cursor;
-import android.media.Image;
 import android.net.Uri;
-import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
 import android.widget.CursorAdapter;
 import android.widget.ImageButton;
-import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -36,6 +33,10 @@ public class SavedLocationListActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_saved_location_list);
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setDisplayShowTitleEnabled(false);
 
         ListView listview = (ListView) this.findViewById(R.id.list_view_location);
         final Uri uri = TasksContract.LocationEntry.CONTENT_URI;
@@ -83,11 +84,11 @@ public class SavedLocationListActivity extends AppCompatActivity {
                 });
             }
 
-            public void hideLocation(final String location,final Context context)
+            private void hideLocation(final String location,final Context context)
             {
                 final AlertDialog.Builder builder=new AlertDialog.Builder(context)
                         .setTitle("Delete Location")
-                        .setIcon(R.drawable.ic_delete_blue400)
+                        .setIcon(R.drawable.ic_delete_teal_500_24dp)
                         .setMessage("Delete \"" + location + "\" ?")
                         .setPositiveButton("DELETE", new DialogInterface.OnClickListener() {
                             @Override

@@ -2,6 +2,7 @@ package app.tasknearby.yashcreations.com.tasknearby;
 
 import android.content.Intent;
 import android.database.Cursor;
+import android.graphics.Typeface;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
@@ -16,6 +17,8 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ImageButton;
 import android.widget.ListView;
+import android.widget.TextView;
+
 import app.tasknearby.yashcreations.com.tasknearby.database.TasksContract;
 
 /**
@@ -48,7 +51,7 @@ public class TasksFragment extends Fragment implements LoaderManager.LoaderCallb
                 Cursor c = mTaskAdapter.getCursor();
                 if (c != null && c.moveToPosition(pos)) {
 
-                    Intent intent = new Intent(getActivity(), DetailActivity.class);
+                    Intent intent = new Intent(getActivity(), TaskDetailActivity.class);
                     intent.putExtra(Constants.TaskID, c.getString(Constants.COL_TASK_ID));
                     startActivity(intent);
                 }
@@ -76,10 +79,13 @@ public class TasksFragment extends Fragment implements LoaderManager.LoaderCallb
     @Override
     public void onLoadFinished(Loader<Cursor> loader, Cursor data) {
         mTaskAdapter.swapCursor(data);
-        if(data.getCount()==0)
-            rootView.findViewById(R.id.textView).setVisibility(View.VISIBLE);
+        TextView noTasksTV = (TextView) rootView.findViewById(R.id.textView);
+        if(data.getCount()==0) {
+            noTasksTV.setTypeface(Typeface.createFromAsset(getActivity().getAssets(),"fonts/Raleway-Regular.ttf"));
+            noTasksTV.setVisibility(View.VISIBLE);
+        }
         else
-            rootView.findViewById(R.id.textView).setVisibility(View.GONE);
+            noTasksTV.setVisibility(View.GONE);
     }
 
     @Override
