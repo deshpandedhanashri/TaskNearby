@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="app.tasknearby.yashcreations.com.tasknearby"
+    android:installLocation="auto"
+    android:versionCode="6"
+    android:versionName="3.3">
+
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="com.google.android.providers.gsf.permission.READ_GSERVICES" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="com.google.android.gms.permission.ACTIVITY_RECOGNITION" />
+    <uses-permission android:name="android.permission.VIBRATE"/>
+
+    <application
+        android:allowBackup="true"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:theme="@style/AppTheme">
+
+        <activity
+            android:name=".MainActivity"
+            android:label="@string/app_name"
+            android:theme="@style/MainScreenTheme"
+            android:logo="@mipmap/icon_hd">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+
+        <provider
+            android:name=".database.TasksProvider"
+            android:authorities="com.yashcreations.tasknearby.app" />
+
+        <activity
+            android:name=".AddNewTaskActivity"
+            android:label="@string/title_activity_add_new_task"
+            android:parentActivityName=".MainActivity">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="app.tasknearby.yashcreations.com.tasknearby.MainActivity" />
+        </activity>
+        <activity
+            android:name=".GetPlaceFromMap"
+            android:label="@string/title_activity_get_place_from_map"
+            android:parentActivityName=".AddNewTaskActivity">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="app.tasknearby.yashcreations.com.tasknearby.AddNewTaskActivity" />
+        </activity>
+        <activity
+            android:name=".SettingsActivity"
+            android:label="Settings"
+            android:theme="@style/AppTheme"
+            android:parentActivityName=".MainActivity">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="app.tasknearby.yashcreations.com.tasknearby.MainActivity" />
+        </activity>
+
+        <meta-data
+            android:name="com.google.android.gms.version"
+            android:value="@integer/google_play_services_version" />
+        <meta-data
+            android:name="com.google.android.geo.API_KEY"
+            android:value="AIzaSyAS-E2WRKbq-QWk07Z3mFs-0CBs3yKDTO0" />
+
+
+        <!--RELEASE VERSION KEY-->
+        <!--android:value="AIzaSyAS-E2WRKbq-QWk07Z3mFs-0CBs3yKDTO0"-->
+        <!--DEBUG VERSION KEY-->
+        <!--android:value="AIzaSyCQ29q4cPRleTbpSwJf0iRMOauuev4foDg"-->
+
+
+        <activity
+            android:name=".SavedLocationListActivity"
+            android:label="@string/title_activity_saved_location_list"
+            android:parentActivityName=".AddNewTaskActivity">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="app.tasknearby.yashcreations.com.tasknearby.AddNewTaskActivity" />
+        </activity>
+        <activity
+            android:name=".DetailActivity"
+            android:label="@string/title_activity_detail"
+            android:parentActivityName=".MainActivity">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="app.tasknearby.yashcreations.com.tasknearby.MainActivity" />
+        </activity>
+        <activity
+            android:name=".AlarmActivity"
+            android:label="@string/title_activity_alarm" />
+
+        <service
+            android:name=".service.FusedLocationService"
+            android:enabled="true"
+            android:exported="false" />
+
+        <service
+            android:name=".service.ActivityDetectionIntentService"
+            android:enabled="true" />
+
+        <activity
+            android:name=".AboutActivity"
+            android:label="@string/title_activity_about"
+            android:parentActivityName=".MainActivity">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="app.tasknearby.yashcreations.com.tasknearby.MainActivity" />
+        </activity>
+        <activity
+            android:name=".HelpActivity"
+            android:label="@string/title_activity_help"
+            android:parentActivityName=".MainActivity">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="app.tasknearby.yashcreations.com.tasknearby.MainActivity" />
+        </activity>
+    </application>
+
+</manifest>
