@@ -63,10 +63,19 @@ public class MainActivity extends ActionBarActivity {
     {
         if(ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION)== PackageManager.PERMISSION_GRANTED
                 &&ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION)== PackageManager.PERMISSION_GRANTED)
+<<<<<<< HEAD
         {    //Good to go
             continueNormalWorking();
         }
         else{
+=======
+        {
+            //TODO:Good to go
+            continueNormalWorking();
+        }
+        else
+        {
+>>>>>>> 4ea55c8c6b78e422f2b39a8e393c5a76a5bed1f7
             requestPermission();
         }
     }

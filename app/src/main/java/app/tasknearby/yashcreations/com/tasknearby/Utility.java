@@ -17,6 +17,10 @@ import android.support.v4.content.ContextCompat;
 
 import com.google.android.gms.maps.model.LatLng;
 
+<<<<<<< HEAD
+=======
+import java.util.jar.Manifest;
+>>>>>>> 4ea55c8c6b78e422f2b39a8e393c5a76a5bed1f7
 
 import app.tasknearby.yashcreations.com.tasknearby.database.TasksContract;
 
@@ -117,16 +121,27 @@ public class Utility {
 
     public Location getCurrentLocation(Context context) {
         LocationManager locationManager = (LocationManager) context.getSystemService(Context.LOCATION_SERVICE);
+<<<<<<< HEAD
 
     //TODO: Confirm that this thing Works :|
+=======
+    //FIXME
+>>>>>>> 4ea55c8c6b78e422f2b39a8e393c5a76a5bed1f7
 
         int permissionCheck1=ContextCompat.checkSelfPermission(context, android.Manifest.permission.ACCESS_COARSE_LOCATION);
         int permissionCheck2=ContextCompat.checkSelfPermission(context, android.Manifest.permission.ACCESS_FINE_LOCATION);
 
+<<<<<<< HEAD
         if(permissionCheck1== PackageManager.PERMISSION_GRANTED && permissionCheck2==PackageManager.PERMISSION_GRANTED)
             {Location currentLocation = locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
              return currentLocation;}
         return null;
+=======
+     //   if(permissionCheck1== PackageManager.PERMISSION_GRANTED && permissionCheck2==PackageManager.PERMISSION_GRANTED)
+            {Location currentLocation = locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
+             return currentLocation;}
+      //  return null;
+>>>>>>> 4ea55c8c6b78e422f2b39a8e393c5a76a5bed1f7
     }
 
     public LatLng getLatLngByPlaceName(Context context, String placeName) {
