@@ -3,6 +3,7 @@ package app.tasknearby.yashcreations.com.tasknearby;
 import android.content.Context;
 import android.database.Cursor;
 import android.graphics.Paint;
+import android.graphics.Typeface;
 import android.graphics.drawable.Drawable;
 import android.graphics.drawable.GradientDrawable;
 import android.graphics.drawable.ShapeDrawable;
@@ -17,9 +18,12 @@ import android.widget.TextView;
  * Created by Yash on 14/10/15.
  */
 public class TasksAdapter extends CursorAdapter {
-    Utility utility=new Utility();
-    public TasksAdapter(Context context, Cursor c, int flags) {
+    private Utility utility=new Utility();
+    private Typeface mTfRegular ;
+
+    TasksAdapter(Context context, Cursor c, int flags) {
         super(context, c, flags);
+        mTfRegular = Typeface.createFromAsset(context.getAssets(), "fonts/Raleway-Regular.ttf");
     }
 
     @Override
@@ -34,7 +38,10 @@ public class TasksAdapter extends CursorAdapter {
         TextView taskLoc = (TextView) view.findViewById(R.id.task_location_textView);
         LinearLayout listItemLayout = (LinearLayout) view.findViewById(R.id.list_item_layout);
 
-        //TODO: Check WTF is this?
+        taskDistance.setTypeface(Typeface.DEFAULT_BOLD);
+        taskNameView.setTypeface(mTfRegular);
+        taskLoc.setTypeface(mTfRegular);
+
         TasksFragment.distance = cursor.getInt(Constants.COL_MIN_DISTANCE);
         String task = cursor.getString(Constants.COL_TASK_NAME);
         String taskLocation = cursor.getString(Constants.COL_LOCATION_NAME);
@@ -45,7 +52,6 @@ public class TasksAdapter extends CursorAdapter {
 
         int colorCode = cursor.getInt(Constants.COL_TASK_COLOR);
 
-        //Setting background colors of listItems
         Drawable bg=listItemLayout.getBackground();
         if(bg instanceof ShapeDrawable)
             ((ShapeDrawable)bg).getPaint().setColor(colorCode);
@@ -53,16 +59,19 @@ public class TasksAdapter extends CursorAdapter {
             ((GradientDrawable)bg).setColor(colorCode);
 
 
-        //If task is marked as Done, then strikethrough the text.
+        //If mTask is marked as Done, then strikeout the text.
         if(cursor.getString(Constants.COL_DONE).equals("true"))
         {
             taskNameView.setPaintFlags(taskNameView.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
             taskDistance.setVisibility(View.INVISIBLE);
+            view.findViewById(R.id.list_item_away_view).setVisibility(View.INVISIBLE);
+
         }
         else
         {
             taskNameView.setPaintFlags(taskNameView.getPaintFlags()&(~Paint.STRIKE_THRU_TEXT_FLAG));
             taskDistance.setVisibility(View.VISIBLE);
+            view.findViewById(R.id.list_item_away_view).setVisibility(View.VISIBLE);
         }
     }
 }

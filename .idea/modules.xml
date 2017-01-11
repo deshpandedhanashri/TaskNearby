@@ -2,8 +2,8 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file:///mnt/566A35016A34E003/Users/Yash/AndroidStudioProjects/TaskNearby/TaskNearby.iml" filepath="/mnt/566A35016A34E003/Users/Yash/AndroidStudioProjects/TaskNearby/TaskNearby.iml" />
-      <module fileurl="file:///mnt/566A35016A34E003/Users/Yash/AndroidStudioProjects/TaskNearby/app/app.iml" filepath="/mnt/566A35016A34E003/Users/Yash/AndroidStudioProjects/TaskNearby/app/app.iml" />
+      <module fileurl="file://$PROJECT_DIR$/TaskNearby.iml" filepath="$PROJECT_DIR$/TaskNearby.iml" />
+      <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
     </modules>
   </component>
 </project>

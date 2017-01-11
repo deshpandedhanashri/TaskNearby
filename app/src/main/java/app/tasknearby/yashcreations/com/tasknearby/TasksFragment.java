@@ -2,8 +2,10 @@ package app.tasknearby.yashcreations.com.tasknearby;
 
 import android.content.Intent;
 import android.database.Cursor;
+import android.graphics.Typeface;
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.LoaderManager;
 import android.support.v4.content.CursorLoader;
@@ -15,6 +17,8 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ImageButton;
 import android.widget.ListView;
+import android.widget.TextView;
+
 import app.tasknearby.yashcreations.com.tasknearby.database.TasksContract;
 
 /**
@@ -38,7 +42,8 @@ public class TasksFragment extends Fragment implements LoaderManager.LoaderCallb
         rootView = inflater.inflate(R.layout.fragment_main, container, false);
 >>>>>>> 4ea55c8c6b78e422f2b39a8e393c5a76a5bed1f7
         ListView listview = (ListView) rootView.findViewById(R.id.listView_task);
-        final ImageButton FAB = (ImageButton) rootView.findViewById(R.id.btnCreate);
+
+        FloatingActionButton fab = (FloatingActionButton) getActivity().findViewById(R.id.fabMain);
 
         getLoaderManager().initLoader(LOADER_ID, null, this);
 
@@ -50,24 +55,21 @@ public class TasksFragment extends Fragment implements LoaderManager.LoaderCallb
                 Cursor c = mTaskAdapter.getCursor();
                 if (c != null && c.moveToPosition(pos)) {
 
-                    Intent intent = new Intent(getActivity(), DetailActivity.class);
+                    Intent intent = new Intent(getActivity(), TaskDetailActivity.class);
                     intent.putExtra(Constants.TaskID, c.getString(Constants.COL_TASK_ID));
                     startActivity(intent);
                 }
             }
         });
 
-        FAB.setOnTouchListener(new View.OnTouchListener() {
+        fab.setOnClickListener(new View.OnClickListener() {
             @Override
-            public boolean onTouch(View view, MotionEvent motionEvent) {
-                if (motionEvent.getAction() == MotionEvent.ACTION_UP) {
-                    Intent intent = new Intent(getActivity(), AddNewTaskActivity.class);
-                    startActivityForResult(intent, REQUEST_CODE_ADD_TASK);
-                    return true;
-                }
-                return false;
+            public void onClick(View v) {
+                Intent intent = new Intent(getActivity(), NewTaskActivity.class);
+                startActivityForResult(intent, REQUEST_CODE_ADD_TASK);
             }
         });
+
         return rootView;
     }
 
@@ -81,10 +83,13 @@ public class TasksFragment extends Fragment implements LoaderManager.LoaderCallb
     @Override
     public void onLoadFinished(Loader<Cursor> loader, Cursor data) {
         mTaskAdapter.swapCursor(data);
-        if(data.getCount()==0)
-            rootView.findViewById(R.id.textView).setVisibility(View.VISIBLE);
+        TextView noTasksTV = (TextView) rootView.findViewById(R.id.textView);
+        if(data.getCount()==0) {
+            noTasksTV.setTypeface(Typeface.createFromAsset(getActivity().getAssets(),"fonts/Raleway-Regular.ttf"));
+            noTasksTV.setVisibility(View.VISIBLE);
+        }
         else
-            rootView.findViewById(R.id.textView).setVisibility(View.GONE);
+            noTasksTV.setVisibility(View.GONE);
     }
 
     @Override

@@ -126,8 +126,8 @@ public class TasksProvider extends ContentProvider {
     public int update(Uri uri, ContentValues contentValues, String selection, String[] selectionArgs) {
         final SQLiteDatabase db = mOpenHelper.getWritableDatabase();
         int rowsUpdated;
-        switch (sUriMatcher.match(uri)) {
 
+        switch (sUriMatcher.match(uri)) {
             case TASKS:
                 rowsUpdated = db.update(TasksContract.TaskEntry.TABLE_NAME, contentValues, selection, selectionArgs);
                 break;
@@ -138,7 +138,6 @@ public class TasksProvider extends ContentProvider {
 
             default:
                 throw new UnsupportedOperationException("Unknown Uri :" + uri);
-
         }
         if (rowsUpdated != 0)
             getContext().getContentResolver().notifyChange(uri, null);
