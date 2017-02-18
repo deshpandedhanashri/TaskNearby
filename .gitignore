@@ -27,9 +27,9 @@ proguard-project.txt
 *.iml
 *.ipr
 *.iws
-.gradle/**
-build/**
-.idea/**
+.gradle
+build
+.idea
 import-summary.txt
 
 *.pydevproject
@@ -94,5 +94,8 @@ proguard/
 # Android Studio captures folder
 
 captures/
+projectFilesBackup/
+.navigation
+
 
 app/src/main/res/values/confidentialKeys.xml
