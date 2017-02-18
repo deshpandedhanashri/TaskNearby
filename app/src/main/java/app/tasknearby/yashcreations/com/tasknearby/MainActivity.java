@@ -52,7 +52,7 @@ public class MainActivity extends AppCompatActivity {
         mAnalytics = FirebaseAnalytics.getInstance(this);
         Toolbar toolbar = (Toolbar) this.findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        ActionBar actionBar = getSupportActionBar() ;
+        ActionBar actionBar = getSupportActionBar();
         if (actionBar != null) {
             actionBar.setDisplayShowTitleEnabled(false);
             actionBar.setElevation(0);
@@ -77,18 +77,18 @@ public class MainActivity extends AppCompatActivity {
         boolean isTestDevice = adRequest.isTestDevice(this);
         Log.e(TAG, "is Admob Test Device ? "+deviceId+" "+isTestDevice);
 */
-
-    public void checkPermissions()
-    {
-        if(ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION)== PackageManager.PERMISSION_GRANTED
-                &&ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION)== PackageManager.PERMISSION_GRANTED)
-        {    //Good to go
-            continueNormalWorking();
-        }
-        else{
-            requestPermission();
-        }
     }
+//    public void checkPermissions()
+//    {
+//        if(ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION)== PackageManager.PERMISSION_GRANTED
+//                &&ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION)== PackageManager.PERMISSION_GRANTED)
+//        {    //Good to go
+//            continueNormalWorking();
+//        }
+//        else{
+//            requestPermission();
+//        }
+//    }
 
     private void checkPermissions() {
         boolean mFinePermission = ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED;

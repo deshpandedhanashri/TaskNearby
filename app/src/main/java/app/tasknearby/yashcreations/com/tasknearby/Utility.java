@@ -110,30 +110,26 @@ public class Utility {
         int permissionCheck1=ContextCompat.checkSelfPermission(context, android.Manifest.permission.ACCESS_COARSE_LOCATION);
         int permissionCheck2=ContextCompat.checkSelfPermission(context, android.Manifest.permission.ACCESS_FINE_LOCATION);
 
-        if(permissionCheck1== PackageManager.PERMISSION_GRANTED && permissionCheck2==PackageManager.PERMISSION_GRANTED)
-            {Location currentLocation = locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
-             return currentLocation;}
-
-        int permissionCheck1 = ContextCompat.checkSelfPermission(context, android.Manifest.permission.ACCESS_COARSE_LOCATION);
-        int permissionCheck2 = ContextCompat.checkSelfPermission(context, android.Manifest.permission.ACCESS_FINE_LOCATION);
-
-        if (permissionCheck1 == PackageManager.PERMISSION_GRANTED && permissionCheck2 == PackageManager.PERMISSION_GRANTED) {
-            Location currentLocation = locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
-            return currentLocation;
+        if(permissionCheck1== PackageManager.PERMISSION_GRANTED
+                && permissionCheck2==PackageManager.PERMISSION_GRANTED) {
+            return  locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
         }
+
         return null;
     }
 
     public LatLng getLatLngByPlaceName(Context context, String placeName) {
         LatLng latLng = null;
         Cursor c = context.getContentResolver().query(TasksContract.LocationEntry.CONTENT_URI,
-                new String[]{TasksContract.LocationEntry.COLUMN_COORD_LAT, TasksContract.LocationEntry.COLUMN_COORD_LONG, TasksContract.LocationEntry.COLUMN_PLACE_NAME},
-                TasksContract.LocationEntry.COLUMN_PLACE_NAME + "=?",
-                new String[]{placeName}, null);
-        if (c.moveToNext()) {
+                new String[]{TasksContract.LocationEntry.COLUMN_COORD_LAT,
+                        TasksContract.LocationEntry.COLUMN_COORD_LONG,
+                        TasksContract.LocationEntry.COLUMN_PLACE_NAME},
+                        TasksContract.LocationEntry.COLUMN_PLACE_NAME + "=?",
+                        new String[]{placeName}, null);
+        if (c != null && c.moveToNext()) {
             latLng = new LatLng(c.getDouble(0), c.getDouble(1));
+            c.close();
         }
-        c.close();
         return latLng;
     }
 
@@ -189,7 +185,7 @@ public class Utility {
         NetworkInfo activeNetworkInfo = connectivityManager.getActiveNetworkInfo();
         return activeNetworkInfo != null && activeNetworkInfo.isConnected();
     }
-
+    // Required for debugging
     public String getActivityString(int detectedActivityType) {
 
         switch (detectedActivityType) {
