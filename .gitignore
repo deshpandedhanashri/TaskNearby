@@ -99,3 +99,4 @@ projectFilesBackup/
 
 
 app/src/main/res/values/confidentialKeys.xml
+local.properties
